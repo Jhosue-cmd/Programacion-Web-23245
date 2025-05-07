@@ -6,150 +6,464 @@
     <title>Programacion Web</title>
     
     <link rel="stylesheet" href="public/bootstrap-5.3.5-dist/css/bootstrap.min.css"> 
+    <style>
+        #loading-spinner {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1000;
+        }
+        
+        .tab-content {
+            transition: opacity 0.3s ease-in-out;
+        }
+    </style>
 </head>
 <body>
     <div class="container mt-4" id="perfil">
         <header class="row justify-content-center text-center">
-            <div class="col-12 bg-primary ">
-                <figure class="mb-3">
-                    <img src="public/Img/yo.jpg" alt="Mi foto personal" width="400" class="img-fluid">
-                    <figcaption>Mi Perfil Personal</figcaption>
-                </figure>
+            <div class="alert alert-primary text-center" role="alert">
+        
+                <strong>Hola, soy un estudiante de Ingeniería de Software.</strong>
+                <strong > Bienvenidos a mi página personal</strong>
                 
-                <article>
-                    <ul>
-                    <h1>Información Personal</h1>
-                    <p>Nombres: Josué Daniel</p>
-                    <p>Apellidos: Guayasamín Heredia </p>
-                    <p>Edad: 20 años</p>
-                    <p>Fecha de Nacimiento: 25 de julio del 2004</p>
-                    <p>Correo: josueguayasamin2@espe.edu.ec</p>
-                   </ul>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 
-                
-                </article>
+            </div>
+           
+            <div id="loading-spinner" class="text-center d-none">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Cargando.. </span>
+                </div>
+            </div>
+
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="perfil-tab" data-bs-toggle="tab" data-bs-target="#perfil-tab-pane" type="button" role="tab">Perfil</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="hobbies-tab" data-bs-toggle="tab" data-bs-target="#hobbies-tab-pane" type="button" role="tab">Hobbies</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="musica-tab" data-bs-toggle="tab" data-bs-target="#musica-tab-pane" type="button" role="tab">Música</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="video-tab" data-bs-toggle="tab" data-bs-target="#video-tab-pane" type="button" role="tab">Video</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="contacto-tab" data-bs-toggle="tab" data-bs-target="#contacto-tab-pane" type="button" role="tab">Redes sociales </button>
+            </ul>
+
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="perfil-tab-pane" role="tabpanel" tabindex="0">
+                    <div class="row justify-content-center text-center">
+                        <div  class="col-12 col-md-4 bg-primary ">
+                            <figure class="mb-3">
+                                <img src="public/Img/yo.jpg" alt="Mi foto personal" width="400" class="img-fluid" data-bs-toggle="modal" data-bs-target="#perfilModal" style="cursor: pointer;">
+                                <figcaption>Mi Perfil Personal</figcaption>
+                            </figure>
+                            
+                        </div>
+                    
+                      <div class="col-12 col-md-4 bg-info" >
+                            <article>
+                             <h2>Educación Primaria y Secundaria</h2>
+                               <ul class="list-unstyled">
+                                   <h2>Escuela y Colegio</h2>
+                                   <li> 
+                                        <figure>
+                                           <img src="public/Img/leopoldo.jpeg" alt="Unidad Educativa Leopoldo Mercado" width="400" class="img-fluid"
+                                           data-bs-toggle="modal" data-bs-target="#escuelaModal"style="cursor: pointer;">
+                                           <figcaption>Unidad Educativa Leopoldo Mercado</figcaption>
+       
+                                       </figure>
+                                       
+                                   </li>
+                                   <p>Mi vida escolar empezó desde el año 2010, desde primero de básica,
+                                       hasta que me gradué en el año 2022.</p>
+                                   </p>
+                               </ul>       
+                        
+                              </article>
+                        
+                        </div>
+                      <div class="col-12 col-md-4 bg-success">
+                           <article>
+                            <h2>Educación Superior</h2>
+                            <ul class="list-unstyled">
+                                <h2>ESPE</h2>
+                                <li> 
+                                    <figure>
+                                        <img src="public/Img/espe.jpeg" alt="ESPE" width="400" class="img-fluid">
+                                        <figcaption>Escuela Politécnica del Ejército</figcaption>
+                                    </figure>
+                                </li>
+                                <p>Desde el año 2022 estoy estudiando en la Escuela Politécnica del Ejército, 
+                                    en la carrera de Ingeniería de Software.</p>
+                                    <figure>
+                                        <img src="public/Img/espenoche.jpg" alt="Ingeniería en Sistemas Computacionales" width="400" class="img-fluid">
+                                        <figcaption>Ingeniería de Software </figcaption>
+                                    </figure>
+                            </ul> 
+                          </article>
+                      </div> 
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="hobbies-tab-pane" role="tabpanel" tabindex="0">
+                    <div class="container mt-4" id="hobbies-container">
+                        <section id="hobbies">
+                            <h2 class="text-center">Mis hobbis favoritos</h2>
+                            <div class="accordion" id="accordionHobbies">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#collapseBillar" aria-expanded="true" aria-controls="collapseBillar">
+                                            Billar
+                                        </button>
+                                    </h2>
+                                    <div id="collapseBillar" class="accordion-collapse show" data-bs-parent="#accordionHobbies">
+                                        <div class="accordion-body bg-danger text-white">
+                                            <figure>
+                                                <img src="public/Img/billar.jpg" alt="Billar" width="400" class="img-fluid">
+                                                <figcaption>
+                                                    Suelo jugar con mis amigos al billae cada semana
+                                                </figcaption>
+                                            </figure>
+                                        </div>
+                                    </div>
+                                </div>
+                              <div class="accordion-item">
+                                 <h2 class="accordion-header">
+                                    <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#collapseLiga" aria-expanded="true" aria-controls="collapseLiga">
+                                        Liga de Quito
+                                    </button>
+                                 </h2>
+                                 <div id="collapseLiga" class="accordion-collapse show" data-bs-parent="#accordionHobbies">
+                                    <div class="accordion-body bg-secondary text-white">
+                                        <figure>
+                                            <img src="public/Img/liga.jpg" alt="Liga de Quito" width="400" class="img-fluid">
+                                            <figcaption>
+                                            Soy hincha de la Liga de Quito, el mejor equipo del Ecuador, por lo que se ir al estadio a ver los partidos.
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                 </div>
+                              </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button  " type="button" data-bs-toggle="collapse" data-bs-target="#collapseCaballo" aria-expanded="true" aria-controls="collapseCaballo">
+                                            Caballo
+                                        </button>
+                                    </h2>
+                                    <div id="collapseCaballo" class="accordion-collapse show" data-bs-parent="#accordionMusica">
+                                        <div class="accordion-body bg-success text-white">
+                                            <figure>
+                                                <img src="public/Img/caballo.jpg" alt="caballo" width="400" class="img-fluid">
+                                                <figcaption>
+                                            Por tradición familiar, me gusta montar a caballo a menudo. 
+                                                </figcaption>
+                                            </figure>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button  " type="button" data-bs-toggle="collapse" data-bs-target="#collapseCarro" aria-expanded="true" aria-controls="collapseCarro">
+                                            Carro
+                                        </button>
+                                    </h2>
+                                    <div id="collapseCarro" class="accordion-collapse show" data-bs-parent="#accordionHobbies">
+                                        <div class="accordion-body bg-warning text-dark">
+                                            <figure>
+                                                <img src="public/Img/auto.jpg" alt="carro" width="400" class="img-fluid">
+                                                <figcaption>
+                                            Todos los días viajo en carro de mañana hacia la Universidad. 
+                                                </figcaption>
+                                            </figure>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="musica-tab-pane" role="tabpanel" tabindex="0">
+                    <div class="container mt-4" id="musica-container">
+                        <section id="musica">
+                            <h2 class="text-center">Mi Música Favorita</h2>
+                            <div class="accordion" id="accordionMusica">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#collapseRock" aria-expanded="true" aria-controls="collapseRock">
+                                            Rock-Linkin Park
+                                        </button>
+                                    </h2>
+                                    <div id="collapseRock" class="accordion-collapse show" data-bs-parent="#accordionMusica">
+                                        <div class="accordion-body bg-danger text-white">
+                                            <audio controls class="w-100 mb-3">
+                                                <source src="public/audio/Runaway.mp3" type="audio/mpeg">
+                                            </audio>
+                                            <figcaption>
+                                                <p>Runaway - Linkin Park</p>
+                                                <p>Del album Hybrid Theory, su coro ("I wanna run away, never say goodbye") 
+                                                    expresa una necesidad urgente de escapar y cortar todo lazo, sin mirar atrás.</p>
+                                            </figcaption>
+                                        </div>
+                                    </div>
+                                </div>
+                              <div class="accordion-item">
+                                 <h2 class="accordion-header">
+                                    <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#collapsePop" aria-expanded="true" aria-controls="collapsePop">
+                                        Pop - The Weeknd
+                                    </button>
+                                 </h2>
+                                 <div id="collapsePop" class="accordion-collapse show" data-bs-parent="#accordionMusica">
+                                    <div class="accordion-body bg-secondary text-white">
+                                        <audio controls class="w-100 mb-3">
+                                            <source src="public/audio/DieForYou.mp3" type="audio/mpeg">
+                                        </audio>
+                                        <figcaption>
+                                            <p>Die For You- The Weeknd</p>
+                                            <p>Esta canción habla sobre el amor y la devoción incondicional hacia alguien, 
+                                                incluso cuando las circunstancias son difíciles.</p>
+                                        </figcaption>
+                                    </div>
+                                 </div>
+                              </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button  " type="button" data-bs-toggle="collapse" data-bs-target="#collapseMetal" aria-expanded="true" aria-controls="collapseMetal">
+                                            Metal - Disturbed
+                                        </button>
+                                    </h2>
+                                    <div id="collapseMetal" class="accordion-collapse show" data-bs-parent="#accordionMusica">
+                                        <div class="accordion-body bg-success text-white">
+                                            <audio controls class="w-100 mb-3">
+                                                <source src="public/audio/Decadence.mp3" type="audio/mpeg">
+                                            </audio>
+                                            <figcaption>
+                                                <p>Decadence - Disturbed</p>
+                                                <p>Esta canción señala cómo muchas personas que aparentan tener autoridad pero están, 
+                                                    en realidad, corrompidas por el ego, la avaricia o el abuso de poder</p>
+                                            </figcaption>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button  " type="button" data-bs-toggle="collapse" data-bs-target="#collapseBachata" aria-expanded="true" aria-controls="collapseBachata">
+                                            Bachata - Romeo Santos
+                                        </button>
+                                    </h2>
+                                    <div id="collapseBachata" class="accordion-collapse show" data-bs-parent="#accordionMusica">
+                                        <div class="accordion-body bg-warning text-dark">
+                                            <audio controls class="w-100 mb-3">
+                                                <source src="public/audio/Odio.mp3" type="audio/mpeg">
+                                            </audio>
+                                            <figcaption>
+                                                <p>Odio - Romeo Santos</p>
+                                                <p>La canción habla sobre el dolor y la frustración de una relación fallida, 
+                                                    donde el protagonista expresa su odio hacia la persona que le rompió el corazón.</p>
+                                            </figcaption>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="video-tab-pane" role="tabpanel" tabindex="0">
+                    <div class="container-mt4">
+                        <section id ="video">
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Peliculas Favoritas
+                                </button>
+                                <ul class="dropdown-menu" style="width: 300px;">
+                                    <li>
+                                        <a class="dropdown-item d-flex align-items-center gap-2" href="https://www.netflix.com/watch/60022933?trackId=268410292&tctx=0%2C4%2C2a148436-8d90-450d-80ee-aa940c790eff-405942100%2C2a148436-8d90-450d-80ee-aa940c790eff-405942100%7C2%2Cunknown%2C%2C%2CtitlesResults%2C%2CVideo%3A60022933%2CminiDpPlayButton">
+                                            <img src="public/Img/shaolin.jpeg" alt="Shaolin" width="50" height="50" class="rounded">
+                                            Shaolin Soccer
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item d-flex align-items-center gap-2" href="https://www.netflix.com/watch/80031715?trackId=268410292&tctx=2%2C12%2C2492fcb7-3dbb-4604-a369-09e3aedf66ad-406481592%2C2492fcb7-3dbb-4604-a369-09e3aedf66ad-406481592%7C2%2Cunknown%2C%2C%2CtitlesResults%2C%2CVideo%3A80031715%2CminiDpPlayButton">
+                                            <img src="public/Img/ted.jpg" alt="Ted 2" width="50" height="50" class="rounded">
+                                            Ted 2
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item d-flex align-items-center gap-2" href="https://www.netflix.com/watch/81465707?trackId=268410292&tctx=3%2C20%2C2492fcb7-3dbb-4604-a369-09e3aedf66ad-406481592%2C2492fcb7-3dbb-4604-a369-09e3aedf66ad-406481592%7C2%2Cunknown%2C%2C%2CtitlesResults%2C%2CVideo%3A81465707%2CminiDpPlayButton">
+                                            <img src="public/Img/spider.png" alt="Spider" width="50" height="50" class="rounded">
+                                            Spider-man: Sin camino a casa
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item d-flex align-items-center gap-2" href="https://www.netflix.com/watch/81674656?trackId=268410292&tctx=8%2C50%2C37cb13d5-50a3-4cee-8a7b-a47c9843fed0-406797195%2C37cb13d5-50a3-4cee-8a7b-a47c9843fed0-406797195%7C2%2Cunknown%2C%2C%2CtitlesResults%2C81674656%2CVideo%3A81674656%2CminiDpPlayButton">
+                                            <img src="public/Img/los.jpeg" alt="indestructibles" width="50" height="50" class="rounded">
+                                            Los indestructibles 4
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                                
+                        </section>
+                    </div>
+                </div>
+             <div class="tab-pane fade" id="contacto-tab-pane" role="tabpanel" tabindex="0">
+                    <div class="container mt-4" id="contacto-container">
+                        <section id="contacto">
+                            <h2 class="text-center mb-4">Mis Redes Sociales</h2>
+
+                            <div class="text-center">
+                                <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#socialMedia" aria-controls="socialMedia">
+                                    <i class="bi bi-share"></i> Ver Redes Sociales
+                                </button>
+                            </div>
+
+                            <div class="offcanvas offcanvas-end" tabindex="-1" id="socialMedia" aria-labelledby="socialMediaLabel">
+                                <div class="offcanvas-header">
+                                    <h3 class="offcanvas-title" id="socialMedia">Sigueme en mis redes </h3>
+                                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                                </div>
+                                <div class="offcanvas-body">
+                                   <div class="d-grid gap-3">
+                                      <a href="https://www.facebook.com/josue.guayasamin.56" target="_blank" 
+                                        class="btn btn-primary d-flex align-items-center justify-content-center gap-2">
+                                        <i class="bi bi-facebook fs-4"></i>
+                                        <span>Facebook</span>
+                                      </a>
+
+                                      <a href="https://www.instagram.com/josuelduo4/" target="_blank" 
+                                        class="btn btn-danger d-flex align-items-center justify-content-center gap-2">
+                                        <i class="bi bi-instagram fs-4"></i>
+                                        <span>Instagram</span>
+                                      </a>
+                                     
+                                        <a href="https://www.tiktok.com/@josuguaya07" target="_blank" 
+                                            class="btn btn-dark d-flex align-items-center justify-content-center gap-2">
+                                            <i class="bi bi-tiktok fs-4"></i>
+                                            <span>TikTok</span>
+                                        </a>
+                                        <a href="https://x.com/JosueLDU10" target="_blank" 
+                                            class="btn btn-info d-flex align-items-center justify-content-center gap-2">
+                                            <i class="bi bi-twitter fs-4"></i>
+                                            <span>Twitter</span>
+                                        </a>
+                                    </div>
+
+
+                                    
+                                </div>
+                            
+                            </div>
+                        </section> 
+                    </div>      
+              </div>
             </div>
         </header>
     </div>
-
-    <div class="container mt-4" id="hobbies-container">
-        <section id="hobbies">
-            <h2 class="text-center">Mis Hobbies</h2>
-            <div class="row justify-content-center g-4">
-                <div class="col-12 col-sm-6 col-md-3 bg-info text-white">
-                    <figure class="text-center">
-                        <img src="public/Img/billar.jpg" alt="Hobby 1" class="img-fluid">
-                        <figcaption>Me gusta mucho jugar billar</figcaption>
-                    </figure>
+    <div class="modal fade" id="perfilModal" tabindex="-1" aria-labelledby="perfilModalLabel" aria-hidden="true">
+        <div class="modal-dialog ">
+            <div class="modal-content">
+                <div class="modal-header bg-info text-white">
+                    <h5 class="modal-title" id="perfilModalLabel">Perfil Personal</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="col-12 col-sm-6 col-md-3 bg-success text-white">
-                    <figure class="text-center">
-                        <img src="public/Img/liga.jpg " alt="Hobby 2" class="img-fluid">
-                        <figcaption>Apoyando a mi equipo en el estadio</figcaption>
-                    </figure>
-                </div>
-                <div class="col-12 col-sm-6 col-md-3 bg-warning text-dark">
-                    <figure class="text-center">
-                        <img src="public/Img/caballo.jpg" alt="Hobby 3" class="img-fluid">
-                        <figcaption>Suelo montar en caballos</figcaption>
-                    </figure>
-                </div>
-                <div class="col-12 col-sm-6 col-md-3 bg-primary text-dark">
-                    <figure class="text-center">
-                        <img src="public/Img/auto.jpg" alt="Hobby 4" class="img-fluid">
-                        <figcaption>Todos los dias viajo en carro</figcaption>
-                    </figure>
-                </div>
-            </div>
-        </section>
-    </div>
-
-    <div class="container mt-4" id="musica-container">
-        <section id="musica">
-            <h2 class="text-center">Mi Música Favorita</h2>
-            <div class="row justify-content-center g-4">
-                <div class="col-12 col-md-6 col-lg-3 bg-danger text-white">
-                    <article class="text-center">
-                        <h3>Rock</h3>
-                        <audio controls class="w-100">
-                            <source src="public/audio/Runaway.mp3" type="audio/mpeg">
-                        </audio>
-                        <figcaption>
-                            <p>Runaway - Linkin Park</p>
-                            <p>Del album Hybrid Theory, su coro ("I wanna run away, never say goodbye") 
-                                expresa una necesidad urgente de escapar y cortar todo lazo, sin mirar atrás.</p>
-                        </figcaption>
-                    </article>
-                </div>
-                <div class="col-12 col-md-6 col-lg-3 bg-secondary text-white">
-                    <article class="text-center">
-                        <h3>Pop</h3>
-                        <audio controls class="w-100">
-                            <source src="public/audio/DieForYou.mp3" type="audio/mpeg">
-                        </audio>
-                        <figcaption>
-                            <p>Die For You - The Weeknd</p>
-                            <p>Esta canción habla sobre el amor y la devoción incondicional hacia alguien, 
-                                incluso cuando las circunstancias son difíciles.</p>
-                        </figcaption>
-                    </article>
-                </div>
-                <div class="col-12 col-md-6 col-lg-3 bg-success text-white">
-                    <article class="text-center">
-                        <h3>Metal</h3>
-                        <audio controls class="w-100">
-                            <source src="public/audio/Decadence.mp3" type="audio/mpeg">
-                        </audio>
-                        <figcaption>
-                            <p>Decadence - Disturbed</p>
-                            <p>Esta canción señala cómo muchas personas que aparentan tener autoridad pero están, 
-                                en realidad, corrompidas por el ego, la avaricia o el abuso de pode</p>
-                        </figcaption>
-                    </article>
-                </div>
-                <div class="col-12 col-md-6 col-lg-3 bg-warning text-dark">
-                    <article class="text-center">
-                        <h3>Bachata</h3>
-                        <audio controls class="w-100">
-                            <source src="public/audio/Odio.mp3" type="audio/mpeg">
-                        </audio>
-                        <figcaption>
-                            <p>Odio - Romeo Santos</p>
-                            <p>La canción habla sobre el dolor y la frustración de una relación fallida, 
-                                donde el protagonista expresa su odio hacia la persona que le rompió el corazón.</p>
-                        </figcaption>
-                    </article>
-                </div>
-            </div>
-        </section>
-    </div>
-    <div>
-        <div class="container-mt4">
-            <section id ="video">
-                <h2 class="text-center">Mi Video Favorito
-
-                    
-                </h2>
-                <div class="row justify-content-center g-4">
-                    <div class="col-12 col-md-6 col-lg-3 bg-danger text-white">
-                        <article class="text-center">
-                            <h3>Videojuego </h3>
-                            <video controls class="w-100" autoplay muted loop>
-                                <source src="public/video/MK2.mp4" type="video/mp4">
-                            </video>
-                            <figcaption>
-                                <p>Video de MK11</p>
-                                <p>Un video de un juego de pelea que me gusta mucho.</p>
-                            </figcaption>
-                        </article>
+                <div class="modal-body">
+                    <div class="container">
+                        <h4 class="mb-3">Datos personales</h4>
+                       
+                        
+                        <ul class="list-unstyled" >
+                            <li>Nombres: Josué Daniel</li>
+                            <li>Apellidos: Guayasamín Heredia</li>
+                            <li>Edad: 20 años</li>
+                            <li>Fecha de Nacimiento: 25 de julio del 2004</li>
+                        </ul>
+    
                     </div>
-                    
-            </section>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
         </div>
     </div>
+    
+    <div class="modal fade" id="escuelaModal" tabindex="-1" aria-labelledby="escuelaModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header bg-info text-white">
+                    <h5 class="modal-title" id="escuelaModalLabel">Unidad Educativa Leopoldo Mercado</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <h4 class="mb-3">Historia</h4>
+                        <p>La Unidad Educativa Leopoldo Mercado fue fundada en 1965, ubicada en el sector de Sangolquí. Es una institución educativa reconocida por su excelencia académica y formación integral.</p>
+                        
+                        <h4 class="mb-3">Logros Académicos</h4>
+                        <ul class="list-unstyled">
+                            <li>✓ Reconocimiento por excelencia académica 2020</li>
+                            <li>✓ Primeros lugares en competencias intercolegiales</li>
+                            <li>✓ Alto porcentaje de graduados que ingresan a universidades</li>
+                        </ul>
+    
+                        <h4 class="mb-3">Infraestructura</h4>
+                        <p>Cuenta con modernas instalaciones que incluyen:</p>
+                        <ul class="list-unstyled">
+                            <li>🏫 Aulas equipadas con tecnología</li>
+                            <li>🏃‍♂️ Canchas deportivas</li>
+                            <li>💻 Laboratorios de computación</li>
+                            <li>🔬 Laboratorios de ciencias</li>
+                            <li>📚 Biblioteca</li>
+                        </ul>
+                        <h4 class="mb-3">Valores Institucionales</h4>
+                        <ul class="list-unstyled">
+                            <li>• Responsabilidad</li>
+                            <li>• Respeto</li>
+                            <li>• Excelencia</li>
+                            <li>• Innovación</li>
+                            <li>• Compromiso social</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
 
 
 
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabs = document.querySelectorAll('[data-bs-toggle="tab"]');
+            const spinner = document.getElementById('loading-spinner');
+            const tabContent = document.getElementById('myTabContent');
+        
+            tabs.forEach(tab => {
+                tab.addEventListener('show.bs.tab', function() {
+                    spinner.classList.remove('d-none');
+                    tabContent.style.opacity = '0.5';
+                    
+                    
+                    setTimeout(() => {
+                        spinner.classList.add('d-none');
+                        tabContent.style.opacity = '1';
+                    }, 1000);
+                });
+            });
+        });
+     </script>
+    
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
     <script src="public/bootstrap-5.3.5-dist/js/bootstrap.min.js"></script>
 </body>
 </html>

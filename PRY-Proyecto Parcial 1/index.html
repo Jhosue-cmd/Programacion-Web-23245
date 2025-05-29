@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,46 +9,37 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <style>
-        #map { height: 300px; }
+        #map {
+            height: 300px;
+        }
     </style>
 </head>
-<header id="header" class="bg-primary text-white text-center py-4">
-    <h3>Mi Perfil App</h3>
-</header>
-<body id="body" class="bg-light">
-    <div class="container py-5">
-        <div class="text-center">
-            <h1 class="display-4 mb-4">Bienvenido a Mi Perfil App</h1>
-            <p class="lead mb-5">
-                Esta aplicación te permite crear y gestionar tu perfil personal utilizando 
-                tecnologías web modernas como geolocalización y acceso a la cámara.
+
+<body>
+    <header id="header" class="bg-primary text-white text-center py-4">
+        <h3>Mi Perfil App</h3>
+    </header>
+
+    <main id="main">
+
+    </main>
+    
+    <footer id="footer" class="bg-dark mt-5">
+        <div class="text-center py-4 text-white">
+            <p class="mb-0">© 2025 Mi Perfil App. Todos los derechos reservados.</p>
+            <p class="mb-0">
+                Desarrollado por <a href="https://github.com/Jhosue-cmd" target="_blank">Josue Guayasamin</a>
             </p>
-            <div class="row justify-content-center gap-3">
-                <div class="col-md-3">
-                    <a href="crear_perfil.html" class="btn btn-primary btn-lg w-100">
-                        <i class="bi bi-person-plus"></i> Crear Perfil
-                    </a>
-                </div>
-                <div class="col-md-3">
-                    <a href="ver_perfil.html" class="btn btn-success btn-lg w-100">
-                        <i class="bi bi-person"></i> Ver Perfil
-                    </a>
-                </div>
-            </div>
+            <p class="mb-0">
+                Desarrollado por <a href="https://github.com/alfonso1031" target="_blank">Alfonso Arroyo</a>
+            </p>
+
         </div>
-    </div>
-    <script src="public/bootstrap-5.3.5-dist/js/bootstrap.bundle.min.js"></script>
+    </footer>
 </body>
-<footer id="footer" class="bg-dark mt-5">
-    <div class="text-center py-4 text-white">
-        <p class="mb-0">© 2025 Mi Perfil App. Todos los derechos reservados.</p>
-        <p class="mb-0">
-            Desarrollado por <a href="https://github.com/Jhosue-cmd" target="_blank">Josue Guayasamin</a>
-        </p>
-        <p class="mb-0">
-            Desarrollado por <a href="https://github.com/alfonso1031" target="_blank">Alfonso Arroyo</a>
-        </p>
-        
-    </div>
-</footer>
+
+
+<script src="public/bootstrap-5.3.5-dist/js/bootstrap.min.js"></script>
+<script src="public/js/load.js"></script>
+
 </html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,18 +18,39 @@
         .tab-content {
             transition: opacity 0.3s ease-in-out;
         }
+        body {
+            background-image: url('./public/Img/fondo.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 100vh;
+        }
     </style>
 </head>
 <body>
-    <div class="container mt-4" id="perfil">
+    <div class="container mt-4 " id="perfil">
         <header class="row justify-content-center text-center">
             <div class="alert alert-primary text-center" role="alert">
         
                 <strong>Hola, soy un estudiante de Ingeniería de Software.</strong>
-                <strong > Bienvenidos a mi página personal</strong>
+                <strong > Bienvenidos a mi página web personal</strong>
                 
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 
+            </div>
+            
+            <div class="progress mb-3" style="height: 30px;">
+                <div class="progress-bar progress-bar-striped progress-bar-animated" 
+                 role="progressbar" 
+                 id="progressBar"
+                 style="width: 30%;" 
+                 aria-valuenow="30" 
+                 aria-valuemin="0" 
+                 aria-valuemax="100">
+                  <span id="progressText">GRACIAS</span>
+              </div>
+                
             </div>
            
             <div id="loading-spinner" class="text-center d-none">
@@ -102,7 +123,7 @@
                                 <p>Desde el año 2022 estoy estudiando en la Escuela Politécnica del Ejército, 
                                     en la carrera de Ingeniería de Software.</p>
                                     <figure>
-                                        <img src="public/Img/espenoche.jpg" alt="Ingeniería en Sistemas Computacionales" width="400" class="img-fluid">
+                                        <img src="public/Img/espe1.jpg" alt="Ingeniería en Sistemas Computacionales" width="400" class="img-fluid">
                                         <figcaption>Ingeniería de Software </figcaption>
                                     </figure>
                             </ul> 
@@ -113,89 +134,69 @@
                 <div class="tab-pane fade" id="hobbies-tab-pane" role="tabpanel" tabindex="0">
                     <div class="container mt-4" id="hobbies-container">
                         <section id="hobbies">
-                            <h2 class="text-center">Mis hobbis favoritos</h2>
-                            <div class="accordion" id="accordionHobbies">
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header">
-                                        <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#collapseBillar" aria-expanded="true" aria-controls="collapseBillar">
-                                            Billar
-                                        </button>
-                                    </h2>
-                                    <div id="collapseBillar" class="accordion-collapse show" data-bs-parent="#accordionHobbies">
-                                        <div class="accordion-body bg-danger text-white">
-                                            <figure>
-                                                <img src="public/Img/billar.jpg" alt="Billar" width="400" class="img-fluid">
-                                                <figcaption>
-                                                    Suelo jugar con mis amigos al billae cada semana
-                                                </figcaption>
-                                            </figure>
-                                        </div>
-                                    </div>
-                                </div>
-                              <div class="accordion-item">
-                                 <h2 class="accordion-header">
-                                    <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#collapseLiga" aria-expanded="true" aria-controls="collapseLiga">
-                                        Liga de Quito
-                                    </button>
-                                 </h2>
-                                 <div id="collapseLiga" class="accordion-collapse show" data-bs-parent="#accordionHobbies">
-                                    <div class="accordion-body bg-secondary text-white">
-                                        <figure>
-                                            <img src="public/Img/liga.jpg" alt="Liga de Quito" width="400" class="img-fluid">
-                                            <figcaption>
-                                            Soy hincha de la Liga de Quito, el mejor equipo del Ecuador, por lo que se ir al estadio a ver los partidos.
-                                            </figcaption>
-                                        </figure>
-                                    </div>
-                                 </div>
-                              </div>
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header">
-                                        <button class="accordion-button  " type="button" data-bs-toggle="collapse" data-bs-target="#collapseCaballo" aria-expanded="true" aria-controls="collapseCaballo">
-                                            Caballo
-                                        </button>
-                                    </h2>
-                                    <div id="collapseCaballo" class="accordion-collapse show" data-bs-parent="#accordionMusica">
-                                        <div class="accordion-body bg-success text-white">
-                                            <figure>
-                                                <img src="public/Img/caballo.jpg" alt="caballo" width="400" class="img-fluid">
-                                                <figcaption>
-                                            Por tradición familiar, me gusta montar a caballo a menudo. 
-                                                </figcaption>
-                                            </figure>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header">
-                                        <button class="accordion-button  " type="button" data-bs-toggle="collapse" data-bs-target="#collapseCarro" aria-expanded="true" aria-controls="collapseCarro">
-                                            Carro
-                                        </button>
-                                    </h2>
-                                    <div id="collapseCarro" class="accordion-collapse show" data-bs-parent="#accordionHobbies">
-                                        <div class="accordion-body bg-warning text-dark">
-                                            <figure>
-                                                <img src="public/Img/auto.jpg" alt="carro" width="400" class="img-fluid">
-                                                <figcaption>
-                                            Todos los días viajo en carro de mañana hacia la Universidad. 
-                                                </figcaption>
-                                            </figure>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-                    </div>
-                </div>
+                            <h2 class="text-center text-white">Mis hobbis favoritos</h2>
+                            <div id="carouselHobbies" class="carousel slide" data-bs-ride="carousel" >
+                                <div class="carousel-indicators">
+                                     <button type="button" data-bs-target="#carouselHobbies" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                                     <button type="button" data-bs-target="#carouselHobbies" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                                     <button type="button" data-bs-target="#carouselHobbies" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                                     <button type="button" data-bs-target="#carouselHobbies" data-bs-slide-to="3" aria-label="Slide 4"></button>
+                               </div>
+                            
+
+                              <div class="carousel-inner">
+                                   <div class="carousel-item active">
+                                      <img src="public/Img/billar.jpg" class="d-block mx-auto" alt="Billar" style=" width: 75%; height: 400px; object-fit: cover;">
+                                        <div class="carousel-caption  bg-dark bg-opacity-75">
+                                           <h5>Billar</h5>
+                                           <p>Suelo jugar con mis amigos al billar cada semana</p>
+                                       </div>
+                                  </div>
+                                 
+                                   <div class="carousel-item">
+                                       <img src="public/Img/liga.jpg" class="d-block mx-auto" alt="Liga de Quito" style="width: 75%; height: 600px; object-fit: cover;">
+                                      
+                                        <div class="carousel-caption bg-dark bg-opacity-75">
+                                           <h5>Ir al estadio</h5>
+                                           <p>Soy hincha de la Liga de Quito, el mejor equipo del Ecuador, por lo que suelo ir al estadio a ver los partidos.</p>
+                                      </div>
+                                  </div>
+                                  <div class="carousel-item">
+                                       <img src="public/Img/caballo.jpg" class="d-block mx-auto" alt="Caballo" style="width: 75%; height: 600px; object-fit: cover;">
+                                       <div class="carousel-caption bg-dark bg-opacity-75">
+                                           <h5>Montar a Caballo</h5>
+                                           <p>Por tradición familiar, me gusta montar a caballo a menudo.</p>
+                                       </div>
+                                  </div>
+                                  <div class="carousel-item">
+                                         <img src="public/Img/auto.jpg" class="d-block mx-auto " alt="Carro" style=" width: 75%; height: 600px; object-fit: cover;">
+                                         <div class="carousel-caption bg-dark bg-opacity-75">
+                                           <h5>Carro</h5>
+                                           <p>Todos los días viajo en carro de mañana hacia la Universidad.</p>
+                                       </div>
+                                  </div>
+                             </div>
+                              <button class="carousel-control-prev" type="button" data-bs-target="#carouselHobbies" data-bs-slide="prev">
+                                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                  <span class="visually-hidden">Anterior</span>
+                             </button>
+                             <button class="carousel-control-next" type="button" data-bs-target="#carouselHobbies" data-bs-slide="next">
+                                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                  <span class="visually-hidden">Siguiente</span>
+                             </button>
+                         </div>
+                     </section>
+                 </div>
+             </div>
                 <div class="tab-pane fade" id="musica-tab-pane" role="tabpanel" tabindex="0">
                     <div class="container mt-4" id="musica-container">
                         <section id="musica">
-                            <h2 class="text-center">Mi Música Favorita</h2>
+                            <h2 class="text-center text-white">Mi Música Favorita</h2>
                             <div class="accordion" id="accordionMusica">
                                 <div class="accordion-item">
                                     <h2 class="accordion-header">
                                         <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#collapseRock" aria-expanded="true" aria-controls="collapseRock">
-                                            Rock-Linkin Park
+                                            nu metal-Linkin Park
                                         </button>
                                     </h2>
                                     <div id="collapseRock" class="accordion-collapse show" data-bs-parent="#accordionMusica">
@@ -208,6 +209,10 @@
                                                 <p>Del album Hybrid Theory, su coro ("I wanna run away, never say goodbye") 
                                                     expresa una necesidad urgente de escapar y cortar todo lazo, sin mirar atrás.</p>
                                             </figcaption>
+                                            <figure>
+                                                <img src="public/Img/Runaway.webp" alt="Linkin Park" width="400" class="img-fluid">
+                                                <figcaption>Linkin Park</figcaption>
+                                            </figure>
                                         </div>
                                     </div>
                                 </div>
@@ -227,13 +232,16 @@
                                             <p>Esta canción habla sobre el amor y la devoción incondicional hacia alguien, 
                                                 incluso cuando las circunstancias son difíciles.</p>
                                         </figcaption>
+                                        <figure>
+                                            <img src="public/Img/die.jpeg" alt="The Weeknd" width="400" class="img-fluid">
+                                            <figcaption>The Weeknd</figcaption>
                                     </div>
                                  </div>
                               </div>
                                 <div class="accordion-item">
                                     <h2 class="accordion-header">
                                         <button class="accordion-button  " type="button" data-bs-toggle="collapse" data-bs-target="#collapseMetal" aria-expanded="true" aria-controls="collapseMetal">
-                                            Metal - Disturbed
+                                            Metal alternativo - Disturbed
                                         </button>
                                     </h2>
                                     <div id="collapseMetal" class="accordion-collapse show" data-bs-parent="#accordionMusica">
@@ -246,25 +254,33 @@
                                                 <p>Esta canción señala cómo muchas personas que aparentan tener autoridad pero están, 
                                                     en realidad, corrompidas por el ego, la avaricia o el abuso de poder</p>
                                             </figcaption>
+                                            <figure>
+                                                <img src="public/Img/decadence.jpg" alt="Disturbed" width="400" class="img-fluid">
+                                                <figcaption>Disturbed</figcaption>
+
                                         </div>
                                     </div>
                                 </div>
                                 <div class="accordion-item">
                                     <h2 class="accordion-header">
                                         <button class="accordion-button  " type="button" data-bs-toggle="collapse" data-bs-target="#collapseBachata" aria-expanded="true" aria-controls="collapseBachata">
-                                            Bachata - Romeo Santos
+                                            rock alternativo -Audioslave
                                         </button>
                                     </h2>
                                     <div id="collapseBachata" class="accordion-collapse show" data-bs-parent="#accordionMusica">
                                         <div class="accordion-body bg-warning text-dark">
                                             <audio controls class="w-100 mb-3">
-                                                <source src="public/audio/Odio.mp3" type="audio/mpeg">
+                                                <source src="public/audio/like.mp3" type="audio/mpeg">
                                             </audio>
                                             <figcaption>
-                                                <p>Odio - Romeo Santos</p>
-                                                <p>La canción habla sobre el dolor y la frustración de una relación fallida, 
-                                                    donde el protagonista expresa su odio hacia la persona que le rompió el corazón.</p>
+                                                <p>Like a stone- Audioslave</p>
+                                                <p>  
+                                                    La canción trata sobre la muerte, la soledad y la esperanza de reunirse con seres queridos en el más allá.</p>
+                                                </p>
                                             </figcaption>
+                                            <figure>
+                                                <img src="public/Img/like.jpg" alt="Audioslave" width="400" class="img-fluid">
+                                                <figcaption>Audioslave</figcaption>
                                         </div>
                                     </div>
                                 </div>
@@ -305,7 +321,63 @@
                                         </a>
                                     </li>
                                 </ul>
-                            </div>
+                          </div>
+                                   <div class="container mt-4">
+                                        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+                                    
+                                          <div class="col">
+                                             <div class="card h-100">
+                                                <img src="public/Img/shaolin.jpeg" class="card-img-top" alt="Shaolin Soccer">
+                                               <div class="card-body">
+                                                <h5 class="card-title">Shaolin Soccer</h5>
+                                                <p class="card-text">Una comedia deportiva que combina artes marciales con fútbol. Un monje Shaolin forma un equipo de fútbol con sus hermanos monjes para promover el kung fu a través del deporte.</p>
+                                              </div>
+                                               <div class="card-footer">
+                                                <small class="text-muted">2001 | Comedia/Acción</small>
+                                               </div>
+                                          </div>
+                                      </div>
+                                        <div class="col">
+                                           <div class="card h-100">
+                                              <img src="public/Img/ted.jpg" class="card-img-top" alt="Ted 2">
+                                              <div class="card-body">
+                                                <h5 class="card-title">Ted 2</h5>
+                                                <p class="card-text">La secuela sigue las aventuras del oso de peluche Ted y su mejor amigo John. Esta vez, Ted debe probar que es una persona real en la corte para poder tener derechos legales.</p>
+                                            </div>
+                                            <div class="card-footer">
+                                                <small class="text-muted">2015 | Comedia</small>
+                                            </div>
+                                        </div>
+                                     </div>
+                                        <div class="col">
+                                           <div class="card h-100">
+                                              <img src="public/Img/spider.png" class="card-img-top" alt="Spider-Man">
+                                              <div class="card-body">
+                                                <h5 class="card-title">Spider-Man: Sin Camino a Casa</h5>
+                                                <p class="card-text">Peter Parker busca la ayuda del Doctor Strange para hacer que su identidad como Spider-Man vuelva a ser un secreto, pero el hechizo sale mal y causa la aparición de villanos de otros universos.</p>
+                                            </div>
+                                            <div class="card-footer">
+                                                <small class="text-muted">2021 | Acción/Aventura</small>
+                                            </div>
+                                        </div>
+                                     </div>
+                                        <div class="col">
+                                            <div class="card h-100">
+                                               <img src="public/Img/los.jpeg" class="card-img-top" alt="Los Indestructibles 4">
+                                            <div class="card-body">
+                                                <h5 class="card-title">Los Indestructibles 4</h5>
+                                                <p class="card-text">La última entrega de la saga reúne a un nuevo equipo de mercenarios de élite para una misión de alto riesgo, combinando acción explosiva con nuevos y veteranos miembros del equipo.</p>
+                                            </div>
+                                            <div class="card-footer">
+                                                <small class="text-muted">2023 | Acción</small>
+                                            </div>
+                                         </div>
+                                      </div>
+                                        
+                                        
+
+                                    </div>
+                               </div>
                                 
                         </section>
                     </div>
@@ -313,7 +385,7 @@
              <div class="tab-pane fade" id="contacto-tab-pane" role="tabpanel" tabindex="0">
                     <div class="container mt-4" id="contacto-container">
                         <section id="contacto">
-                            <h2 class="text-center mb-4">Mis Redes Sociales</h2>
+                            <h2 class="text-center mb-4 text-white">Mis Redes Sociales</h2>
 
                             <div class="text-center">
                                 <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#socialMedia" aria-controls="socialMedia">
@@ -458,8 +530,31 @@
                     }, 1000);
                 });
             });
-        });
-     </script>
+
+            const progressBar = document.getElementById('progressBar');
+            const progressText = document.getElementById('progressText');
+        
+           const progressStates = {
+            'perfil-tab': { width: '20%', text: 'GRACIAS' },
+            'hobbies-tab': { width: '40%', text: 'POR' },
+            'musica-tab': { width: '60%', text: 'VISITAR' },
+            'video-tab': { width: '80%', text: 'MI' },
+            'contacto-tab': { width: '100%', text: 'PAGINA WEB' }
+         };
+
+           tabs.forEach(tab => {
+             tab.addEventListener('show.bs.tab', function(event) {
+                const tabId = event.target.id;
+                const progress = progressStates[tabId];
+                
+                progressBar.style.width = progress.width;
+                progressText.textContent = progress.text;
+            });
+        }); 
+     });
+
+
+    </script>
     
 
 

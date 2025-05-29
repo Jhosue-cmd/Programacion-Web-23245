@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Perfil - Mi Perfil App</title>
+    <link rel="stylesheet" href="public/bootstrap-5.3.5-dist/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container py-5">
+        <h1 class="mb-4">Crear Perfil</h1>
+        <form id="profileForm" class="needs-validation" novalidate>
+            <div class="mb-3">
+                <label for="nombre" class="form-label">Nombre</label>
+                <input type="text" class="form-control" id="nombre" required>
+            </div>
+            <div class="mb-3">
+                <label for="edad" class="form-label">Edad</label>
+                <input type="number" class="form-control" id="edad" required>
+            </div>
+            <div class="mb-3">
+                <label for="departamento" class="form-label">Departamento</label>
+                <input type="text" class="form-control" id="departamento" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Foto</label>
+                <div class="d-flex gap-2 mb-2">
+                    <button type="button" class="btn btn-primary" id="startCamera">
+                        Activar Cámara
+                    </button>
+                    <button type="button" class="btn btn-success" id="takePhoto" disabled>
+                        Tomar Foto
+                    </button>
+                </div>
+                <video id="video" class="d-none w-100 mb-2" autoplay></video>
+                <canvas id="canvas" class="d-none"></canvas>
+                <img id="photo" class="d-none img-fluid mb-2" alt="Tu foto">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Ubicación</label>
+                <div class="d-flex gap-2">
+                    <button type="button" class="btn btn-primary" id="getLocation">
+                        Obtener Ubicación
+                    </button>
+                </div>
+                <small id="locationInfo" class="form-text text-muted"></small>
+            </div>
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-success">Guardar Perfil</button>
+                <a href="index.html" class="btn btn-secondary">Volver</a>
+            </div>
+        </form>
+    </div>
+
+    <script src="public/bootstrap-5.3.5-dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+       
+        const video = document.getElementById('video');
+        const canvas = document.getElementById('canvas');
+        const photo = document.getElementById('photo');
+        const startButton = document.getElementById('startCamera');
+        const takePhotoButton = document.getElementById('takePhoto');
+        let stream = null;
+
+        startButton.addEventListener('click', async () => {
+            try {
+                stream = await navigator.mediaDevices.getUserMedia({ video: true });
+                video.srcObject = stream;
+                video.classList.remove('d-none');
+                takePhotoButton.disabled = false;
+            } catch (err) {
+                console.error('Error:', err);
+                alert('Error al acceder a la cámara');
+            }
+        });
+
+        takePhotoButton.addEventListener('click', () => {
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            canvas.getContext('2d').drawImage(video, 0, 0);
+            photo.src = canvas.toDataURL('image/png');
+            photo.classList.remove('d-none');
+            video.classList.add('d-none');
+            if (stream) {
+                stream.getTracks().forEach(track => track.stop());
+            }
+        });
+
+      
+        document.getElementById('getLocation').addEventListener('click', () => {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        const locationInfo = document.getElementById('locationInfo');
+                        locationInfo.textContent = `Lat: ${position.coords.latitude}, Lng: ${position.coords.longitude}`;
+                    },
+                    (error) => {
+                        alert('Error al obtener ubicación');
+                    }
+                );
+            }
+        });
+
+       
+        document.getElementById('profileForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const profileData = {
+                nombre: document.getElementById('nombre').value,
+                edad: document.getElementById('edad').value,
+                departamento: document.getElementById('departamento').value,
+                foto: photo.src,
+                ubicacion: document.getElementById('locationInfo').textContent
+            };
+            localStorage.setItem('userProfile', JSON.stringify(profileData));
+            window.location.href = 'ver-perfil.html';
+        });
+    </script>
+</body>
+</html>

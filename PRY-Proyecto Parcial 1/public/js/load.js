@@ -1,26 +1,21 @@
 
 function cambiarPagina(url) {
-    //url=views/nombre_stio.html
     fetch(url)
         .then(res => res.text())
-        .then(data => document.getElementById('main').innerHTML = data)
+        .then(data => {
+            document.getElementById('main').innerHTML = data;
+            // Si la página cargada es crear_perfil.html, inicializa los listeners de cámara
+            if (url.includes('./views/crear_perfil.html') && window.setupCamaraListeners) {
+                window.setupCamaraListeners();
+            }
+            // Si la página cargada es ver_perfil.html, inicializa el llamado de carga datos
+            if (url.includes('./views/ver_perfil.html') && window.verificarYCargarPerfil) {
+                window.verificarYCargarPerfil();
+            }
+        });
 }
-window.onload = () => cambiarPagina("./views/crear_perfil.html");
 
-// Validación del formulario
-function validarFormulario() {
-    const form = document.querySelector('.needs-validation');
-    form.addEventListener('submit', (event) => {
-        if (!form.checkValidity()) {
-            event.preventDefault();
-            event.stopPropagation();
-        }
-        form.classList.add('was-validated');
-        if (form.checkValidity()) {
-            guardarUsuario();
-            window.onload = () => cambiarPagina('./views/ver_perfil.html');
-        }
+window.onload = () => cambiarPagina("./views/inicio.html");
 
-    });
-}
+
 

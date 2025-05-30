@@ -2,24 +2,24 @@
     <h1 class="mb-4">Crear Perfil</h1>
     <form class="row g-3 needs-validation" id="profileForm" novalidate>
         <div class="col-md-4">
-            <label for="validationCustom01" class="form-label">Nombre</label>
-            <input type="text" class="form-control" id="validationCustom01" value="" placeholder="Nombre" required>
+            <label for="nombre" class="form-label">Nombre</label>
+            <input type="text" class="form-control" id="nombre" value="" placeholder="Nombre" required>
             <div class="invalid-feedback">
                 Por favor ingresa un nombre válido.
             </div>
         </div>
         <div class="col-md-4">
-            <label for="validationCustom02" class="form-label">Apellido</label>
-            <input type="text" class="form-control" id="validationCustom02" value="" placeholder="Apellido" required>
+            <label for="apellido" class="form-label">Apellido</label>
+            <input type="text" class="form-control" id="apellido" value="" placeholder="Apellido" required>
             <div class="invalid-feedback">
                 Por favor ingresa un apellido válido.
             </div>
         </div>
         <div class="col-md-4">
-            <label for="validationCustomUsername" class="form-label">Nombre de Usuario</label>
+            <label for="usuario" class="form-label">Nombre de Usuario</label>
             <div class="input-group has-validation">
                 <span class="input-group-text" id="inputGroupPrepend">@</span>
-                <input type="text" class="form-control" id="validationCustomUsername"
+                <input type="text" class="form-control" id="usuario"
                     aria-describedby="inputGroupPrepend" placeholder="Nombre de Usuario" required>
                 <div class="invalid-feedback">
                     Por favor ingresa un nombre de usuario válido.
@@ -27,8 +27,8 @@
             </div>
         </div>
         <div class="col-md-3">
-            <label for="validationCustom04" class="form-label">Provincia</label>
-            <select class="form-select" id="validationCustom04" required>
+            <label for="provincia" class="form-label">Provincia</label>
+            <select class="form-select" id="provincia" required>
                 <option selected disabled value="">Elige...</option>
                 <option>Pichincha</option>
                 <option>Guayas</option>
@@ -57,15 +57,15 @@
             </div>
         </div>
         <div class="col-md-6">
-            <label for="validationCustom03" class="form-label">Ciudad</label>
-            <input type="text" class="form-control" id="validationCustom03" placeholder="Ciudad" required>
+            <label for="ciudad" class="form-label">Ciudad</label>
+            <input type="text" class="form-control" id="ciudad" placeholder="Ciudad" required>
             <div class="invalid-feedback">
                 Por favor ingresa una ciudad válida.
             </div>
         </div>
         <div class="col-md-3">
-            <label for="validationCustom05" class="form-label">Número de teléfono</label>
-            <input type="text" class="form-control" id="validationCustom05" placeholder="Número de teléfono" required>
+            <label for="telefono" class="form-label">Número de teléfono</label>
+            <input type="text" class="form-control" id="telefono" placeholder="Número de teléfono" required>
             <div class="invalid-feedback">
                 Por favor ingresa un número de teléfono válido.
             </div>
@@ -84,11 +84,15 @@
         <div class="mb-3">
 
             <label class="form-label">Foto</label>
-            <div class="d-flex gap-2 mb-2">
-                <button type="button" class="btn btn-success" id="btn_foto" onclick="tomarFoto()">
-                    Tomar Foto
-                </button>
-            </div>
+            
+               <div class="d-flex gap-2 mb-2">
+                  <button type="button" class="btn btn-success" id="btn_activar_camara">
+                     Activar Cámara
+                   </button>
+                 <button type="button" class="btn btn-primary" id="btn_foto" disabled>
+                       Tomar Foto
+                 </button>
+                </div>
             <video id="my_camera" width="500px" autoplay></video>
             <canvas id="foto" width="500px" height="371px" style="border: 2px solid black;"></canvas>
             <img id="photo" class="d-none img-fluid mb-2" alt="Tu foto">
@@ -98,10 +102,12 @@
             <label class="form-label">Ubicación</label>
             <div id="map">
             </div>
+            <input type="hidden" id="latitud" value="">
+            <input type="hidden" id="longitud" value="">
             <input type="hidden" id="locationInfo" value="">
         </div>
         <div class="d-flex gap-2">
-            <button onclick="validarFormulario()" type="submit" class="btn btn-success">Guardar Perfil</button>
+            <button type="submit" class="btn btn-success">Guardar Perfil</button>
             <a onclick="cambiarPagina('./views/inicio.html')" class="btn btn-secondary">Volver</a>
         </div>
     </form>

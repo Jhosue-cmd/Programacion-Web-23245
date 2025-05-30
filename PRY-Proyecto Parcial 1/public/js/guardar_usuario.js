@@ -13,5 +13,9 @@ function guardarUsuario() {
     localStorage.setItem("foto_usuario", foto_usuario);
     var ubicacion_usuario = document.getElementById("locationInfo").textContent;
     localStorage.setItem("ubicacion_usuario", ubicacion_usuario);
+    var email_usuario = document.getElementById("validationCustom06").value;
+    localStorage.setItem("email_usuario", email_usuario);
+    var fecha_nacimiento_usuario = document.getElementById("validationCustom07").value;
+    localStorage.setItem("fecha_nacimiento_usuario", fecha_nacimiento_usuario);
     alert("Datos del usuario guardados correctamente");
 }

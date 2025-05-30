@@ -1,21 +1,50 @@
 
 function cambiarPagina(url) {
+    //url=views/nombre_stio.html
     fetch(url)
         .then(res => res.text())
-        .then(data => {
-            document.getElementById('main').innerHTML = data;
-            // Si la página cargada es crear_perfil.html, inicializa los listeners de cámara
-            if (url.includes('./views/crear_perfil.html') && window.setupCamaraListeners) {
-                window.setupCamaraListeners();
-            }
-            // Si la página cargada es ver_perfil.html, inicializa el llamado de carga datos
-            if (url.includes('./views/ver_perfil.html') && window.verificarYCargarPerfil) {
-                window.verificarYCargarPerfil();
-            }
-        });
+        .then(data => document.getElementById('main').innerHTML = data)
 }
 
-window.onload = () => cambiarPagina("./views/inicio.html");
+window.onload = () => cambiarPagina("./views/crear_perfil.html");
 
+// Validación del formulario
+function validarFormulario() {
+    const form = document.querySelector('.needs-validation');
+    form.addEventListener('submit', (event) => {
+        if (!form.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+            alert("Por favor, complete todos los campos obligatorios.");
+        }
+        form.classList.add('was-validated');
+        if (form.checkValidity()) {
+            guardarUsuario();
+            window.onload = () => cambiarPagina('./views/ver_perfil.html');
+        }
+
+    });
+}
+function guardarUsuario() {
+    var nombre_usuario = document.getElementById("validationCustom01").value;
+    localStorage.setItem("nombre_usuario", nombre_usuario);
+    var apellido_usuario = document.getElementById("validationCustom02").value;
+    localStorage.setItem("apellido_usuario", apellido_usuario);
+    var ciudad_usuario = document.getElementById("validationCustom03").value;
+    localStorage.setItem("ciudad_usuario", ciudad_usuario);
+    var provincia_usuario = document.getElementById("validationCustom04").value;
+    localStorage.setItem("provincia_usuario", provincia_usuario);
+    var telefono_usuario = document.getElementById("validationCustom05").value;
+    localStorage.setItem("telefono_usuario", telefono_usuario);
+    var foto_usuario = document.getElementById("foto").toDataURL();
+    localStorage.setItem("foto_usuario", foto_usuario);
+    var ubicacion_usuario = document.getElementById("locationInfo").textContent;
+    localStorage.setItem("ubicacion_usuario", ubicacion_usuario);
+    var email_usuario = document.getElementById("validationCustom06").value;
+    localStorage.setItem("email_usuario", email_usuario);
+    var fecha_nacimiento_usuario = document.getElementById("validationCustom07").value;
+    localStorage.setItem("fecha_nacimiento_usuario", fecha_nacimiento_usuario);
+    alert("Datos del usuario guardados correctamente");
+}
 
 

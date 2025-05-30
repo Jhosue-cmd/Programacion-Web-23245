@@ -2,24 +2,25 @@
     <h1 class="mb-4">Crear Perfil</h1>
     <form class="row g-3 needs-validation" id="profileForm" novalidate>
         <div class="col-md-4">
-            <label for="nombre" class="form-label">Nombre</label>
-            <input type="text" class="form-control" id="nombre" value="" placeholder="Nombre" required>
+            <label for="validationCustom01" class="form-label">Nombre</label>
+            <input type="text" class="form-control" id="validationCustom01" value="" placeholder="Nombre" required
+                autofocus>
             <div class="invalid-feedback">
                 Por favor ingresa un nombre válido.
             </div>
         </div>
         <div class="col-md-4">
-            <label for="apellido" class="form-label">Apellido</label>
-            <input type="text" class="form-control" id="apellido" value="" placeholder="Apellido" required>
+            <label for="validationCustom02" class="form-label">Apellido</label>
+            <input type="text" class="form-control" id="validationCustom02" value="" placeholder="Apellido" required>
             <div class="invalid-feedback">
                 Por favor ingresa un apellido válido.
             </div>
         </div>
         <div class="col-md-4">
-            <label for="usuario" class="form-label">Nombre de Usuario</label>
+            <label for="validationCustomUsername" class="form-label">Nombre de Usuario</label>
             <div class="input-group has-validation">
                 <span class="input-group-text" id="inputGroupPrepend">@</span>
-                <input type="text" class="form-control" id="usuario"
+                <input type="text" class="form-control" id="validationCustomUsername"
                     aria-describedby="inputGroupPrepend" placeholder="Nombre de Usuario" required>
                 <div class="invalid-feedback">
                     Por favor ingresa un nombre de usuario válido.
@@ -27,8 +28,8 @@
             </div>
         </div>
         <div class="col-md-3">
-            <label for="provincia" class="form-label">Provincia</label>
-            <select class="form-select" id="provincia" required>
+            <label for="validationCustom04" class="form-label">Provincia</label>
+            <select class="form-select" id="validationCustom04" required>
                 <option selected disabled value="">Elige...</option>
                 <option>Pichincha</option>
                 <option>Guayas</option>
@@ -57,17 +58,34 @@
             </div>
         </div>
         <div class="col-md-6">
-            <label for="ciudad" class="form-label">Ciudad</label>
-            <input type="text" class="form-control" id="ciudad" placeholder="Ciudad" required>
+            <label for="validationCustom03" class="form-label">Ciudad</label>
+            <input type="text" class="form-control" id="validationCustom03" placeholder="Ciudad" required>
             <div class="invalid-feedback">
                 Por favor ingresa una ciudad válida.
             </div>
         </div>
         <div class="col-md-3">
-            <label for="telefono" class="form-label">Número de teléfono</label>
-            <input type="text" class="form-control" id="telefono" placeholder="Número de teléfono" required>
+            <label for="validationCustom05" class="form-label">Número de teléfono</label>
+            <input type="text" class="form-control" id="validationCustom05" placeholder="Número de teléfono" required>
             <div class="invalid-feedback">
                 Por favor ingresa un número de teléfono válido.
+            </div>
+        </div>
+        <div class="col-md-6">
+            <label for="validationCustom06" class="form-label">Correo</label>
+            <input type="text" id="validationCustom06" class="form-control" placeholder="Ingrese su correo"
+                aria-label="Recipient’s username" aria-describedby="basic-addon2" name="correo" required>
+
+            <div class="invalid-feedback">
+                Por favor ingresa un correo válido.
+            </div>
+        </div>
+        <div class="col-md-3">
+            <label for="validationCustom07" class="form-label">Fecha de nacimiento</label>
+            <input type="date" class="form-control" id="validationCustom07" placeholder="Fecha de nacimiento"
+                min="1965-01-01" max="2007-12-31" required>
+            <div class="invalid-feedback">
+                Por favor ingresa una fecha de nacimiento válida.
             </div>
         </div>
         <div class="col-12">
@@ -84,31 +102,33 @@
         <div class="mb-3">
 
             <label class="form-label">Foto</label>
-            
-               <div class="d-flex gap-2 mb-2">
-                  <button type="button" class="btn btn-success" id="btn_activar_camara">
-                     Activar Cámara
-                   </button>
-                 <button type="button" class="btn btn-primary" id="btn_foto" disabled>
-                       Tomar Foto
-                 </button>
-                </div>
+            <div class="d-flex gap-2 mb-2">
+                <button type="button" class="btn btn-success" id="btn_foto" onclick="tomarFoto()">
+                    Tomar Foto
+                </button>
+            </div>
             <video id="my_camera" width="500px" autoplay></video>
             <canvas id="foto" width="500px" height="371px" style="border: 2px solid black;"></canvas>
             <img id="photo" class="d-none img-fluid mb-2" alt="Tu foto">
         </div>
-        
+
         <div class="mb-3">
             <label class="form-label">Ubicación</label>
+            <div class="d-flex gap-2 mb-2">
+                <button type="button" class="btn btn-primary" id="btn_ubicacion" onclick="getLocation()">
+                    Obtener Ubicación
+                </button>
+            </div>
             <div id="map">
             </div>
-            <input type="hidden" id="latitud" value="">
-            <input type="hidden" id="longitud" value="">
-            <input type="hidden" id="locationInfo" value="">
+            <input type="hidden" id="locationInfo">
         </div>
         <div class="d-flex gap-2">
-            <button type="submit" class="btn btn-success">Guardar Perfil</button>
+            <button onclick="validarFormulario()" class="btn btn-success">Guardar Perfil</button>
             <a onclick="cambiarPagina('./views/inicio.html')" class="btn btn-secondary">Volver</a>
         </div>
     </form>
 </div>
+<script>
+    location.reload();
+</script>

@@ -21,3 +21,4 @@ function tomarFoto() {
     ctx.drawImage(video_res, 0, 0, foto_res.width, foto_res.height);
     
 }
+

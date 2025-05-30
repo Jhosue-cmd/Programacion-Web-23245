@@ -5,10 +5,7 @@ function cambiarPagina(url) {
         .then(res => res.text())
         .then(data => document.getElementById('main').innerHTML = data)
 }
-
-function actualizarPagina(url) {
-    window.onload = () => cambiarPagina(url);
-}
+window.onload = () => cambiarPagina("./views/crear_perfil.html");
 
 // Validación del formulario
 function validarFormulario() {
@@ -26,3 +23,4 @@ function validarFormulario() {
 
     });
 }
+

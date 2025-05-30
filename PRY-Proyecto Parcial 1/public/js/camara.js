@@ -12,9 +12,6 @@ navigator.mediaDevices.getUserMedia({ video: true }).then(
 if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
     alert("La cámara no está disponible en este navegador.");
 }
-//quitar el disable del boton tomar foto
-
-document.getElementById("btn_foto").disabled = false;
 
 function tomarFoto() {
     let video_res = document.getElementById("my_camera");

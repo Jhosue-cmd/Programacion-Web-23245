@@ -8,11 +8,6 @@ function guardarDatosUsuario() {
     var usuario_e = document.getElementById("txt_email").value;
     console.log("Email de usuario: " + usuario_e);
 
-    // 2 Convertir esos variables a un objeto 
-
-    // sintaxis 
-    // (let, var), nombre_objeto = { varibale: valor };{}
-
     var datos_usuario = {
         nombre: usario_n,
         apellido: usuario_a,

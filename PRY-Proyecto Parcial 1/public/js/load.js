@@ -6,7 +6,6 @@ function cambiarPagina(url) {
         .then(data => document.getElementById('main').innerHTML = data)
 }
 
-window.onload = () => cambiarPagina("./views/crear_perfil.html");
 
 // Validación del formulario
 function validarFormulario() {
@@ -15,7 +14,10 @@ function validarFormulario() {
         if (!form.checkValidity()) {
             event.preventDefault();
             event.stopPropagation();
-            alert("Por favor, complete todos los campos obligatorios.");
+            const firstInvalid = form.querySelector(':invalid');
+            if (firstInvalid) {
+                firstInvalid.focus();
+            }
         }
         form.classList.add('was-validated');
         if (form.checkValidity()) {

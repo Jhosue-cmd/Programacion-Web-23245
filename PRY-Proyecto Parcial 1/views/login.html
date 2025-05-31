@@ -12,7 +12,7 @@
 
                             <div data-mdb-input-init class="form-outline form-white mb-4">
                                 <input type="email" id="usuario" class="form-control form-control-lg"
-                                    placeholder="Usuario" />
+                                    placeholder="Usuario" autofocus />
                             </div>
 
                             <div data-mdb-input-init class="form-outline form-white mb-4">
@@ -25,7 +25,7 @@
                             </p>
 
                             <button data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-light btn-lg px-5"
-                                type="submit">Iniciar sesión</button>
+                                type="submit" onclick="iniciarSesion()">Iniciar sesión</button>
                         </div>
                         <div>
                             <p class="mb-0">¿No tiene una cuenta? <a onclick="cambiarPagina('./views/registro.html')"

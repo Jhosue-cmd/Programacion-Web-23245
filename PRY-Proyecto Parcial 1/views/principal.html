@@ -1,0 +1,51 @@
+<!-- Begin Page Content -->
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-4 text-gray-800">Informacion de perfil</h1>
+    <div class="container py-1">
+        <button onclick="actualizarPerfil()" class="btn btn-primary mb-3">Obtener Perfil</button>
+    </div>
+    <div id="profileData">
+        <div class="card mb-4">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4 text-center mb-2">
+                        <img id="userPhoto" class="img-fluid rounded mb-2" alt="No se cargó una foto">
+                    </div>
+                    <div class="col-md-8">
+                        <h3 id="username"></h3>
+                        <h4 class="mb-1"><strong>Nombre:</strong> <span id="userName"></span></h4>
+                        <h4 class="mb-1"><strong>Apellido:</strong> <span id="userLastName"></span></h4>
+                        <h4 class="mb-1"><strong>Provincia:</strong> <span id="userProvince"></span>
+                        </h4>
+                        <h4 class="mb-1"><strong>Ciudad:</strong> <span id="userCity"></span></h4>
+                        <h4 class="mb-1"><strong>Teléfono:</strong> <span id="userPhone"></span></h4>
+                        <h4 class="mb-1"><strong>Correo:</strong> <span id="userEmail"></span></h4>
+                        <h4 class="mb-1"><strong>Fecha de Nacimiento:</strong> <span id="userBirthDate"></span></h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card mb-4">
+            <div class="card-body">
+                <h4 class="mb-3">Ubicación guardada</h4>
+                <div class="container py-1">
+                    <button class="btn btn-primary" onclick="verUbicacion()">Obtener Ubicación</button>
+                </div>
+                <input type="hidden" id="userLocation">
+                <div id="map"></div>
+            </div>
+        </div>
+        <div class="d-flex gap-2 mb-4">
+            <button onclick="cambiarPagina('./views/inicio.html')" class="btn btn-primary mr-2">Volver
+                al Inicio</button>
+            <button onclick="cambiarPagina('./views/crear_perfil.html')" class="btn btn-success">Editar
+                Perfil</button>
+        </div>
+
+    </div>
+    <!-- /.container-fluid -->
+
+</div>
+<!-- End of Main Content -->

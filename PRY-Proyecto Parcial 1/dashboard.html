@@ -8,17 +8,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-
     <title>Proyecto Parcial 1</title>
-
-    <!-- Custom fonts for this template-->
-    <link href="public/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
-
-    <!-- Custom styles for this template-->
     <link href="public/css/sb-admin-2.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="public/bootstrap-5.3.5-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <style>
+        #map {
+            height: 400px;
+        }
+    </style>
+    <style>
+        .gradient-custom {
+            background: #6a11cb;
+            background: -webkit-linear-gradient(to right, rgb(0, 0, 0), rgba(37, 117, 252, 1));
+            background: linear-gradient(to right, rgb(0, 0, 0), rgba(37, 117, 252, 1))
+        }
+    </style>
+    <script>
+        window.onload = () => cambiarPagina("./views/principal.html");
+    </script>
+
 
 </head>
 
@@ -77,16 +91,16 @@
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
                     aria-expanded="true" aria-controls="collapseUtilities">
                     <i class="fas fa-fw fa-wrench"></i>
-                    <span>Canciones</span>
+                    <span>Finanzas</span>
                 </a>
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Mis canciones:</h6>
-                        <a class="collapse-item" href="agrergar_musica.html">Ingresar cancion</a>
-                        <a class="collapse-item" href="ver_canciones.html">Ver canciones</a>
-                        <a class="collapse-item" href="editar_musica.html">Editar cancion</a>
-                        <a class="collapse-item" href="eliminar_canciones.html">Eliminar cancion</a>
+                        <h6 class="collapse-header">Finanzas:</h6>
+                        <a class="collapse-item" href="">Ingresos</a>
+                        <a class="collapse-item" href="">Gastos</a>
+                        <a class="collapse-item" href="">Ahorros</a>
+                        <a class="collapse-item" href="">Otros</a>
                     </div>
                 </div>
             </li>
@@ -143,107 +157,6 @@
                             </div>
                         </li>
 
-                        <!-- Nav Item - Alerts -->
-                        <li class="nav-item dropdown no-arrow mx-1">
-                            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-bell fa-fw"></i>
-                                <!-- Counter - Alerts -->
-                                <span class="badge badge-danger badge-counter">+3</span>
-                            </a>
-                            <!-- Dropdown - Alerts -->
-                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="alertsDropdown">
-                                <h6 class="dropdown-header">
-                                    Alerts Center
-                                </h6>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-primary">
-                                            <i class="fas fa-file-alt text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">Mayo 8, 2025</div>
-                                        <span class="font-weight-bold">Deber 1 por ser entregado</span>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-success">
-                                            <i class="fas fa-donate text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">Mayo 7, 2025</div>
-                                        Deber 2 creado!
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-warning">
-                                            <i class="fas fa-exclamation-triangle text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">Mayo 2, 2025</div>
-                                        Deber 3 fecha limite!!
-                                    </div>
-                                </a>
-                                <a class="dropdown-item text-center small text-gray-500" href="#"></a>
-                            </div>
-                        </li>
-
-                        <!-- Nav Item - Messages -->
-                        <li class="nav-item dropdown no-arrow mx-1">
-                            <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-envelope fa-fw"></i>
-                                <!-- Counter - Messages -->
-                                <span class="badge badge-danger badge-counter">3</span>
-                            </a>
-                            <!-- Dropdown - Messages -->
-                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="messagesDropdown">
-                                <h6 class="dropdown-header">
-                                    Mensajes
-                                </h6>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="public/img/undraw_profile_1.svg" alt="...">
-                                        <div class="status-indicator bg-success"></div>
-                                    </div>
-                                    <div class="font-weight-bold">
-                                        <div class="text-truncate">Hola, ¿cómo estás?</div>
-                                        <div class="small text-gray-500">Emily Fowler · 58m</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="public/img/undraw_profile_2.svg" alt="...">
-                                        <div class="status-indicator"></div>
-                                    </div>
-                                    <div>
-                                        <div class="text-truncate">Tengo las fotos que pediste el mes pasado, ¿cómo
-                                            te gustaría que te las enviara?</div>
-                                        <div class="small text-gray-500">Kerly Andreina· 1d</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="public/img/undraw_profile_3.svg" alt="...">
-                                        <div class="status-indicator bg-warning"></div>
-                                    </div>
-                                    <div>
-                                        <div class="text-truncate">El deber 2, cuando se entregaba?</div>
-                                        <div class="small text-gray-500">Alejandro Paredes· 2d</div>
-                                    </div>
-                                </a>
-
-                                <a class="dropdown-item text-center small text-gray-500" href="#"></a>
-                            </div>
-                        </li>
-
                         <div class="topbar-divider d-none d-sm-block"></div>
 
                         <!-- Nav Item - User Information -->
@@ -276,69 +189,27 @@
 
                 </nav>
                 <!-- End of Topbar -->
+                <main id="main">
 
-                <!-- Begin Page Content -->
-                <div class="container-fluid">
+                </main>
 
-                    <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800">Informacion de perfil</h1>
-                    <div class="container py-1">
-                        <button onclick="actualizarPerfil()" class="btn btn-primary mb-3">Obtener Perfil</button>
-                    </div>
-                    <div id="profileData">
-                        <div class="card mb-4">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-4 text-center mb-2">
-                                        <img id="userPhoto" class="img-fluid rounded mb-2" alt="No se cargó una foto">
-                                    </div>
-                                    <div class="col-md-8">
-                                        <h3 id="username"></h3>
-                                        <h4 class="mb-1"><strong>Nombre:</strong> <span id="userName"></span></h4>
-                                        <h4 class="mb-1"><strong>Apellido:</strong> <span id="userLastName"></span></h4>
-                                        <h4 class="mb-1"><strong>Provincia:</strong> <span id="userProvince"></span>
-                                        </h4>
-                                        <h4 class="mb-1"><strong>Ciudad:</strong> <span id="userCity"></span></h4>
-                                        <h4 class="mb-1"><strong>Teléfono:</strong> <span id="userPhone"></span></h4>
-                                        <h4 class="mb-1"><strong>Correo:</strong> <span id="userEmail"></span></h4>
-                                        <h4 class="mb-1"><strong>Fecha de Nacimiento:</strong> <span
-                                                id="userBirthDate"></span></h4>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card mb-4">
-                            <div class="card-body">
-                                <h4 class="mb-3">Ubicación guardada</h4>
-                                <div class="container py-1">
-                                    <button class="btn btn-primary" onclick="verUbicacion()">Obtener Ubicación</button>
-                                </div>
-                                <input type="hidden" id="userLocation">
-                                <div id="map"></div>
-                            </div>
-                        </div>
-                        <div class="d-flex gap-2 mb-4">
-                            <button onclick="cambiarPagina('./views/inicio.html')" class="btn btn-primary mr-2">Volver
-                                al Inicio</button>
-                            <button onclick="cambiarPagina('./views/crear_perfil.html')" class="btn btn-success">Editar
-                                Perfil</button>
-                        </div>
 
-                    </div>
-                    <!-- /.container-fluid -->
+                <footer id="footer" class="bg-dark mt-5">
+                    <div class="text-center py-4 text-white">
+                        <p class="mb-0">© 2025 Mi Perfil App. Todos los derechos reservados.</p>
+                        <p class="mb-0">
+                            Desarrollado por <a href="https://github.com/alfonso1031" class="text-light me-3"
+                                target="_blank">Alfonso Arroyo</a>
+                            <a href="https://api.whatsapp.com/send/?phone=%2B593984808346"
+                                class="text-light me-3">Whatsapp</a>
+                        </p>
 
-                </div>
-                <!-- End of Main Content -->
-
-                <!-- Footer -->
-                <footer class="sticky-footer bg-white">
-                    <div class="container my-auto">
-                        <div class="copyright text-center my-auto">
-                            <span>Copyright &copy; Alfonso Arroyo 2025</span>
-                        </div>
+                        <p class="mb-0">
+                            Desarrollado por <a href="https://github.com/Jhosue-cmd" class="text-light me-3"
+                                target="_blank">Josue Guayasamin</a>
+                        </p>
                     </div>
                 </footer>
-                <!-- End of Footer -->
 
             </div>
             <!-- End of Content Wrapper -->
@@ -372,16 +243,19 @@
             </div>
         </div>
 
-        <!-- Bootstrap core JavaScript-->
-        <script src="public/vendor/jquery/jquery.min.js"></script>
-        <script src="public/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-        <!-- Core plugin JavaScript-->
-        <script src="public/vendor/jquery-easing/jquery.easing.min.js"></script>
-
-        <!-- Custom scripts for all pages-->
-        <script src="public/js/sb-admin-2.min.js"></script>
 
 </body>
+<script src="public/bootstrap-5.3.5-dist/js/bootstrap.min.js"></script>
+<script src="public/js/login.js"></script>
+<script src="./public/js/load.js"></script>
+<script src="./public/js/camara.js"></script>
+<script src="./public/js/geolocation.js"></script>
+<script src="./public/js/loadUser.js"></script>
+<script src="./public/js/guardar_usuario.js"></script>
+<script src="public/vendor/jquery/jquery.min.js"></script>
+<script src="public/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="public/vendor/jquery-easing/jquery.easing.min.js"></script>
+<script src="public/js/sb-admin-2.min.js"></script>
 
 </html>

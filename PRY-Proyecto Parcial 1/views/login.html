@@ -5,7 +5,7 @@
                 <div class="card bg-dark text-white" style="border-radius: 1rem;">
                     <div class="card-body p-5 text-center">
 
-                        <div class="mb-md-5 mt-md-4 pb-4">
+                        <div class="mb-md-5 mt-md-4 pb-1">
 
                             <h2 class="fw-bold mb-2 text-uppercase">Iniciar sesión</h2>
                             <p class="text-white-50 mb-5">Por favor ingrese su usuario y contraseña!</p>
@@ -18,7 +18,8 @@
                                 </div>
                             </div>
 
-                            <div data-mdb-input-init class="input-group has-validation form-outline form-white mb-4">
+                            <div data-mdb-input-init class="input-group has-validation form-outline form-white 
+                                py-3 mb-4">
                                 <input type="password" id="contraseña" class="form-control form-control-lg"
                                     placeholder="Contraseña" required />
                                 <div class="invalid-feedback">
@@ -26,7 +27,8 @@
                                 </div>
                             </div>
 
-                            <button data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-light btn-lg px-5"
+                            <button data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-light
+                             btn-lg px-5"
                                 type="button" onclick="validarFormularioLogin()">Iniciar sesión</button>
                             </form>
                         </div>
@@ -53,7 +55,7 @@
                     <p>Ha iniciado de forma exitosa.</p>
                 </div>
                 <div class="modal-footer">
-                    <button id="cerrarModalLogin" type="button" class="btn btn-outline-secondary"
+                    <button id="cerrarModalLogin" type="button" class="btn btn-outline-light"
                         data-bs-dismiss="modal" onclick="entrarDashboard()">Cerrar</button>
                 </div>
             </div>
@@ -71,7 +73,7 @@
                     <p>Usuario o contraseña incorrectos. Por favor, inténtelo de nuevo.</p>
                 </div>
                 <div class="modal-footer">
-                    <button id="cerrarModalLogin" type="button" class="btn btn-outline-secondary"
+                    <button id="cerrarModalLogin" type="button" class="btn btn-outline-light"
                         data-bs-dismiss="modal">Cerrar</button>
                 </div>
             </div>

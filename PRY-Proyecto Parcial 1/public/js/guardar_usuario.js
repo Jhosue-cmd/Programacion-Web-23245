@@ -34,25 +34,19 @@ function registrarUsuario() {
 // Validación del formulario
 function validarFormularioRegistro() {
     const form = document.querySelector('.needs-validation');
-    form.addEventListener('submit', (event) => {
-        if (!form.checkValidity()) {
-            event.preventDefault();
-            event.stopPropagation();
-            const firstInvalid = form.querySelector(':invalid');
-            if (firstInvalid) {
-                firstInvalid.focus();
-            }
-        }
+    if (!form.checkValidity()) {
         form.classList.add('was-validated');
-        if (form.checkValidity()) {
-            registrarUsuario();
-            mostrarModal();
-            window.onload = () => cambiarPagina('./views/ver_perfil.html');
+        const firstInvalid = form.querySelector(':invalid');
+        if (firstInvalid) {
+            firstInvalid.focus();
         }
-
-    });
+        return;
+    }
+    form.classList.add('was-validated');
+    registrarUsuario();
+    mostrarModalRegistroExitoso();
 }
-function mostrarModal() {
-    const modal = new bootstrap.Modal(document.getElementById('modalRegistro'));
+function mostrarModalRegistroExitoso() {
+    const modal = new bootstrap.Modal(document.getElementById('modalRegistroExitoso'));
     modal.show();
 }

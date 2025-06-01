@@ -4,17 +4,17 @@
         novalidate>
         <h2 class="mb-2">Registro de Usuario</h2>
         <p class="text-white-50 mb-0">Datos Personales</p>
-        <div class="col-md-5">
-            <label for="validationCustom01" class="form-label">Nombre</label>
-            <input type="text" class="form-control" id="validationCustom01" value="" placeholder="Nombre" required
+        <div class="col-md-6">
+            <label for="validationCustom01" class="form-label">Nombres</label>
+            <input type="text" class="form-control" id="validationCustom01" value="" placeholder="Nombres" required
                 autofocus>
             <div class="invalid-feedback">
                 Por favor ingresa un nombre válido.
             </div>
         </div>
-        <div class="col-md-5">
-            <label for="validationCustom02" class="form-label">Apellido</label>
-            <input type="text" class="form-control" id="validationCustom02" value="" placeholder="Apellido" required>
+        <div class="col-md-6">
+            <label for="validationCustom02" class="form-label">Apellidos</label>
+            <input type="text" class="form-control" id="validationCustom02" value="" placeholder="Apellidos" required>
             <div class="invalid-feedback">
                 Por favor ingresa un apellido válido.
             </div>
@@ -49,7 +49,7 @@
                 Por favor selecciona una provincia válida.
             </div>
         </div>
-        <div class="col-md-5">
+        <div class="col-md-3">
             <label for="validationCustom03" class="form-label">Ciudad</label>
             <input type="text" class="form-control" id="validationCustom03" placeholder="Ciudad" required>
             <div class="invalid-feedback">
@@ -118,7 +118,7 @@
         <p class="text-white-50 mt-5 mb-0">Foto de perfil</p>
         <div class="mb-3">
             <div class="d-flex gap-2 mt-2 mb-2">
-                <button type="button" class="btn btn-outline-primary" id="btn_foto" onclick="iniciarCamara()"
+                <button type="button" class="btn btn-outline-primary col-5" id="btn_foto" onclick="iniciarCamara()"
                     data-bs-toggle="modal" data-bs-target="#exampleModal">Tomar Foto
                 </button>
             </div>
@@ -151,14 +151,14 @@
             </div>
 
         </div>
-        <p class="text-white-50 mt-5 mb-0">Ubicación</p>
+        <p class="text-white-50 mt-3 mb-0">Ubicación</p>
         <div class="mb-3">
             <div class="d-flex gap-2 mt-2 mb-2">
-                <button type="button" class="btn btn-outline-primary" id="btn_foto" onclick="getLocation()"
-                    data-bs-toggle="modal" data-bs-target="#exampleModal">Obtener Ubicación
+                <button type="button" class="btn btn-outline-primary col-5" id="btn_foto" onclick="getLocation()"
+                    data-bs-toggle="modal" data-bs-target="#exampleModal2">Obtener Ubicación
                 </button>
             </div>
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+            <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content bg-dark text-white">
@@ -169,14 +169,11 @@
                         </div>
                         <div class="modal-body">
                             <div class="d-flex gap-2 mb-2">
-                                <button type="button" class="btn btn-primary" id="btn_ubicacion"
-                                    onclick="getLocation()">
-                                    Obtener Ubicación
-                                </button>
+                                <input type="hidden" id="locationInfo">
                             </div>
                             <div class="d-flex gap-2 mb-2" id="map">
                             </div>
-                            <input type="hidden" id="locationInfo">
+                            
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-outline-secondary"
@@ -189,13 +186,9 @@
             </div>
 
         </div>
-        <div class="mb-3">
-
-
-        </div>
-        <div class="d-flex gap-2">
-            <button onclick="validarFormulario()" class="btn btn-success">Guardar Perfil</button>
-            <a onclick="cambiarPagina('./views/inicio.html')" class="btn btn-secondary">Volver</a>
+        <div class="d-flex p-2">
+            <button onclick="validarFormulario()" class="btn btn-primary col-3 m-2">Guardar Perfil</button>
+            <a onclick="cambiarPagina('./views/inicio.html')" class="btn btn-outline-secondary col-3 m-2">Volver</a>
         </div>
     </form>
 </div>

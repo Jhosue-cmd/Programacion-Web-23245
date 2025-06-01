@@ -1,11 +1,3 @@
-function cambiarPagina(url) {
-    //url=views/nombre_stio.html
-    fetch(url)
-        .then(res => res.text())
-        .then(data => document.getElementById('main').innerHTML = data)
-}
-window.onload = () => cambiarPagina("./views/registro.html");
-
 function iniciarSesion() {
     const usuario = document.getElementById("usuario").value;
     const contraseña = document.getElementById("contraseña").value;

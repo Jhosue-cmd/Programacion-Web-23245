@@ -23,3 +23,26 @@ function getLocation() {
         alert("No soporta la geolocalización");
     }
 }
+function verUbicacion() {
+    let geolocation = navigator.geolocation;
+
+    if (geolocation) {
+        geolocation.getCurrentPosition(
+            function (position) {
+                let latitud = position.coords.latitude;
+                let longitud = position.coords.longitude;
+
+                var map = L.map('map').setView([latitud, longitud], 13);
+
+                L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    maxZoom: 19,
+                    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+                }).addTo(map);
+                L.marker([latitud, longitud]).addTo(map)
+                    .bindPopup('Ubicación guardada.')
+                    .openPopup();
+            })
+    } else {
+        alert("No soporta la geolocalización");
+    }
+}

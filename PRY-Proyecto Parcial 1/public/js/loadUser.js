@@ -28,30 +28,19 @@ function eliminarUsuario() {
     localStorage.removeItem("ubicacion_usuario");
     localStorage.removeItem("email_usuario");
     localStorage.removeItem("fecha_nacimiento_usuario");
-    
+
     alert("Usuario eliminado correctamente.");
 }
-
-function verUbicacion() {
-    let geolocation = navigator.geolocation;
-
-    if (geolocation) {
-        geolocation.getCurrentPosition(
-            function (position) {
-                let latitud = position.coords.latitude;
-                let longitud = position.coords.longitude;
-
-                var map = L.map('map').setView([latitud, longitud], 13);
-
-                L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    maxZoom: 19,
-                    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-                }).addTo(map);
-                L.marker([latitud, longitud]).addTo(map)
-                    .bindPopup('Ubicación guardada.')
-                    .openPopup();
-            })
-    } else {
-        alert("No soporta la geolocalización");
-    }
+function cargarUsuario() {
+    var datos_us = localStorage.getItem("datos_usuario");
+    var usuario = JSON.parse(datos_us);
+    console.log(usuario);
+    document.getElementById("table_nombre").innerText = usuario.nombre;
+    document.getElementById("table_apellido").innerText = usuario.apellido;
+    document.getElementById("table_email").innerText = usuario.email; 
 }
+function eliminarUsuario() {
+        localStorage.removeItem("datos_usuario");
+        alert("Usuario eliminado correctamente.");
+
+    }

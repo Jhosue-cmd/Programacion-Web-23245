@@ -1,6 +1,6 @@
 function guardarUsuario() {
-    var nombre_usuario = document.getElementById("validationCustom01").value;
-    localStorage.setItem("nombre_usuario", nombre_usuario);
+    var userName = document.getElementById("USERNAME").value;
+    localStorage.setItem("nombre_usuario", userName);
 }
 
 function registrarUsuario() {
@@ -46,6 +46,8 @@ function validarFormularioRegistro() {
     form.classList.add('was-validated');
     registrarUsuario();
     mostrarModalRegistroExitoso();
+    guardarUsuario();
+    
 }
 function mostrarModalRegistroExitoso() {
     const modal = new bootstrap.Modal(document.getElementById('modalRegistroExitoso'));
@@ -54,46 +56,54 @@ function mostrarModalRegistroExitoso() {
 
 
 
-// Inicializador para el formulario de agregar canción
-window.agregarCancionInit = function() {
-    const form = document.getElementById('formAgregarCancion');
+function agregarCancionInit() {
+    var form = document.getElementById('formAgregarCancion');
     if (!form) return;
 
     form.addEventListener('submit', function(e) {
         e.preventDefault();
+        console.log('Submit detectado');
+        console.log(localStorage.getItem('nombre_usuario'));
         if (!form.checkValidity()) {
             form.classList.add('was-validated');
             return;
         }
 
-        const titulo = document.getElementById('tituloCancion').value.trim();
-        const artista = document.getElementById('artistaCancion').value.trim();
-        const genero = document.getElementById('generoCancion').value.trim();
+        var titulo = document.getElementById('tituloCancion').value.trim();
+        var artista = document.getElementById('artistaCancion').value.trim();
+        var genero = document.getElementById('generoCancion').value.trim();
 
         // Obtener usuario actual (por ejemplo, usando el nombre de usuario guardado)
-        const userName = localStorage.getItem('nombre_usuario');
+        var userName = localStorage.getItem('nombre_usuario');
         if (!userName) {
             alert('No hay usuario activo.');
             return;
         }
-        let userData = JSON.parse(localStorage.getItem(userName));
+
+        // Recuperar el objeto de usuario completo
+        var objUser = {};
+        var userData = JSON.parse(localStorage.getItem(userName));
         if (!userData) {
             alert('No se encontró el usuario.');
             return;
         }
+        objUser[userName] = userData;
 
         // Inicializar el array de canciones si no existe
-        if (!userData.canciones) userData.canciones = [];
+        if (!objUser[userName].canciones) objUser[userName].canciones = [];
 
         // Agregar la nueva canción
-        userData.canciones.push({ titulo, artista, genero });
+        objUser[userName].canciones.push({ titulo: titulo, artista: artista, genero: genero });
 
         // Guardar de nuevo en localStorage
-        localStorage.setItem(userName, JSON.stringify(userData));
+        localStorage.setItem(userName, JSON.stringify(objUser[userName]));
 
         // Mostrar alerta de éxito
         document.getElementById('alertaCancion').classList.remove('d-none');
         form.reset();
         form.classList.remove('was-validated');
     });
-};
+}
+
+// ...existing code...
+

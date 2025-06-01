@@ -3,17 +3,17 @@
     <form id="formAgregarCancion" class="needs-validation" novalidate>
         <div class="mb-3">
             <label for="tituloCancion" class="form-label">Título de la canción</label>
-            <input type="text" class="form-control" id="tituloCancion" required>
+            <input type="text" class="form-control" id="tituloCancion" name="tituloCancion" required>
             <div class="invalid-feedback">Ingrese el título.</div>
         </div>
         <div class="mb-3">
             <label for="artistaCancion" class="form-label">Artista</label>
-            <input type="text" class="form-control" id="artistaCancion" required>
+            <input type="text" class="form-control" id="artistaCancion" name="artistaCancion" required>
             <div class="invalid-feedback">Ingrese el artista.</div>
         </div>
         <div class="mb-3">
             <label for="generoCancion" class="form-label">Género</label>
-            <input type="text" class="form-control" id="generoCancion" required>
+            <input type="text" class="form-control" id="generoCancion" name="generoCancion" required>
             <div class="invalid-feedback">Ingrese el género.</div>
         </div>
         <button type="submit" class="btn btn-primary">Agregar Canción</button>
@@ -22,11 +22,6 @@
         Canción agregada correctamente.
     </div>
 </div>
-<script>
-    if (window.agregarCancionInit) window.agregarCancionInit();
-</script>
-
-
 
 
 

@@ -27,8 +27,8 @@ function registrarUsuario() {
         ciudad: ciudad,
         provincia: provincia,
         telefono: telefono,
-        usuario: userName,
         password: password
+        
     };
     localStorage.setItem(userName, JSON.stringify(objUser[userName]));
 }
@@ -51,3 +51,49 @@ function mostrarModalRegistroExitoso() {
     const modal = new bootstrap.Modal(document.getElementById('modalRegistroExitoso'));
     modal.show();
 }
+
+
+
+// Inicializador para el formulario de agregar canción
+window.agregarCancionInit = function() {
+    const form = document.getElementById('formAgregarCancion');
+    if (!form) return;
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        if (!form.checkValidity()) {
+            form.classList.add('was-validated');
+            return;
+        }
+
+        const titulo = document.getElementById('tituloCancion').value.trim();
+        const artista = document.getElementById('artistaCancion').value.trim();
+        const genero = document.getElementById('generoCancion').value.trim();
+
+        // Obtener usuario actual (por ejemplo, usando el nombre de usuario guardado)
+        const userName = localStorage.getItem('nombre_usuario');
+        if (!userName) {
+            alert('No hay usuario activo.');
+            return;
+        }
+        let userData = JSON.parse(localStorage.getItem(userName));
+        if (!userData) {
+            alert('No se encontró el usuario.');
+            return;
+        }
+
+        // Inicializar el array de canciones si no existe
+        if (!userData.canciones) userData.canciones = [];
+
+        // Agregar la nueva canción
+        userData.canciones.push({ titulo, artista, genero });
+
+        // Guardar de nuevo en localStorage
+        localStorage.setItem(userName, JSON.stringify(userData));
+
+        // Mostrar alerta de éxito
+        document.getElementById('alertaCancion').classList.remove('d-none');
+        form.reset();
+        form.classList.remove('was-validated');
+    });
+};

@@ -9,31 +9,70 @@
 
                             <h2 class="fw-bold mb-2 text-uppercase">Iniciar sesión</h2>
                             <p class="text-white-50 mb-5">Por favor ingrese su usuario y contraseña!</p>
-
-                            <div data-mdb-input-init class="form-outline form-white mb-4">
-                                <input type="email" id="usuario" class="form-control form-control-lg"
-                                    placeholder="Usuario" autofocus />
+                            <form class="bg-dark text-white px-4 pb-5 needs-validation" novalidate >
+                            <div data-mdb-input-init class="input-group has-validation form-outline form-white mb-4">
+                                <input type="text" id="usuario" class="form-control form-control-lg"
+                                    placeholder="Usuario" autofocus required />
+                                <div class="invalid-feedback">
+                                    Por favor ingresa un nombre de usuario válido.
+                                </div>
                             </div>
 
-                            <div data-mdb-input-init class="form-outline form-white mb-4">
+                            <div data-mdb-input-init class="input-group has-validation form-outline form-white mb-4">
                                 <input type="password" id="contraseña" class="form-control form-control-lg"
-                                    placeholder="Contraseña" />
+                                    placeholder="Contraseña" required />
+                                <div class="invalid-feedback">
+                                    Por favor ingresa una contraseña válida.
+                                </div>
                             </div>
-
-                            <p class="small mb-5 pb-lg-2">
-                                <a class="text-white-50" onclick="cambiarPagina('./views/recuperar_contraseña.html')">¿Olvidó su contraseña?</a>
-                            </p>
 
                             <button data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-light btn-lg px-5"
-                                type="submit" onclick="iniciarSesion()">Iniciar sesión</button>
+                                type="button" onclick="validarFormularioLogin()">Iniciar sesión</button>
+                            </form>
                         </div>
                         <div>
                             <p class="mb-0">¿No tiene una cuenta? <a onclick="cambiarPagina('./views/registro.html')"
-                                    class="text-white-50 fw-bold">Registrarse</a>
+                                    class="text-primary-50 fw-bold">Registrarse</a>
                             </p>
                         </div>
 
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- modal -->
+    <div class="modal fade" id="modalLoginExitoso" tabindex="-1" aria-labelledby="modalRegistroExitosoLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content bg-dark text-white">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalLoginExitoso">Login Exitoso</h5>
+                </div>
+                <div class="modal-body">
+                    <p>Ha iniciado de forma exitosa.</p>
+                </div>
+                <div class="modal-footer">
+                    <button id="cerrarModalLogin" type="button" class="btn btn-outline-secondary"
+                        data-bs-dismiss="modal" onclick="entrarDashboard()">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- modal incorrecto -->
+    <div class="modal fade" id="modalLoginIncorrecto" tabindex="-1" aria-labelledby="modalRegistroExitosoLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content bg-dark text-white">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalLoginIncorrecto">Datos Incorrectos</h5>
+                </div>
+                <div class="modal-body">
+                    <p>Usuario o contraseña incorrectos. Por favor, inténtelo de nuevo.</p>
+                </div>
+                <div class="modal-footer">
+                    <button id="cerrarModalLogin" type="button" class="btn btn-outline-secondary"
+                        data-bs-dismiss="modal">Cerrar</button>
                 </div>
             </div>
         </div>

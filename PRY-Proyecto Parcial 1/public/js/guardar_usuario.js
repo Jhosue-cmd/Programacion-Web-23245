@@ -27,6 +27,7 @@ function registrarUsuario() {
         ciudad: ciudad,
         provincia: provincia,
         telefono: telefono,
+        usuario: userName,
         password: password
     };
     localStorage.setItem(userName, JSON.stringify(objUser[userName]));

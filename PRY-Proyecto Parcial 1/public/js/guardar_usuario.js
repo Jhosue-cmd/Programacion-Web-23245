@@ -149,4 +149,140 @@ function verCancionesInit() {
     });
 }
 
+function editarCancionInit() {
+    var selectUsuario = document.getElementById('selectUsuarioEditar');
+    var selectCancion = document.getElementById('selectCancionEditar');
+    var form = document.getElementById('formEditarCancion');
+    var titulo = document.getElementById('tituloEditar');
+    var artista = document.getElementById('artistaEditar');
+    var genero = document.getElementById('generoEditar');
 
+    if (!selectUsuario || !selectCancion || !form) return;
+
+    // Llenar usuarios
+    selectUsuario.innerHTML = '<option value="">Seleccione un usuario</option>';
+    for (var i = 0; i < localStorage.length; i++) {
+        var key = localStorage.key(i);
+        try {
+            var userObj = JSON.parse(localStorage.getItem(key));
+            if (userObj && typeof userObj === "object" && userObj.nombre && userObj.apellido) {
+                selectUsuario.innerHTML += `<option value="${key}">${userObj.nombre} ${userObj.apellido} (${key})</option>`;
+            }
+        } catch (e) {}
+    }
+
+    // Al cambiar usuario, llenar canciones
+    selectUsuario.addEventListener('change', function() {
+        selectCancion.innerHTML = '<option value="">Seleccione una canción</option>';
+        titulo.value = '';
+        artista.value = '';
+        genero.value = '';
+        var userKey = selectUsuario.value;
+        if (!userKey) return;
+        var userObj = JSON.parse(localStorage.getItem(userKey));
+        if (userObj && userObj.canciones && userObj.canciones.length > 0) {
+            userObj.canciones.forEach(function(cancion, idx) {
+                selectCancion.innerHTML += `<option value="${idx}">${cancion.titulo} - ${cancion.artista}</option>`;
+            });
+        }
+    });
+
+    
+    selectCancion.addEventListener('change', function() {
+        var userKey = selectUsuario.value;
+        var idx = selectCancion.value;
+        if (!userKey || idx === "") {
+            titulo.value = '';
+            artista.value = '';
+            genero.value = '';
+            return;
+        }
+        var userObj = JSON.parse(localStorage.getItem(userKey));
+        var cancion = userObj.canciones[idx];
+        titulo.value = cancion.titulo;
+        artista.value = cancion.artista;
+        genero.value = cancion.genero;
+    });
+
+   
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        if (!form.checkValidity()) {
+            form.classList.add('was-validated');
+            return;
+        }
+        var userKey = selectUsuario.value;
+        var idx = selectCancion.value;
+        if (!userKey || idx === "") return;
+        var userObj = JSON.parse(localStorage.getItem(userKey));
+        userObj.canciones[idx] = {
+            titulo: titulo.value.trim(),
+            artista: artista.value.trim(),
+            genero: genero.value.trim()
+        };
+        localStorage.setItem(userKey, JSON.stringify(userObj));
+        
+        var modal = new bootstrap.Modal(document.getElementById('modalCancionEditada'));
+        modal.show();
+        form.classList.remove('was-validated');
+    });
+}
+
+function eliminarCancionInit() {
+    var selectUsuario = document.getElementById('selectUsuarioEliminar');
+    var selectCancion = document.getElementById('selectCancionEliminar');
+    var form = document.getElementById('formEliminarCancion');
+
+    if (!selectUsuario || !selectCancion || !form) return;
+
+    // Llenar usuarios
+    selectUsuario.innerHTML = '<option value="">Seleccione un usuario</option>';
+    for (var i = 0; i < localStorage.length; i++) {
+        var key = localStorage.key(i);
+        try {
+            var userObj = JSON.parse(localStorage.getItem(key));
+            if (userObj && typeof userObj === "object" && userObj.nombre && userObj.apellido) {
+                selectUsuario.innerHTML += `<option value="${key}">${userObj.nombre} ${userObj.apellido} (${key})</option>`;
+            }
+        } catch (e) {}
+    }
+
+    // Al cambiar usuario, llenar canciones
+    selectUsuario.addEventListener('change', function() {
+        selectCancion.innerHTML = '<option value="">Seleccione una canción</option>';
+        var userKey = selectUsuario.value;
+        if (!userKey) return;
+        var userObj = JSON.parse(localStorage.getItem(userKey));
+        if (userObj && userObj.canciones && userObj.canciones.length > 0) {
+            userObj.canciones.forEach(function(cancion, idx) {
+                selectCancion.innerHTML += `<option value="${idx}">${cancion.titulo} - ${cancion.artista}</option>`;
+            });
+        }
+    });
+
+    // Eliminar canción
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        if (!form.checkValidity()) {
+            form.classList.add('was-validated');
+            return;
+        }
+        var userKey = selectUsuario.value;
+        var idx = selectCancion.value;
+        if (!userKey || idx === "") return;
+        var userObj = JSON.parse(localStorage.getItem(userKey));
+        userObj.canciones.splice(idx, 1);
+        localStorage.setItem(userKey, JSON.stringify(userObj));
+        // Actualizar el select de canciones
+        selectCancion.innerHTML = '<option value="">Seleccione una canción</option>';
+        if (userObj.canciones && userObj.canciones.length > 0) {
+            userObj.canciones.forEach(function(cancion, idx) {
+                selectCancion.innerHTML += `<option value="${idx}">${cancion.titulo} - ${cancion.artista}</option>`;
+            });
+        }
+        // Mostrar modal de éxito
+        var modal = new bootstrap.Modal(document.getElementById('modalCancionEliminada'));
+        modal.show();
+        form.classList.remove('was-validated');
+    });
+}

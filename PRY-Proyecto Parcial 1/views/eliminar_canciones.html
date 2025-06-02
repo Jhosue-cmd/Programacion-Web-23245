@@ -1,0 +1,34 @@
+<div class="container py-4">
+    <h2 class="mb-4 text-white">Eliminar Canción</h2>
+    <form id="formEliminarCancion" class="needs-validation" novalidate>
+        <div class="mb-3">
+            <label for="selectUsuarioEliminar" class="form-label text-white">Seleccionar Usuario</label>
+            <select class="form-control" id="selectUsuarioEliminar" required>
+                <option value="">Seleccione un usuario</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="selectCancionEliminar" class="form-label text-white">Seleccionar Canción</label>
+            <select class="form-control" id="selectCancionEliminar" required>
+                <option value="">Seleccione una canción</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-danger">Eliminar Canción</button>
+    </form>
+    
+    <div class="modal fade" id="modalCancionEliminada" tabindex="-1" aria-labelledby="modalCancionEliminadaLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalCancionEliminadaLabel">Éxito</h5>
+          </div>
+          <div class="modal-body">
+            La canción ha sido eliminada correctamente.
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-success" data-bs-dismiss="modal">Cerrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>

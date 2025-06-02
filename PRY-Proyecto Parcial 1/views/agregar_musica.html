@@ -1,8 +1,16 @@
-<div class="container py-4" >
+<div class="container py-4">
     <h2 class="mb-4 text-white">Agregar Canción</h2>
     <form id="formAgregarCancion" class="needs-validation" novalidate>
         <div class="mb-3">
-            <label for="tituloCancion" class="form-label text-white" >Título de la canción</label>
+            <label for="selectUsuario" class="form-label text-white">Seleccionar Usuario</label>
+            <select class="form-control" id="selectUsuario" name="selectUsuario" required>
+                <option value="">Seleccione un usuario</option>
+                
+            </select>
+            <div class="invalid-feedback">Seleccione un usuario.</div>
+        </div>
+        <div class="mb-3">
+            <label for="tituloCancion" class="form-label text-white">Título de la canción</label>
             <input type="text" class="form-control" id="tituloCancion" name="tituloCancion" required>
             <div class="invalid-feedback">Ingrese el título.</div>
         </div>
@@ -22,19 +30,3 @@
         Canción agregada correctamente.
     </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

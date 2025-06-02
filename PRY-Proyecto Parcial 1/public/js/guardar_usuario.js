@@ -60,10 +60,23 @@ function agregarCancionInit() {
     var form = document.getElementById('formAgregarCancion');
     if (!form) return;
 
+    
+    var selectUsuario = document.getElementById('selectUsuario');
+    if (selectUsuario) {
+        selectUsuario.innerHTML = '<option value="">Seleccione un usuario</option>';
+        for (let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+            try {
+                const userObj = JSON.parse(localStorage.getItem(key));
+                if (userObj && typeof userObj === "object" && userObj.nombre && userObj.apellido) {
+                    selectUsuario.innerHTML += `<option value="${key}">${userObj.nombre} ${userObj.apellido} (${key})</option>`;
+                }
+            } catch (e) {}
+        }
+    }
+
     form.addEventListener('submit', function(e) {
         e.preventDefault();
-        console.log('Submit detectado');
-        console.log(localStorage.getItem('nombre_usuario'));
         if (!form.checkValidity()) {
             form.classList.add('was-validated');
             return;
@@ -72,38 +85,68 @@ function agregarCancionInit() {
         var titulo = document.getElementById('tituloCancion').value.trim();
         var artista = document.getElementById('artistaCancion').value.trim();
         var genero = document.getElementById('generoCancion').value.trim();
+        var userName = selectUsuario.value;
 
-        // Obtener usuario actual (por ejemplo, usando el nombre de usuario guardado)
-        var userName = localStorage.getItem('nombre_usuario');
         if (!userName) {
-            alert('No hay usuario activo.');
+            alert('Seleccione un usuario.');
             return;
         }
 
-        // Recuperar el objeto de usuario completo
         var objUser = {};
         var userData = JSON.parse(localStorage.getItem(userName));
         if (!userData) {
             alert('No se encontró el usuario.');
             return;
         }
+
         objUser[userName] = userData;
-
-        // Inicializar el array de canciones si no existe
         if (!objUser[userName].canciones) objUser[userName].canciones = [];
-
-        // Agregar la nueva canción
         objUser[userName].canciones.push({ titulo: titulo, artista: artista, genero: genero });
-
-        // Guardar de nuevo en localStorage
         localStorage.setItem(userName, JSON.stringify(objUser[userName]));
 
-        // Mostrar alerta de éxito
         document.getElementById('alertaCancion').classList.remove('d-none');
         form.reset();
         form.classList.remove('was-validated');
     });
 }
 
-// ...existing code...
+
+
+function verCancionesInit() {
+    var selectUsuario = document.getElementById('selectUsuarioVer');
+    var cancionesDiv = document.getElementById('cancionesUsuario');
+    if (!selectUsuario || !cancionesDiv) return;
+
+    selectUsuario.innerHTML = '<option value="">Seleccione un usuario</option>';
+    for (var i = 0; i < localStorage.length; i++) {
+        var key = localStorage.key(i);
+        try {
+            var userObj = JSON.parse(localStorage.getItem(key));
+            if (userObj && typeof userObj === "object" && userObj.nombre && userObj.apellido) {
+                selectUsuario.innerHTML += `<option value="${key}">${userObj.nombre} ${userObj.apellido} (${key})</option>`;
+            }
+        } catch (e) {}
+    }
+
+    selectUsuario.addEventListener('change', function() {
+        cancionesDiv.innerHTML = "";
+        var userKey = selectUsuario.value;
+        if (!userKey) return;
+        var userObj = JSON.parse(localStorage.getItem(userKey));
+        if (userObj && userObj.canciones && userObj.canciones.length > 0) {
+            var html = `<h4 class="text-white">Canciones de ${userObj.nombre} ${userObj.apellido}</h4>`;
+            html += `<ul class="list-group">`;
+            userObj.canciones.forEach(function(cancion) {
+                html += `<li class="list-group-item">
+                    <strong>${cancion.titulo}</strong> - ${cancion.artista} <span class="badge bg-secondary">${cancion.genero}</span>
+                </li>`;
+            });
+            html += `</ul>`;
+            cancionesDiv.innerHTML = html;
+        } else {
+            cancionesDiv.innerHTML = `<div class="alert alert-info">Este usuario no tiene canciones registradas.</div>`;
+        }
+    });
+}
+
 

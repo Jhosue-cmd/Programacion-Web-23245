@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Registro Completo</title>
+    <link href="public/lib/bootstrap-5.3.5-dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="public/css/estilos.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navbar responsive -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="#"><i class="fas fa-user-plus"></i> Registro</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <button class="btn btn-outline-light btn-sm" onclick="toggleDarkMode()">
+                            <i class="fas fa-moon" id="theme-icon"></i> Tema
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <!-- Progress bar -->
+        <div class="progress mb-4" style="height: 8px;">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" 
+                 id="progress-bar" role="progressbar" style="width: 0%"></div>
+        </div>
+        
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-10 col-lg-8">
+                <div class="card shadow-lg">
+                    <div class="card-header bg-primary text-white text-center">
+                        <h1 class="h3 mb-0"><i class="fas fa-clipboard-list"></i> Formulario de Registro Completo</h1>
+                        <small class="text-light">Complete todos los campos requeridos</small>
+                    </div>
+                    <div class="card-body">
+                        <form id="formularioRegistro" class="needs-validation" novalidate
+                              onsubmit="manejarEventoForm('formularioRegistro', 'onsubmit')"
+                              onreset="manejarEventoForm('formularioRegistro', 'onreset')"
+                              oninput="manejarEventoForm('formularioRegistro', 'oninput')"
+                              onchange="manejarEventoForm('formularioRegistro', 'onchange')">
+                            
+                            <!-- Sección de Información Personal -->
+                            <div class="accordion" id="formAccordion">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="headingPersonal">
+                                        <button class="accordion-button" type="button" data-bs-toggle="collapse" 
+                                                data-bs-target="#collapsePersonal" aria-expanded="true">
+                                            <i class="fas fa-user me-2"></i> Información Personal
+                                        </button>
+                                    </h2>
+                                    <div id="collapsePersonal" class="accordion-collapse collapse show">
+                                        <div class="accordion-body">
+                                            <div class="row">
+                                                <!-- Campo de nombre -->
+                                                <div class="col-md-6 mb-3">
+                                                    <label for="nombre" class="form-label">
+                                                        <i class="fas fa-user"></i> Nombre Completo *
+                                                    </label>
+                                                    <input type="text" class="form-control" id="nombre" name="nombre" 
+                                                           placeholder="Ingrese su nombre completo" required
+                                                           minlength="2" maxlength="50"
+                                                           oninput="manejarEventoTexto('nombre', 'oninput')"
+                                                           onchange="manejarEventoTexto('nombre', 'onchange')"
+                                                           onblur="manejarEventoTexto('nombre', 'onblur')"
+                                                           onfocus="manejarEventoTexto('nombre', 'onfocus')"
+                                                           onkeydown="manejarEventoTexto('nombre', 'onkeydown')"
+                                                           onkeyup="manejarEventoTexto('nombre', 'onkeyup')"
+                                                           onkeypress="manejarEventoTexto('nombre', 'onkeypress')">
+                                                    <div id="nombreFeedback" class="invalid-feedback"></div>
+                                                    <div class="valid-feedback">¡Perfecto!</div>
+                                                </div>
+
+                                                <!-- Campo de edad -->
+                                                <div class="col-md-6 mb-3">
+                                                    <label for="edad" class="form-label">
+                                                        <i class="fas fa-calendar-alt"></i> Edad *
+                                                    </label>
+                                                    <input type="number" class="form-control" id="edad" name="edad" 
+                                                           placeholder="Edad" min="1" max="100" required
+                                                           oninput="manejarEventoNumero('edad', 'oninput')"
+                                                           onchange="manejarEventoNumero('edad', 'onchange')"
+                                                           onkeyup="manejarEventoNumero('edad', 'onkeyup')">
+                                                    <div id="edadFeedback" class="invalid-feedback"></div>
+                                                    <div class="valid-feedback">¡Edad válida!</div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <!-- Campo de correo -->
+                                                <div class="col-md-6 mb-3">
+                                                    <label for="correo" class="form-label">
+                                                        <i class="fas fa-envelope"></i> Correo Electrónico *
+                                                    </label>
+                                                    <input type="email" class="form-control" id="correo" name="correo" 
+                                                           placeholder="ejemplo@correo.com" required
+                                                           oninput="manejarEventoEmail('correo', 'oninput')"
+                                                           onchange="manejarEventoEmail('correo', 'onchange')"
+                                                           onblur="manejarEventoEmail('correo', 'onblur')">
+                                                    <div id="correoFeedback" class="invalid-feedback"></div>
+                                                    <div class="valid-feedback">¡Correo válido!</div>
+                                                </div>
+
+                                                <!-- Campo de teléfono -->
+                                                <div class="col-md-6 mb-3">
+                                                    <label for="telefono" class="form-label">
+                                                        <i class="fas fa-phone"></i> Teléfono *
+                                                    </label>
+                                                    <input type="tel" class="form-control" id="telefono" name="telefono" 
+                                                           placeholder="+593 99 999 9999" required
+                                                           oninput="manejarEventoTelefono('telefono', 'oninput')"
+                                                           onkeyup="manejarEventoTelefono('telefono', 'onkeyup')">
+                                                    <div id="telefonoFeedback" class="invalid-feedback"></div>
+                                                    <div class="valid-feedback">¡Teléfono válido!</div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <!-- Campo de fecha de nacimiento -->
+                                                <div class="col-md-6 mb-3">
+                                                    <label for="fechaNacimiento" class="form-label">
+                                                        <i class="fas fa-birthday-cake"></i> Fecha de Nacimiento *
+                                                    </label>
+                                                    <input type="date" class="form-control" id="fechaNacimiento" name="fechaNacimiento" required
+                                                           onchange="manejarEventoFecha('fechaNacimiento', 'onchange')"
+                                                           onblur="manejarEventoFecha('fechaNacimiento', 'onblur')"
+                                                           onfocus="manejarEventoFecha('fechaNacimiento', 'onfocus')">
+                                                    <div id="fechaNacimientoFeedback" class="invalid-feedback"></div>
+                                                    <div class="valid-feedback">¡Fecha válida!</div>
+                                                </div>
+
+                                                <!-- Campo de país -->
+                                                <div class="col-md-6 mb-3">
+                                                    <label for="pais" class="form-label">
+                                                        <i class="fas fa-globe"></i> País *
+                                                    </label>
+                                                    <select class="form-select" id="pais" name="pais" required
+                                                            onchange="manejarEventoSelect('pais', 'onchange')"
+                                                            onclick="manejarEventoSelect('pais', 'onclick')"
+                                                            onfocus="manejarEventoSelect('pais', 'onfocus')"
+                                                            onblur="manejarEventoSelect('pais', 'onblur')">
+                                                        <option value="" disabled selected>Seleccione su país</option>
+                                                        <option value="Ecuador">🇪🇨 Ecuador</option>
+                                                        <option value="Colombia">🇨🇴 Colombia</option>
+                                                        <option value="México">🇲🇽 México</option>
+                                                        <option value="Perú">🇵🇪 Perú</option>
+                                                        <option value="Argentina">🇦🇷 Argentina</option>
+                                                        <option value="Chile">🇨🇱 Chile</option>
+                                                    </select>
+                                                    <div id="paisFeedback" class="invalid-feedback"></div>
+                                                    <div class="valid-feedback">¡País seleccionado!</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Sección de Seguridad -->
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="headingSecurity">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" 
+                                                data-bs-target="#collapseSecurity">
+                                            <i class="fas fa-shield-alt me-2"></i> Seguridad y Acceso
+                                        </button>
+                                    </h2>
+                                    <div id="collapseSecurity" class="accordion-collapse collapse">
+                                        <div class="accordion-body">
+                                            <div class="row">
+                                                <!-- Campo de contraseña -->
+                                                <div class="col-md-6 mb-3">
+                                                    <label for="contraseña" class="form-label">
+                                                        <i class="fas fa-lock"></i> Contraseña *
+                                                    </label>
+                                                    <div class="input-group">
+                                                        <input type="password" class="form-control" id="contraseña" name="contraseña" 
+                                                               placeholder="Mínimo 8 caracteres" required minlength="8"
+                                                               onkeypress="manejarEventoPassword('contraseña', 'onkeypress')"
+                                                               onkeyup="manejarEventoPassword('contraseña', 'onkeyup')"
+                                                               onblur="manejarEventoPassword('contraseña', 'onblur')">
+                                                        <button class="btn btn-outline-secondary" type="button" onclick="togglePassword('contraseña')">
+                                                            <i class="fas fa-eye" id="toggleIcon"></i>
+                                                        </button>
+                                                    </div>
+                                                    <div id="contraseñaFeedback" class="invalid-feedback"></div>
+                                                    <div class="valid-feedback">¡Contraseña segura!</div>
+                                                    <div class="password-strength mt-2">
+                                                        <div class="progress" style="height: 5px;">
+                                                            <div class="progress-bar" id="passwordStrength" style="width: 0%"></div>
+                                                        </div>
+                                                        <small id="passwordStrengthText" class="text-muted">Fortaleza de contraseña</small>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Campo de confirmación de contraseña -->
+                                                <div class="col-md-6 mb-3">
+                                                    <label for="confirmarContraseña" class="form-label">
+                                                        <i class="fas fa-lock"></i> Confirmar Contraseña *
+                                                    </label>
+                                                    <input type="password" class="form-control" id="confirmarContraseña" 
+                                                           name="confirmarContraseña" placeholder="Repita su contraseña" required
+                                                           onkeypress="manejarEventoPassword('confirmarContraseña', 'onkeypress')"
+                                                           onkeyup="manejarEventoPassword('confirmarContraseña', 'onkeyup')"
+                                                           onblur="manejarEventoPassword('confirmarContraseña', 'onblur')">
+                                                    <div id="confirmarContraseñaFeedback" class="invalid-feedback"></div>
+                                                    <div class="valid-feedback">¡Las contraseñas coinciden!</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Sección de Preferencias -->
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="headingPrefs">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" 
+                                                data-bs-target="#collapsePrefs">
+                                            <i class="fas fa-cog me-2"></i> Preferencias y Configuración
+                                        </button>
+                                    </h2>
+                                    <div id="collapsePrefs" class="accordion-collapse collapse">
+                                        <div class="accordion-body">
+                                            <div class="row">
+                                                <!-- Campo de hora preferida -->
+                                                <div class="col-md-4 mb-3">
+                                                    <label for="hora" class="form-label">
+                                                        <i class="fas fa-clock"></i> Hora Preferida
+                                                    </label>
+                                                    <input type="time" class="form-control" id="hora" name="hora"
+                                                           onchange="manejarEventoHora('hora', 'onchange')"
+                                                           onblur="manejarEventoHora('hora', 'onblur')">
+                                                    <div id="horaFeedback" class="invalid-feedback"></div>
+                                                </div>
+
+                                                <!-- Campo de color favorito -->
+                                                <div class="col-md-4 mb-3">
+                                                    <label for="color" class="form-label">
+                                                        <i class="fas fa-palette"></i> Color Favorito
+                                                    </label>
+                                                    <input type="color" class="form-control form-control-color" id="color" name="color" value="#007bff"
+                                                           oninput="manejarEventoColor('color', 'oninput')"
+                                                           onchange="manejarEventoColor('color', 'onchange')">
+                                                    <div id="colorFeedback" class="invalid-feedback"></div>
+                                                </div>
+
+                                                <!-- Campo de prioridad -->
+                                                <div class="col-md-4 mb-3">
+                                                    <label for="prioridad" class="form-label">
+                                                        <i class="fas fa-star"></i> Prioridad: <span id="prioridadValue">5</span>
+                                                    </label>
+                                                    <input type="range" class="form-range" id="prioridad" name="prioridad" 
+                                                           min="1" max="10" value="5"
+                                                           oninput="manejarEventoRango('prioridad', 'oninput')"
+                                                           onchange="manejarEventoRango('prioridad', 'onchange')">
+                                                    <div class="d-flex justify-content-between">
+                                                        <small>Baja</small>
+                                                        <small>Alta</small>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Campo de URL -->
+                                            <div class="mb-3">
+                                                <label for="url" class="form-label">
+                                                    <i class="fas fa-link"></i> Sitio Web Personal
+                                                </label>
+                                                <input type="url" class="form-control" id="url" name="url" 
+                                                       placeholder="https://ejemplo.com"
+                                                       oninput="manejarEventoUrl('url', 'oninput')"
+                                                       onblur="manejarEventoUrl('url', 'onblur')">
+                                                <div id="urlFeedback" class="invalid-feedback"></div>
+                                                <div class="valid-feedback">¡URL válida!</div>
+                                            </div>
+
+                                            <!-- Campo de archivo -->
+                                            <div class="mb-3">
+                                                <label for="archivo" class="form-label">
+                                                    <i class="fas fa-upload"></i> Foto de Perfil
+                                                </label>
+                                                <input type="file" class="form-control" id="archivo" name="archivo" 
+                                                       accept="image/*"
+                                                       onchange="manejarEventoArchivo('archivo', 'onchange')"
+                                                       onclick="manejarEventoArchivo('archivo', 'onclick')"
+                                                       onblur="manejarEventoArchivo('archivo', 'onblur')">
+                                                <div class="form-text">Formatos permitidos: JPG, PNG, GIF (Máx. 5MB)</div>
+                                                <div id="archivoPreview" class="mt-2"></div>
+                                            </div>
+
+                                            <!-- Campo de comentarios -->
+                                            <div class="mb-3">
+                                                <label for="comentarios" class="form-label">
+                                                    <i class="fas fa-comment"></i> Comentarios Adicionales
+                                                </label>
+                                                <textarea class="form-control" id="comentarios" name="comentarios" rows="3" 
+                                                          placeholder="Cuéntanos algo sobre ti..." maxlength="500"
+                                                          oninput="manejarEventoTextarea('comentarios', 'oninput')"
+                                                          onkeyup="manejarEventoTextarea('comentarios', 'onkeyup')"
+                                                          onfocus="manejarEventoTextarea('comentarios', 'onfocus')"
+                                                          onblur="manejarEventoTextarea('comentarios', 'onblur')"></textarea>
+                                                <div class="form-text">
+                                                    <span id="comentariosCount">0</span>/500 caracteres
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Sección de Términos -->
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="headingTerms">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" 
+                                                data-bs-target="#collapseTerms">
+                                            <i class="fas fa-file-contract me-2"></i> Términos y Condiciones
+                                        </button>
+                                    </h2>
+                                    <div id="collapseTerms" class="accordion-collapse collapse">
+                                        <div class="accordion-body">
+                                            <!-- Checkbox de suscripción -->
+                                            <div class="form-check form-switch mb-3">
+                                                <input class="form-check-input" type="checkbox" id="suscripcion" name="suscripcion"
+                                                       onclick="manejarEventoCheckbox('suscripcion', 'onclick')"
+                                                       onchange="manejarEventoCheckbox('suscripcion', 'onchange')">
+                                                <label class="form-check-label" for="suscripcion">
+                                                    <i class="fas fa-bell"></i> Recibir notificaciones por correo
+                                                </label>
+                                                <div id="suscripcionFeedback" class="valid-feedback">¡Gracias por suscribirte!</div>
+                                            </div>
+
+                                            <!-- Radio buttons para términos -->
+                                            <div class="mb-3">
+                                                <label class="form-label">
+                                                    <i class="fas fa-check-circle"></i> ¿Aceptas los términos y condiciones? *
+                                                </label>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="terminos" 
+                                                           id="aceptarSi" value="si" required
+                                                           onclick="manejarEventoRadio('aceptarSi', 'onclick')"
+                                                           onchange="manejarEventoRadio('aceptarSi', 'onchange')">
+                                                    <label class="form-check-label" for="aceptarSi">
+                                                        <i class="fas fa-thumbs-up text-success"></i> Sí, acepto
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="terminos" 
+                                                           id="aceptarNo" value="no" required
+                                                           onclick="manejarEventoRadio('aceptarNo', 'onclick')"
+                                                           onchange="manejarEventoRadio('aceptarNo', 'onchange')">
+                                                    <label class="form-check-label" for="aceptarNo">
+                                                        <i class="fas fa-thumbs-down text-danger"></i> No acepto
+                                                    </label>
+                                                </div>
+                                                <div id="terminosFeedback" class="invalid-feedback">Debe aceptar los términos para continuar</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Botones de acción -->
+                            <div class="d-flex flex-column flex-md-row gap-2 justify-content-between mt-4">
+                                <button type="button" class="btn btn-outline-secondary" onclick="limpiarFormulario()">
+                                    <i class="fas fa-broom"></i> Limpiar Todo
+                                </button>
+                                <div class="d-flex gap-2">
+                                    <button type="button" class="btn btn-info" onclick="guardarBorrador()">
+                                        <i class="fas fa-save"></i> Guardar Borrador
+                                    </button>
+                                    <button type="submit" class="btn btn-primary" id="btnEnviar"
+                                            onclick="manejarEventoBoton('btnEnviar', 'onclick')"
+                                            onmouseover="manejarEventoBoton('btnEnviar', 'onmouseover')"
+                                            onmousedown="manejarEventoBoton('btnEnviar', 'onmousedown')"
+                                            onmouseup="manejarEventoBoton('btnEnviar', 'onmouseup')"
+                                            onfocus="manejarEventoBoton('btnEnviar', 'onfocus')">
+                                        <i class="fas fa-paper-plane"></i> Enviar Registro
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Modal de éxito -->
+        <div class="modal fade" id="successModal" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header bg-success text-white">
+                        <h5 class="modal-title">
+                            <i class="fas fa-check-circle"></i> ¡Registro Exitoso!
+                        </h5>
+                    </div>
+                    <div class="modal-body text-center">
+                        <i class="fas fa-check-circle text-success" style="font-size: 3rem;"></i>
+                        <h4 class="mt-3">¡Bienvenido!</h4>
+                        <p>Tu registro se ha completado exitosamente.</p>
+                        <div id="userData" class="mt-3"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" data-bs-dismiss="modal">
+                            <i class="fas fa-thumbs-up"></i> ¡Genial!
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Toast notifications -->
+        <div class="toast-container position-fixed top-0 end-0 p-3">
+            <div id="liveToast" class="toast" role="alert">
+                <div class="toast-header">
+                    <i class="fas fa-bell text-primary me-2"></i>
+                    <strong class="me-auto">Notificación</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+                </div>
+                <div class="toast-body" id="toastMessage">
+                    Mensaje aquí
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading spinner -->
+    <div id="loadingSpinner" class="d-none position-fixed top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex align-items-center justify-content-center" style="z-index: 9999;">
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;">
+            <span class="visually-hidden">Cargando...</span>
+        </div>
+    </div>
+
+    <script src="public/lib/bootstrap-5.3.5-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="public/js/nuevo_funciones.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Proyecto Parcial 1</title>
+    <link href="public/css/sb-admin-2.css" rel="stylesheet">
+    <link rel="stylesheet" href="public/bootstrap-5.3.5-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <style>
+        #map {
+            height: 400px;
+        }
+    </style>
+    <style>
+        .gradient-custom {
+            background: #6a11cb;
+            background: -webkit-linear-gradient(to right, rgb(0, 0, 0), rgba(37, 117, 252, 1));
+            background: linear-gradient(to right, rgb(0, 0, 0), rgba(37, 117, 252, 1))
+        }
+    </style>
+    <script>
+        window.onload = () => cambiarPagina("./views/verPerfil.html");
+    </script>
+
+
+</head>
+
+<body id="page-top" class="vh-100 gradient-custom">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-dark sidebar sidebar-dark accordion" id="accordionSidebar">
+
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+
+                <div class="sidebar-brand-text mx-3">Administrador de Canciones</div>
+            </a>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item active">
+                <a class="nav-link" href="index.html">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>INICIO</span></a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                ESPE
+            </div>
+
+            <!-- Nav Item - Utilities Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
+                    aria-expanded="true" aria-controls="collapseUtilities">
+                    <i class="fas fa-fw fa-wrench"></i>
+                    <span>Canciones</span>
+                </a>
+                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
+                    data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Canciones</h6>
+                        <a class="collapse-item" onclick="cambiarPagina('views/agregar_musica.html')">Agregar
+                            cancion</a>
+                        <a class="collapse-item"
+                            onclick="cambiarPagina('views/eliminar_canciones.html')">Eliminar cancion</a>
+                        <a class="collapse-item" onclick="cambiarPagina('views/editar_musica.html')">Editar
+                            cancion</a>
+                        <a class="collapse-item" onclick="cambiarPagina('views/ver_canciones.html')">Ver
+                            cancion</a>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider d-none d-md-block">
+        </ul>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column gradient-custom">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-dark topbar mb-4 static-top shadow">
+
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto bg-dark">
+
+                        <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+                        <li class="nav-item dropdown no-arrow d-sm-none">
+                            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-search fa-fw"></i>
+                            </a>
+                            <!-- Dropdown - Messages -->
+                            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+                                aria-labelledby="searchDropdown">
+                                <form class="form-inline mr-auto w-100 navbar-search">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control bg-light border-0 small"
+                                            placeholder="Search for..." aria-label="Search"
+                                            aria-describedby="basic-addon2">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-primary" type="button">
+                                                <i class="fas fa-search fa-sm"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </li>
+
+                        <div class="topbar-divider d-none d-sm-block"></div>
+
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-light small">Alfonso y Josue</span>
+                                <img class="img-profile rounded-circle" src="public/img/undraw_profile.svg">
+                            </a>
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
+                                <a class="dropdown-item" onclick="cambiarPagina('./views/verPerfil.html')">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Perfil
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" onclick="cambiarPagina('./views/login.html')"
+                                    data-toggle="modal" data-target="#logoutModal">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Cerrar Sesión
+                                </a>
+                            </div>
+                        </li>
+
+                    </ul>
+
+                </nav>
+                <!-- End of Topbar -->
+                <main id="main">
+
+                </main>
+
+                <footer id="footer" class="bg-dark mt-5">
+                    <div class="text-center py-4 text-white">
+                        <p class="mb-0">© 2025 Mi Perfil App. Todos los derechos reservados.</p>
+                        <p class="mb-0">
+                            Desarrollado por <a href="https://github.com/alfonso1031" class="text-light me-3"
+                                target="_blank">Alfonso Arroyo</a>
+                            <a href="https://api.whatsapp.com/send/?phone=%2B593984808346"
+                                class="text-light me-3">Whatsapp</a>
+                        </p>
+
+                        <p class="mb-0">
+                            Desarrollado por <a href="https://github.com/Jhosue-cmd" class="text-light me-3"
+                                target="_blank">Josue Guayasamin</a>
+                        </p>
+                    </div>
+                </footer>
+
+            </div>
+            <!-- End of Content Wrapper -->
+
+        </div>
+        <!-- End of Page Wrapper -->
+
+        <!-- Scroll to Top Button-->
+        <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fas fa-angle-up"></i>
+        </a>
+
+        <!-- Logout Modal-->
+        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Listo para salir?</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">Seleccione "Cerrar Sesión" a continuación si está listo para finalizar su
+                        sesión actual.</div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                        <a class="btn btn-primary" onclick="cambiarPagina('./views/login.html')">Cerrar Sesión</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+</body>
+<script src="public/bootstrap-5.3.5-dist/js/bootstrap.min.js"></script>
+<script src="public/js/login.js"></script>
+<script src="./public/js/load.js"></script>
+<script src="./public/js/camara.js"></script>
+<script src="./public/js/geolocation.js"></script>
+<script src="./public/js/loadUser.js"></script>
+<script src="./public/js/guardar_usuario.js"></script>
+<script src="public/js/verPerfil.js"></script>
+<script src="public/vendor/jquery/jquery.min.js"></script>
+<script src="public/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="public/vendor/jquery-easing/jquery.easing.min.js"></script>
+<script src="public/js/sb-admin-2.js"></script>
+
+</html>

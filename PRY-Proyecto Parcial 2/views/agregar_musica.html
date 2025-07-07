@@ -1,0 +1,32 @@
+<div class="container py-4">
+    <h2 class="mb-4 text-white">Agregar Canción</h2>
+    <form id="formAgregarCancion" class="needs-validation" novalidate>
+        <div class="mb-3">
+            <label for="selectUsuario" class="form-label text-white">Seleccionar Usuario</label>
+            <select class="form-control" id="selectUsuario" name="selectUsuario" required>
+                <option value="">Seleccione un usuario</option>
+                
+            </select>
+            <div class="invalid-feedback">Seleccione un usuario.</div>
+        </div>
+        <div class="mb-3">
+            <label for="tituloCancion" class="form-label text-white">Título de la canción</label>
+            <input type="text" class="form-control" id="tituloCancion" name="tituloCancion" required>
+            <div class="invalid-feedback">Ingrese el título.</div>
+        </div>
+        <div class="mb-3">
+            <label for="artistaCancion" class="form-label text-white">Artista</label>
+            <input type="text" class="form-control" id="artistaCancion" name="artistaCancion" required>
+            <div class="invalid-feedback">Ingrese el artista.</div>
+        </div>
+        <div class="mb-3">
+            <label for="generoCancion" class="form-label text-white">Género</label>
+            <input type="text" class="form-control" id="generoCancion" name="generoCancion" required>
+            <div class="invalid-feedback">Ingrese el género.</div>
+        </div>
+        <button type="submit" class="btn btn-primary">Agregar Canción</button>
+    </form>
+    <div id="alertaCancion" class="alert alert-success mt-3 d-none" role="alert">
+        Canción agregada correctamente.
+    </div>
+</div>

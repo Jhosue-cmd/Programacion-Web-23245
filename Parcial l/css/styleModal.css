@@ -1,0 +1,339 @@
+.link-accent {
+            color: #8b0d0d;
+            transition: color 0.3s ease;
+        }
+
+        .link-accent:hover {
+            color: #d4d1cc;
+            text-decoration: underline;
+        }
+        .h3Estilo {
+                  color: #7f4b4b;
+                  font-size: 15px;
+                  font-weight: 600;
+                  margin-bottom: 12px;
+                  text-align: left;
+                  padding-bottom: 10px;
+                  padding-top: 30px;
+
+        }
+        
+
+        /* Estilos del Modal */
+        #exampleModal .modal-content {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        #exampleModal .modal-header {
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        #exampleModal .modal-title {
+            color: #333333;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+        }
+
+        #exampleModal .modal-title .fas.fa-camera {
+            margin-right: 10px;
+            font-size: 24px;
+            color: #667eea;
+        }
+
+        #exampleModal .btn-close {
+            filter: none;
+            opacity: 0.8;
+        }
+
+        #exampleModal .modal-body {
+            padding: 30px;
+            text-align: center;
+        }
+
+        #exampleModal .modal-body .d-flex {
+            gap: 20px;
+        }
+
+        #exampleModal .video-container,
+        #exampleModal .photo-container {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        #exampleModal #my_camera {
+            border-radius: 15px;
+            background: #000;
+        }
+
+        #exampleModal .live-indicator {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+        }
+
+        #exampleModal .live-indicator .fas.fa-circle {
+            margin-right: 5px;
+            animation: blink 1s infinite;
+        }
+
+        #exampleModal #foto {
+            border-radius: 15px;
+            background: #f8f9fa;
+            display: none;
+        }
+
+        #exampleModal #photo {
+            border-radius: 15px;
+            max-width: 320px;
+        }
+
+        #exampleModal #placeholder-foto {
+            width: 320px;
+            height: 240px;
+            background: rgba(0, 0, 0, 0.05);
+            border: 2px dashed rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(0, 0, 0, 0.6);
+        }
+
+        #exampleModal #placeholder-foto div {
+            text-align: center;
+        }
+
+        #exampleModal #placeholder-foto .fas.fa-image {
+            font-size: 48px;
+            margin-bottom: 10px;
+            color: rgba(0, 0, 0, 0.4);
+        }
+
+        #exampleModal #placeholder-foto p {
+            margin: 0;
+            font-size: 14px;
+            color: rgba(0, 0, 0, 0.6);
+        }
+
+        #exampleModal .modal-body p {
+            color: rgba(0, 0, 0, 0.7);
+            margin-bottom: 0;
+            font-size: 14px;
+        }
+
+        #exampleModal .modal-body .fas.fa-info-circle {
+            margin-right: 5px;
+            color: #667eea;
+        }
+
+        #exampleModal .modal-footer {
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        #exampleModal .btn-cancelar {
+            background: rgba(0, 0, 0, 0.1);
+            color: #333333;
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            padding: 10px 25px;
+            border-radius: 25px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        #exampleModal .btn-cancelar:hover {
+            background: rgba(0, 0, 0, 0.2);
+            color: #000000;
+        }
+
+        #exampleModal .btn-capturar {
+            background: #0a0b0c;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 3px 10px rgba(102, 126, 234, 0.3);
+        }
+
+        #exampleModal .btn-capturar:hover {
+            background: #5a6fd8;
+            transform: translateY(-2px);
+        }
+
+        #exampleModal .btn .fas.fa-times {
+            margin-right: 8px;
+        }
+
+        #exampleModal .btn .fas.fa-camera {
+            margin-right: 8px;
+        }
+
+        /* Estilos del Modal de Ubicación */
+        #locationModal .modal-content {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        #locationModal .modal-header {
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        #locationModal .modal-title {
+            color: #333333;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+        }
+
+        #locationModal .modal-title .fas.fa-map-marker-alt {
+            margin-right: 10px;
+            font-size: 24px;
+            color: #193720;
+        }
+
+        #locationModal .btn-close {
+            filter: none;
+            opacity: 0.8;
+        }
+
+        #locationModal .modal-body {
+            padding: 30px;
+            text-align: center;
+        }
+
+        #locationModal .location-info {
+            background: rgba(43, 55, 46, 0.182);
+            border: 2px solid rgb(0, 0, 0);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            color: #333333;
+            box-shadow: 0 4px 4px  ;
+            
+        }
+
+        #locationModal .location-info h5 {
+            color: #2a3b2e;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        #locationModal .location-info p {
+            margin: 5px 0;
+            color: #495057;
+        }
+
+        #locationModal .location-info strong {
+            color: #333333;
+        }
+
+        #locationModal .map-container {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+        }
+
+        #locationModal #map {
+            width: 100%;
+            height: 300px;
+            border-radius: 15px;
+        }
+
+        #locationModal .loading-indicator {
+            color: #495057;
+            font-size: 16px;
+            padding: 40px;
+        }
+
+        #locationModal .loading-indicator .fas.fa-spinner {
+            animation: spin 1s linear infinite;
+            margin-right: 10px;
+            color: #000000;
+        }
+
+        #locationModal .modal-body .info-text {
+            color: #6c757d;
+            margin-bottom: 0;
+            font-size: 14px;
+        }
+
+        #locationModal .modal-body .fas.fa-info-circle {
+            margin-right: 5px;
+            color: #17a2b8;
+        }
+
+        #locationModal .modal-footer {
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        #locationModal .btn-cancelar-location {
+            background: rgba(0, 0, 0, 0.1);
+            color: #333333;
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            padding: 10px 25px;
+            border-radius: 25px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        #locationModal .btn-cancelar-location:hover {
+            background: rgba(0, 0, 0, 0.2);
+            color: #000000;
+        }
+
+        #locationModal .btn-obtener-location {
+            background: #0e2112;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 3px 10px rgba(40, 167, 69, 0.3);
+        }
+
+        #locationModal .btn-obtener-location:hover {
+            background: #213325;
+            transform: translateY(-2px);
+        }
+
+        #locationModal .btn .fas.fa-times {
+            margin-right: 8px;
+        }
+
+        #locationModal .btn .fas.fa-map-marker-alt {
+            margin-right: 8px;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0.3; }
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }

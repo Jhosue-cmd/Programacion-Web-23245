@@ -9,7 +9,12 @@
           <div class="card-body">
             <form id="registerForm" onsubmit="return validar_Guardar(event)">
               <div class="row mb-3">
-                <h3 class="h3Estilo" style="color:#7f4b4b;font-size: 15px; font-weight: 600; margin-bottom: 20px; text-align:left; padding-bottom: 10px;">Datos personales</h3>
+                <h3
+                  class="h3Estilo"
+              
+                >
+                  Datos personales
+                </h3>
 
                 <div class="col-md-6">
                   <div class="form-floating mb-3 mb-md-0">
@@ -46,44 +51,15 @@
                 />
                 <label for="inputEmail">Correo Electronico</label>
               </div>
-              <div class="row mb-3">
-                <div class="col-md-6">
-                  <div class="form-floating mb-3 mb-md-0">
-                    <input
-                      class="form-control"
-                      id="contrasena"
-                      type="password"
-                      placeholder="Create a password"
-                      required
-                    />
-                    <label for="inputPassword">Contraseña</label>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="form-floating mb-3 mb-md-0">
-                    <input
-                      class="form-control"
-                      id="inputPasswordConfirm"
-                      type="password"
-                      placeholder="Confirm password"
-                      required
-                    />
-                    <label for="inputPasswordConfirm"
-                      >Confirma contraseña</label
-                    >
-                  </div>
-                </div>
-              </div>
+
               <!-- -->
               <div class="row mb-3">
                 <div class="col-md-6">
                   <div class="form-floating mb-3 mb-md-0">
-                    <select
-                      class="form-select"
-                      id="provincia"
-                      required
-                    >
-                      <option value="" disabled selected="">Selecciona una provincia</option>
+                    <select class="form-select" id="provincia" required>
+                      <option value="" disabled selected="">
+                        Selecciona una provincia
+                      </option>
                       <option value="azuay">Azuay</option>
                       <option value="bolivar">Bolívar</option>
                       <option value="canar">Cañar</option>
@@ -114,12 +90,10 @@
                 </div>
                 <div class="col-md-6">
                   <div class="form-floating mb-3 mb-md-0">
-                    <select
-                      class="form-select"
-                      id="ciudad"
-                      required
-                    >
-                      <option value="" disabled selected>Selecciona una ciudad</option>
+                    <select class="form-select" id="ciudad" required>
+                      <option value="" disabled selected>
+                        Selecciona una ciudad
+                      </option>
                       <option value="quito">Quito</option>
                       <option value="guayaquil">Guayaquil</option>
                       <option value="cuenca">Cuenca</option>
@@ -140,7 +114,6 @@
                   </div>
                 </div>
               </div>
-
 
               <div class="row mb-3">
                 <div class="col-md-6">
@@ -168,17 +141,96 @@
                 </div>
               </div>
 
-            <h3 class="h3Estilo" style="color: #7f4b4b;font-size: 15px; font-weight: 600; margin-bottom: 20px; text-align:left; padding-bottom: 10px;">Foto de Perfil</h3>
-                      <div class="mb-3">
-            <div class="d-flex gap-2 mt-2 mb-2">
-                <button type="button" class="btn btn-outline-primary col-6" id="btn_foto" onclick="iniciarCamara()"
-                    data-bs-toggle="modal" data-bs-target="#exampleModal">Tomar Foto
-                </button>
-            </div>
+              <h3
+                class="h3Estilo"
            
+              >
+                Foto de Perfil
+              </h3>
+              <div class="mb-3">
+                <div class="d-flex gap-2 mt-2 mb-2">
+                  <button
+                    type="button"
+                    class="btn btn-outline-dark col-6"
+                    id="btn_foto"
+                    onclick="iniciarCamara()"
+                    data-bs-toggle="modal"
+                    data-bs-target="#exampleModal"
+                  >
+                    Tomar Foto
+                  </button>
+                </div>
+              </div>
 
+              <h3
+                class="h3Estilo"
+           
+              >
+                Ubicación
+              </h3>
 
-        </div>
+              <div class="mb-3">
+                <div class="d-flex gap-2 mt-2 mb-2">
+                  <button
+                    type="button"
+                    class="btn btn-outline-dark col-6"
+                    id="btn_ubicacion"
+                    onclick="abrirModalUbicacion()"
+                    data-bs-toggle="modal"
+                    data-bs-target="#locationModal"
+                  >
+                    Obtener Ubicación
+                  </button>
+                </div>
+              </div>
+
+                     <h3
+                class="h3Estilo"
+           
+              >
+                Datos de Acceso 
+              </h3>
+
+                            <div class="form-floating mb-3">
+                <input
+                  class="form-control"
+                  id="nombreUsuario"
+                  type="text"
+                  placeholder="nombre de usuario"
+                  required
+                />
+                <label for="nombreUsuario">Nombre de usuario</label>
+              </div>
+
+                            <div class="row mb-3">
+                <div class="col-md-6">
+                  <div class="form-floating mb-3 mb-md-0">
+                    <input
+                      class="form-control"
+                      id="contrasena"
+                      type="password"
+                      placeholder="Create a password"
+                      required
+                    />
+                    <label for="inputPassword">Contraseña</label>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-floating mb-3 mb-md-0">
+                    <input
+                      class="form-control"
+                      id="inputPasswordConfirm"
+                      type="password"
+                      placeholder="Confirm password"
+                      required
+                    />
+                    <label for="inputPasswordConfirm"
+                      >Confirma contraseña</label
+                    >
+                  </div>
+                </div>
+              </div>
+
 
               <div class="mt-4 mb-0">
                 <input
@@ -201,58 +253,164 @@
     </div>
   </div>
 
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content" style="background: linear-gradient(135deg, #4f4435 0%, #513d2e 100%); border: none; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
-                        <div class="modal-header" style="border-bottom: 1px solid rgba(255,255,255,0.2); padding: 20px;">
-                            <h1 class="modal-title fs-4" id="exampleModalLabel" style="color: white; font-weight: 600; display: flex; align-items: center;">
-                                <i class="fas fa-camera" style="margin-right: 10px; font-size: 24px;"></i>
-                                Capturar Foto de Perfil
-                            </h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="filter: invert(1); opacity: 0.8;"></button>
-                        </div>
-                        <div class="modal-body" style="padding: 30px; text-align: center;">
-                            <div class="d-flex justify-content-center align-items-center mb-4" style="gap: 20px;">
-                                <div style="position: relative; border-radius: 15px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.3);">
-                                    <video id="my_camera" class="img-fluid" width="320" height="240" autoplay style="border-radius: 15px; background: #000;"></video>
-                                    <div style="position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.7); color: white; padding: 5px 10px; border-radius: 20px; font-size: 12px;">
-                                        <i class="fas fa-circle text-danger" style="margin-right: 5px; animation: blink 1s infinite;"></i>
-                                        EN VIVO
-                                    </div>
-                                </div>
-                                <div style="position: relative; border-radius: 15px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.3);">
-                                    <canvas id="foto" width="320" height="240" style="border-radius: 15px; background: #f8f9fa; display: none;"></canvas>
-                                    <img id="photo" class="d-none img-fluid" alt="Tu foto" style="border-radius: 15px; max-width: 320px;">
-                                    <div id="placeholder-foto" style="width: 320px; height: 240px; background: rgba(255,255,255,0.1); border: 2px dashed rgba(255,255,255,0.3); border-radius: 15px; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.6);">
-                                        <div style="text-align: center;">
-                                            <i class="fas fa-image" style="font-size: 48px; margin-bottom: 10px;"></i>
-                                            <p style="margin: 0; font-size: 14px;">Foto capturada aparecerá aquí</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <p style="color: rgba(255,255,255,0.8); margin-bottom: 0; font-size: 14px;">
-                                <i class="fas fa-info-circle" style="margin-right: 5px;"></i>
-                                Asegúrate de tener buena iluminación y mantener el rostro centrado
-                            </p>
-                        </div>
-                        <div class="modal-footer" style="border-top: 1px solid rgba(255,255,255,0.2); padding: 20px; justify-content: center; gap: 15px;">
-                            <button type="button" class="btn" onclick="cerrarCamara()" data-bs-dismiss="modal" 
-                                style="background: rgba(255,255,255,0.2); color: white; border: 1px solid rgba(255,255,255,0.3); padding: 10px 25px; border-radius: 25px; font-weight: 500; transition: all 0.3s;">
-                                <i class="fas fa-times" style="margin-right: 8px;"></i>
-                                Cancelar
-                            </button>
-                            <button type="button" class="btn" onclick="tomarFoto()" 
-                                style="background: rgba(255,255,255,0.9); color: #667eea; border: none; padding: 10px 25px; border-radius: 25px; font-weight: 600; transition: all 0.3s; box-shadow: 0 3px 10px rgba(0,0,0,0.2);">
-                                <i class="fas fa-camera" style="margin-right: 8px;"></i>
-                                Capturar Foto
-                            </button>
-                        </div>
-                    </div>
-                </div>
+  <div
+    class="modal fade"
+    id="exampleModal"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1
+            class="modal-title fs-4"
+            id="exampleModalLabel"
+          >
+            <i class="fas fa-camera"></i>
+              Capturar Foto de Perfil
+          </h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <div class="d-flex justify-content-center align-items-center mb-4">
+            <div class="video-container">
+              <video
+                id="my_camera"
+                class="img-fluid"
+                width="320"
+                height="240"
+                autoplay
+              ></video>
+              <div class="live-indicator">
+                <i class="fas fa-circle text-danger"></i>
+                EN VIVO
+              </div>
             </div>
+            <div class="photo-container">
+              <canvas
+                id="foto"
+                width="320"
+                height="240"
+              ></canvas>
+              <img
+                id="photo"
+                class="d-none img-fluid"
+                alt="Tu foto"
+              />
+              <div id="placeholder-foto">
+                <div>
+                  <i class="fas fa-image"></i>
+                  <p>
+                    Foto capturada aparecerá aquí
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p>
+            <i class="fas fa-info-circle"></i>
+            Asegúrate de tener buena iluminación y mantener el rostro centrado
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-cancelar"
+            onclick="cerrarCamara()"
+            data-bs-dismiss="modal"
+          >
+            <i class="fas fa-times"></i>
+            Cancelar
+          </button>
+          <button
+            type="button"
+            class="btn btn-capturar"
+            onclick="tomarFoto()"
+          >
+            <i class="fas fa-camera"></i>
+            Capturar Foto
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 
+  <!-- Modal de Ubicación -->
+  <div
+    class="modal fade"
+    id="locationModal"
+    tabindex="-1"
+    aria-labelledby="locationModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1
+            class="modal-title fs-4"
+            id="locationModalLabel"
+          >
+            <i class="fas fa-map-marker-alt"></i>
+            Obtener Ubicación
+          </h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <div id="loadingLocation" class="loading-indicator">
+            <i class="fas fa-spinner  "></i>
+            Obteniendo ubicación...
+          </div>
+          
+          <div id="locationContent" style="display: none;">
+            <div class="location-info">
+              <h5><i class="fas fa-map-marker-alt"></i> Ubicación Obtenida</h5>
+              <p><strong>Latitud:</strong> <span id="latitudDisplay">-</span></p>
+              <p><strong>Longitud:</strong> <span id="longitudDisplay">-</span></p>
+              <p><strong>Precisión:</strong> <span id="precisionDisplay">-</span> metros</p>
+            </div>
+            
+            <div class="map-container">
+              <div id="map"></div>
+            </div>
+          </div>
+          
+          <p class="info-text">
+            <i class="fas fa-info-circle"></i>
+            Tu ubicación será utilizada para personalizar tu experiencia
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-cancelar-location"
+            data-bs-dismiss="modal"
+          >
+            <i class="fas fa-times"></i>
+            Cerrar
+          </button>
+          <button
+            type="button"
+            class="btn btn-obtener-location"
+            onclick="getLocationForModal()"
+          >
+            <i class="fas fa-map-marker-alt"></i>
+            Obtener Ubicación
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <div class="login-footer">
     Derechos de autor &copy; Cristian Lisintuña 2025

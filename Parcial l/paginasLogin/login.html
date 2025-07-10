@@ -1,0 +1,113 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<div class="login-background">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-5">
+                <div class="login-card">
+                    <div class="card-header">
+
+                        <h3>Iniciar Sesión</h3>
+                        <br>
+                        <p class="text-dark">Ingresa tus credenciales para acceder</p>
+                    </div>
+                    <div class="card-body text-dark">
+                        <form id="loginForm" onsubmit="return recuperarYvalidar(event)">
+                            <div class="mb-4">
+                                <label for="inputEmail" class="form-label fw-bold"></label>
+                                <div class="input-group input-group-lg">
+
+                                    <input type="email" class="form-control form-control-lg" id="inputEmail"
+                                        placeholder="Correo electrónico" required>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="inputPassword" class="form-label fw-bold"></label>
+                                <div class="input-group input-group-lg">
+
+                                    <input type="password" class="form-control form-control-lg" id="inputPassword"
+                                        placeholder="Contraseña" required>
+
+
+
+
+                                </div>
+                            </div>
+
+                            <div class="form-check mb-3 d-flex align-items-center">
+                                <input class="form-check-input me-2" id="inputRememberPassword" type="checkbox"
+                                    value="">
+                                <label class="form-check-label" for="inputRememberPassword">Mostrar
+                                    Contraseña</label>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
+                                <a class="small text-decoration-none link-accent" href="#">¿Olvidaste tu
+                                    contraseña?</a>
+                                <button type="submit" class="btn btn-dark btn-login">
+                                    <i class="fas fa-sign-in-alt me-2"></i>Iniciar Sesión
+                                </button>
+                            </div>
+                        </form>
+                        <br><br>
+                    </div>
+                    <div class="card-footer text-center py-3">
+                        <div class="small"><a href="#" class="link-accent"
+                                onclick="cargarPaginas('register')">¿Necesitas una cuenta?
+                                ¡Regístrate!</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="login-footer">
+        Derechos de autor &copy; Cristian Lisintuña 2025
+    </div>
+</div>
+<script>
+    // Asegurarse de que el DOM esté completamente cargado
+    document.addEventListener('DOMContentLoaded', function() {
+        // Referencias a los elementos
+        const passwordInput = document.getElementById('inputPassword');
+        const passwordToggle = document.getElementById('passwordToggle');
+        const showPasswordCheckbox = document.getElementById('inputRememberPassword');
+        
+        // Función para alternar la visibilidad de la contraseña
+        function togglePasswordVisibility() {
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                passwordToggle.innerHTML = '<i class="fas fa-eye-slash"></i>';
+            } else {
+                passwordInput.type = 'password';
+                passwordToggle.innerHTML = '<i class="fas fa-eye"></i>';
+            }
+        }
+        
+        // Evento para el botón de mostrar contraseña
+        passwordToggle.addEventListener('click', function() {
+            togglePasswordVisibility();
+        });
+        
+        // Evento para el checkbox de recordar credenciales
+        showPasswordCheckbox.addEventListener('change', function() {
+            togglePasswordVisibility();
+        });
+        
+        // Evento para el formulario
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Inicio de sesión simulado correctamente. ¡Bienvenido!');
+        });
+    });
+</script>
+</body>
+</html>

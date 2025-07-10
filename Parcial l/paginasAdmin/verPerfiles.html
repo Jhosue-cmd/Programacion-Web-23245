@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Perfil del Alumno</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --primary-color: #1e3a8a; /* Azul oscuro */
+      --secondary-color: #3b82f6; /* Azul medio */
+      --accent-color: #60a5fa; /* Azul claro */
+      --light-blue: #bfdbfe; /* Azul muy claro */
+      --dark-color: #1e293b; /* Gris azulado oscuro */
+      --light-color: #f8fafc; /* Gris azulado claro */
+      --border-radius: 12px;
+      --box-shadow: 0 4px 12px rgba(30, 58, 138, 0.1);
+      --transition: all 0.3s ease;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--light-color);
+      color: var(--dark-color);
+    }
+
+    .profile-container {
+      padding: 60px 0;
+    }
+
+    .profile-card {
+      background: #ffffff;
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      padding: 30px;
+      margin-bottom: 30px;
+      border: none;
+      transition: var(--transition);
+      border-top: 4px solid var(--primary-color);
+    }
+
+    .profile-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(30, 58, 138, 0.15);
+    }
+
+    .section-header {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 25px;
+      color: var(--primary-color);
+      position: relative;
+      padding-bottom: 10px;
+    }
+
+    .section-header:after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 50px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+      border-radius: 3px;
+    }
+
+    .info-label {
+      font-weight: 500;
+      color: #4b5563;
+      font-size: 0.9rem;
+      margin-bottom: 5px;
+    }
+
+    .info-value {
+      font-size: 1rem;
+      color: var(--dark-color);
+      margin-bottom: 15px;
+      font-weight: 500;
+      padding: 8px 12px;
+      background-color: #f8fafc;
+      border-radius: 8px;
+      border-left: 3px solid var(--accent-color);
+    }
+
+    .profile-photo {
+      width: 100%;
+      max-height: 280px;
+      object-fit: cover;
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      transition: var(--transition);
+      border: 4px solid white;
+    }
+
+    .profile-photo:hover {
+      transform: scale(1.02);
+    }
+
+    .btn-back {
+      border-radius: 50px;
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: white;
+      border: none;
+      padding: 10px 25px;
+      font-weight: 500;
+      transition: var(--transition);
+      box-shadow: 0 4px 15px rgba(30, 58, 138, 0.3);
+    }
+
+    .btn-back:hover {
+      background: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(30, 58, 138, 0.4);
+      color: white;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      border: none;
+      border-radius: 50px;
+      padding: 10px 25px;
+      font-weight: 500;
+      transition: var(--transition);
+      box-shadow: 0 4px 15px rgba(30, 58, 138, 0.3);
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(30, 58, 138, 0.4);
+    }
+
+    #profileMap {
+      height: 250px;
+      border-radius: var(--border-radius);
+      margin-top: 10px;
+      box-shadow: var(--box-shadow);
+      border: none;
+    }
+
+    .fa-user-graduate {
+      background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-size: 2.5rem;
+    }
+
+    .header-title {
+      font-weight: 700;
+      margin-bottom: 10px;
+      background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-size: 2.2rem;
+    }
+
+    .header-subtitle {
+      color: #4b5563;
+      font-weight: 400;
+      margin-bottom: 30px;
+    }
+
+    .resumen-card {
+      background: white;
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      padding: 30px;
+      text-align: center;
+      transition: var(--transition);
+      max-width: 350px;
+      margin: 0 auto;
+      border-top: 4px solid var(--primary-color);
+    }
+
+    .resumen-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(30, 58, 138, 0.15);
+    }
+
+    .resumen-name {
+      font-weight: 600;
+      color: var(--dark-color);
+      margin-top: 15px;
+      font-size: 1.4rem;
+    }
+
+    .resumen-photo {
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 5px solid white;
+      box-shadow: 0 5px 15px rgba(30, 58, 138, 0.1);
+      margin: 0 auto 20px;
+    }
+
+    .badge-level {
+      background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+      color: white;
+      padding: 5px 15px;
+      border-radius: 50px;
+      font-weight: 500;
+      font-size: 0.8rem;
+      display: inline-block;
+      margin-top: 10px;
+    }
+
+    /* Icon colors */
+    .text-primary {
+      color: var(--primary-color) !important;
+    }
+
+    @media (max-width: 768px) {
+      .profile-container {
+        padding: 30px 0;
+      }
+
+      .profile-card {
+        padding: 20px;
+      }
+
+      .section-header {
+        font-size: 1.1rem;
+      }
+      
+      .header-title {
+        font-size: 1.8rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <br><br><br><br>
+  <div class="container profile-container">
+    <!-- Header Section -->
+    <div class="text-center mb-5">
+      <i class="fas fa-user-graduate mb-3"></i>
+      <h1 class="header-title">Perfil del Alumno</h1>
+      <p class="header-subtitle">Información académica y personal del estudiante</p>
+      <a href="#" onclick="cargarPaginasLogin('crearPerfil')" class="btn btn-back mt-2">
+        <i class="fas fa-arrow-left me-2"></i>Volver al Registro
+      </a>
+    </div>
+  </div>
+
+  <!-- Galería de Perfiles (cards) -->
+  <div class="container" id="galeriaPerfilesContainer"></div>
+
+  <!-- Información Completa Section (hidden by default) -->
+  <div id="infoCompletaContainer" style="display:none;">
+    <div class="container profile-container">
+      <button class="btn btn-back mb-3" onclick="volverAGaleria()">
+        <i class="fas fa-arrow-left me-2"></i>Volver a la galería
+      </button>
+      <div class="row justify-content-center">
+        <div class="col-lg-10">
+          <div class="row g-4">
+          
+          <!-- Fotografía y datos personales -->
+            <div class="col-md-5">
+              <div class="profile-card">
+                <div class="section-header">Fotografía</div>
+                <img id="profilePhoto" src="" alt="Foto del alumno" class="profile-photo mb-4">
+
+                <div class="section-header">Datos Personales</div>
+                <div>
+                  <div class="info-label">Nombres:</div>
+                  <div class="info-value" id="profileNombre"></div>
+
+                  <div class="info-label">Apellidos:</div>
+                  <div class="info-value" id="profileApellido"></div>
+
+                  <div class="info-label">Cédula/Pasaporte:</div>
+                  <div class="info-value" id="profileCedula"></div>
+
+                  <div class="info-label">Fecha de Nacimiento:</div>
+                  <div class="info-value" id="profileFechaNacimiento"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Columna Derecha: Contacto, académico y mapa -->
+            <div class="col-md-7">
+              <div class="profile-card">
+                <div class="section-header">Información de Contacto</div>
+                <div>
+                  <div class="info-label">Email:</div>
+                  <div class="info-value" id="profileEmail">
+                    <i class="fas fa-envelope me-2 text-primary"></i>
+                    <span id="emailValue"></span>
+                  </div>
+
+                  <div class="info-label">Teléfono:</div>
+                  <div class="info-value" id="profileTelefono">
+                    <i class="fas fa-phone me-2 text-primary"></i>
+                    <span id="telefonoValue"></span>
+                  </div>
+
+                  <div class="info-label">Dirección:</div>
+                  <div class="info-value" id="profileDireccion">
+                    <i class="fas fa-map-marker-alt me-2 text-primary"></i>
+                    <span id="direccionValue"></span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="profile-card mt-4">
+                <div class="section-header">Datos Académicos</div>
+                <div>
+                  <div class="info-label">Nivel de Inglés:</div>
+                  <div class="info-value" id="profileNivel">
+                    <i class="fas fa-language me-2 text-primary"></i>
+                    <span id="nivelValue"></span>
+                  </div>
+
+                  <div class="info-label">Horario Preferido:</div>
+                  <div class="info-value" id="profileHorario">
+                    <i class="fas fa-clock me-2 text-primary"></i>
+                    <span id="horarioValue"></span>
+                  </div>
+
+                  <div class="info-label">Comentarios Adicionales:</div>
+                  <div class="info-value" id="profileComentarios">
+                    <i class="fas fa-comment me-2 text-primary"></i>
+                    <span id="comentariosValue"></span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="profile-card mt-4">
+                <div class="section-header">Ubicación</div>
+                <div class="info-label">Coordenadas:</div>
+                <div class="info-value">
+                  <i class="fas fa-map-pin me-2 text-primary"></i>
+                  Latitud: <span id="profileLatitud"></span>,
+                  Longitud: <span id="profileLongitud"></span>
+                </div>
+                <div id="profileMap"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="../public/js/cargar_datos.js"></script>
+</body>
+</html>

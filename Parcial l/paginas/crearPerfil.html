@@ -1,0 +1,196 @@
+<br><br><br>
+<style>
+    .form-section {
+        background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .header-icon {
+        color: #4e73df;
+    }
+
+    #map {
+        height: 500px;
+        width: 100%;
+        border: 2px solid black;
+    }
+
+    
+</style>
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="form-section p-4 p-md-5">
+                <!-- Encabezado -->
+                <div class="text-center mb-4">
+                    <i class="fas fa-user-graduate header-icon fa-3x mb-3"></i>
+                    <h2>Registro de Nuevo Alumno</h2>
+                    <p class="text-muted">Complete todos los campos obligatorios (*)</p>
+                </div>
+
+                <!-- Formulario -->
+                <form action="#" method="get">
+                    <!-- Sección 1: Información Personal -->
+                    <div class="mb-4">
+                        <h5 class="border-bottom pb-2"></i>Datos Personales</h5>
+                        <div class="row g-3 mt-2">
+                            <div class="col-md-6">
+                                <label for="nombre" class="form-label">Nombres *</label>
+                                <input type="text" class="form-control" id="nombre" name="nombre" required>
+                                <div class="invalid-feedback">Por favor ingrese sus nombres.</div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="apellido" class="form-label">Apellidos *</label>
+                                <input type="text" class="form-control" id="apellido" name="apellido" required>
+                                <div class="invalid-feedback">Por favor ingrese sus apellidos.</div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="cedula" class="form-label">Cédula/Pasaporte *</label>
+                                <input type="text" class="form-control" id="cedula" name="cedula" required
+                                    pattern="[0-9]{10}" maxlength="10" minlength="10">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="fecha_nacimiento" class="form-label">Fecha de Nacimiento *</label>
+                                <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento"
+                                    min="1975-05-30" max="2013-05-30" required>
+                            </div>
+                        </div>
+
+                        <br><br>
+                        <label for="my_camara">Registra tu foto</label>
+                        <div class="container py-5">
+
+                            <div class="row">
+                                <div class="col-md-6 ">
+                                    <video src="" id="my_camara" width="100%" autoplay></video>
+
+                                    <div class="d-grid gap-2">
+                                        <button type="button" class="btn btn-primary" id="btn_capturar"
+                                            onclick="tomarFoto()">
+                                            Tomar Foto
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <canvas id="foto" width="350px" height="250px"
+                                        style="border: 2px, solid black"></canvas>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="container py-5">
+                            <label for="">Ubicación</label>
+                            <br><br>
+
+                            <button type="button" class="btn btn-primary" onclick="obtenerUbicacion()">
+                                Acceder a tu Ubicación
+                            </button>
+
+                            <br><br>
+
+                            <!-- LATITUD -->
+                            <div class="mb-3">
+                                <label for="latitud"></label>
+                                <input type="text" id="latitud" name="latitud" class="form-control" value="0.0" required
+                                    hidden>
+                                        <label for="longitud"></label>
+                                <input type="text" id="longitud" name="longitud" class="form-control" value="0.0"
+                                    required hidden>
+                                <div class="invalid-feedback">
+                                    Tu ubicación es necesaria.
+                                </div>
+                             
+                            </div>
+
+                    
+
+                            <div id="map" style="height: 300px; width: 100%; border: 2px solid black;">
+                                <!-- Aquí se mostrará el mapa si lo configuras -->
+                            </div>
+                        </div>
+
+
+
+
+                        <!-- Sección 2: Contacto -->
+                        <div class="mb-4">
+                            <h5 class="border-bottom pb-2"></i>Información de Contacto
+                            </h5>
+                            <div class="row g-3 mt-2">
+                                <div class="col-md-6">
+                                    <label for="email" class="form-label">Email *</label>
+                                    <input type="email" class="form-control" id="email" name="email" required>
+                                    <div class="invalid-feedback">Ingrese un email válido.</div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="telefono" class="form-label">Teléfono *</label>
+                                    <input type="tel" class="form-control" id="telefono" name="telefono" required
+                                        pattern="[0-9]{10}" maxlength="10" minlength="10">
+                                </div>
+                                <div class="col-12">
+                                    <label for="direccion" class="form-label">Dirección</label>
+                                    <input type="text" class="form-control" id="direccion" name="direccion">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <h5 class="border-bottom pb-2">Datos Académicos</h5>
+                            <div class="row g-3 mt-2">
+                                <div class="col-md-6">
+                                    <label for="nivel" class="form-label">Nivel de Inglés *</label>
+                                    <select class="form-select" id="nivel" name="nivel" required>
+                                        <option value="" selected disabled>Seleccione...</option>
+                                        <option value="A1">Principiante (A1)</option>
+                                        <option value="A2">Básico (A2)</option>
+                                        <option value="B1">Intermedio (B1)</option>
+                                        <option value="B2">Intermedio Alto (B2)</option>
+                                        <option value="C1">Avanzado (C1)</option>
+                                        <option value="C2">Experto (C2)</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="horario" class="form-label">Horario Preferido *</label>
+                                    <select class="form-select" id="horario" name="horario" required>
+                                        <option value="" selected disabled>Seleccione...</option>
+                                        <option value="manana">Mañana (8:00-12:00)</option>
+                                        <option value="tarde">Tarde (14:00-18:00)</option>
+                                        <option value="noche">Noche (19:00-21:00)</option>
+                                        <option value="sabado">Sábados (9:00-13:00)</option>
+                                    </select>
+                                </div>
+                                <div class="col-12">
+                                    <label for="comentarios" class="form-label">Comentarios Adicionales</label>
+                                    <textarea class="form-control" id="comentarios" name="comentarios"
+                                        rows="2"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Botones -->
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                            <button type="reset" class="btn btn-outline-secondary me-md-2">
+                                Limpiar
+                            </button>
+                            <button type="button" onclick="validar()" class="btn btn-primary">
+                                Enviar Registro
+                            </button>
+
+
+
+                        </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script src="../js/foto.js"></script>
+<script src="../js/geolocation.js"></script>
+<script src="../js/guardar_datos.js"></script>

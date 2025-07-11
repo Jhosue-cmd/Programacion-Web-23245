@@ -327,6 +327,15 @@
         #locationModal .btn .fas.fa-map-marker-alt {
             margin-right: 8px;
         }
+        .posicion{
+            bottom:240px;
+              background-color: rgba(255, 255, 255, 0.9);
+
+        }
+        .colorBoton{
+            background-color: #432626;
+            color:white;
+        }
 
         @keyframes blink {
             0%, 50% { opacity: 1; }

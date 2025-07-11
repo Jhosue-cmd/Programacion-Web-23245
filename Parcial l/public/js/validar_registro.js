@@ -26,13 +26,6 @@ function validateRegister(event) {
 
  
 
-    // Validar solo correos institucionales de la ESPE
-    const espeRegex = /^[a-zA-Z0-9._%+-]+@espe\.edu\.ec$/;
-    if (!espeRegex.test(correo)) {
-        alert("Solo se permiten estudiantes que esten registrados en la ESPE.");
-        return false;
-    }
-
     if (password.length < 6) {
         alert("La contraseña debe tener al menos 6 caracteres.");
         return false;

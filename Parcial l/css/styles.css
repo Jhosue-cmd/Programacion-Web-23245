@@ -170,6 +170,7 @@ body {
   margin: 0 auto;
   position: relative;
   z-index: 2;
+  bottom:210px;
 }
 
 .login-card .card-header {

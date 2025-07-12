@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Producto</title>
+    <link href="../public/bootstrap-5.3.5-dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/styles2.css" rel="stylesheet">
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card shadow-lg border-0 rounded-lg">
+                    <div class="card-header bg-warning text-dark">
+                        <h3 class="text-center font-weight-light my-2">
+                            <i class="fas fa-edit me-2"></i>Editar Producto
+                        </h3>
+                    </div>
+                    <div class="card-body">
+                        <!-- Información del producto actual -->
+                        <div class="alert alert-info mb-4" id="infoProducto">
+                            <i class="fas fa-info-circle me-2"></i>
+                            <strong>Producto seleccionado:</strong> <span id="productoActual">Cargando...</span>
+                        </div>
+
+                        <form id="formEditarProducto" onsubmit="return false;">
+                            <!-- Campo oculto para el ID -->
+                            <input type="hidden" id="idProducto">
+
+                            <!-- Nombre del producto -->
+                            <div class="form-floating mb-3">
+                                <input class="form-control" id="nombreProducto" type="text" placeholder="Nombre del producto" required>
+                                <label for="nombreProducto">Nombre del Producto</label>
+                            </div>
+
+                            <!-- Precio -->
+                            <div class="form-floating mb-3">
+                                <input class="form-control" id="precioProducto" type="number" step="0.01" min="0" placeholder="Precio" required>
+                                <label for="precioProducto">Precio ($)</label>
+                            </div>
+
+                            <!-- Cantidad -->
+                            <div class="form-floating mb-3">
+                                <input class="form-control" id="cantidadProducto" type="number" min="1" placeholder="Cantidad" required>
+                                <label for="cantidadProducto">Cantidad en Stock</label>
+                            </div>
+
+                            <!-- Descripción -->
+                            <div class="form-floating mb-3">
+                                <textarea class="form-control" id="descripcionProducto" placeholder="Descripción del producto" style="height: 100px"></textarea>
+                                <label for="descripcionProducto">Descripción (Opcional)</label>
+                            </div>
+
+                            <!-- Sección de Foto -->
+                            <div class="mb-3">
+                                <label class="form-label">Foto del Producto</label>
+                                
+                                <!-- Foto actual -->
+                                <div id="fotoActual" class="mb-3">
+                                    <p class="text-muted">Foto actual:</p>
+                                    <img id="imagenActual" src="" alt="Foto actual" class="img-fluid border rounded mb-2" style="max-width: 300px; max-height: 200px;">
+                                    <br>
+                                    <small class="text-muted">Puede cambiar la foto usando los botones de abajo</small>
+                                </div>
+                                
+                                <div class="d-flex gap-2 mb-3">
+                                    <button type="button" class="btn btn-outline-primary" id="btnActivarCamara">
+                                        <i class="fas fa-camera me-2"></i>Activar Cámara
+                                    </button>
+                                    <button type="button" class="btn btn-outline-success" id="btn_capturar" style="display: none;">
+                                        <i class="fas fa-camera-retro me-2"></i>Capturar Foto
+                                    </button>
+                                    <button type="button" class="btn btn-outline-secondary" id="btnSubirArchivo">
+                                        <i class="fas fa-upload me-2"></i>Subir Archivo
+                                    </button>
+                                </div>
+                                
+                                <!-- Input para archivo (oculto) -->
+                                <input type="file" id="inputArchivoFoto" accept="image/*" style="display: none;">
+                                
+                                <!-- Video para la cámara -->
+                                <video id="my_camara" width="300" height="200" autoplay style="display: none;" class="border rounded mb-3"></video>
+                                
+                                <!-- Canvas para la foto capturada -->
+                                <canvas id="foto" width="300" height="200" style="display: none;" class="border rounded mb-3"></canvas>
+                                
+                                <!-- Previsualización de archivo subido -->
+                                <div id="previsualizacionArchivo" class="text-center" style="display: none;">
+                                    <p class="text-success">Nueva foto desde archivo:</p>
+                                    <img id="imagenArchivo" src="" alt="Archivo subido" class="img-fluid border rounded" style="max-width: 300px; max-height: 200px;">
+                                </div>
+                                
+                                <!-- Botones de control de foto -->
+                                <div id="controlesFoto" style="display: none;">
+                                    <button type="button" id="btnEliminarFoto" class="btn btn-outline-danger btn-sm">
+                                        <i class="fas fa-trash me-1"></i>Cancelar Cambio
+                                    </button>
+                                    <button type="button" id="btnNuevaFoto" class="btn btn-outline-info btn-sm">
+                                        <i class="fas fa-redo me-1"></i>Tomar Nueva Foto
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Botones de acción -->
+                            <div class="d-flex justify-content-between">
+                                <button type="button" class="btn btn-secondary" onclick="cargarPaginasAdmin('gestionProductos')">
+                                    <i class="fas fa-arrow-left me-2"></i>Cancelar
+                                </button>
+                                <button type="button" class="btn btn-warning" id="btnActualizarProducto">
+                                    <i class="fas fa-save me-2"></i>Actualizar Producto
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de éxito -->
+    <div class="modal fade" id="modalExito" tabindex="-1" aria-labelledby="modalExitoLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title" id="modalExitoLabel">
+                        <i class="fas fa-check-circle me-2"></i>¡Éxito!
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>El producto ha sido actualizado exitosamente.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de error -->
+    <div class="modal fade" id="modalError" tabindex="-1" aria-labelledby="modalErrorLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title" id="modalErrorLabel">
+                        <i class="fas fa-exclamation-triangle me-2"></i>Error
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="mensajeError">No se pudo cargar el producto.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../public/bootstrap-5.3.5-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../public/js/foto.js"></script>
+    <script src="../public/js/fotoProductos.js"></script>
+    <script src="../public/js/gestionProductos.js"></script>
+    
+    <!-- Script de inicialización manual -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Página editarProducto cargada');
+            
+            // Inicializar sistema de fotos si no existe
+            setTimeout(() => {
+                if (!window.fotoProductos && document.getElementById('btnActivarCamara')) {
+                    console.log('Inicializando FotoProductos manualmente...');
+                    window.fotoProductos = new FotoProductos();
+                }
+                
+                // Configurar evento del botón actualizar
+                const btnActualizar = document.getElementById('btnActualizarProducto');
+                if (btnActualizar) {
+                    btnActualizar.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        console.log('Botón actualizar clickeado');
+                        
+                        // Usar el método de la clase GestionProductos si está disponible
+                        if (window.gestionProductos && typeof window.gestionProductos.actualizarProducto === 'function') {
+                            window.gestionProductos.actualizarProducto();
+                        } else {
+                            // Función de respaldo
+                            actualizarProductoDirecto();
+                        }
+                    });
+                } else {
+                    console.error('Botón actualizar NO encontrado');
+                }
+                
+                // Cargar producto para editar
+                cargarProductoParaEditar();
+            }, 500);
+        });
+        
+        function cargarProductoParaEditar() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const id = urlParams.get('id');
+            
+            if (!id) {
+                console.error('No se especificó un producto para editar');
+                alert('No se especificó un producto para editar.');
+                return;
+            }
+
+            const productos = JSON.parse(localStorage.getItem('productos') || '[]');
+            const producto = productos.find(p => p.id === id);
+            
+            if (!producto) {
+                console.error('Producto no encontrado');
+                alert('Producto no encontrado.');
+                return;
+            }
+
+            // Cargar datos en el formulario
+            document.getElementById('idProducto').value = producto.id;
+            document.getElementById('nombreProducto').value = producto.nombre;
+            document.getElementById('precioProducto').value = producto.precio;
+            document.getElementById('cantidadProducto').value = producto.cantidad;
+            document.getElementById('descripcionProducto').value = producto.descripcion;
+            document.getElementById('productoActual').textContent = producto.nombre;
+
+            // Cargar foto actual
+            if (producto.foto) {
+                document.getElementById('imagenActual').src = producto.foto;
+                document.getElementById('fotoActual').style.display = 'block';
+            } else {
+                document.getElementById('fotoActual').style.display = 'none';
+            }
+        }
+        
+        // Función para actualizar producto (respaldo)
+        function actualizarProductoDirecto() {
+            console.log('=== ACTUALIZACIÓN DIRECTA DE PRODUCTO ===');
+            
+            try {
+                const id = document.getElementById('idProducto').value;
+                const nombre = document.getElementById('nombreProducto').value.trim();
+                const precio = parseFloat(document.getElementById('precioProducto').value);
+                const cantidad = parseInt(document.getElementById('cantidadProducto').value);
+                const descripcion = document.getElementById('descripcionProducto').value.trim();
+
+                console.log('Datos del formulario:', { id, nombre, precio, cantidad, descripcion });
+
+                // Validaciones
+                if (!nombre || precio <= 0 || cantidad <= 0) {
+                    alert('Por favor, complete todos los campos obligatorios correctamente.');
+                    return;
+                }
+
+                // Obtener productos existentes
+                const productos = JSON.parse(localStorage.getItem('productos') || '[]');
+                console.log('Productos existentes:', productos.length);
+
+                // Verificar si ya existe otro producto con el mismo nombre
+                if (productos.some(p => p.id !== id && p.nombre.toLowerCase() === nombre.toLowerCase())) {
+                    alert('Ya existe otro producto con ese nombre.');
+                    return;
+                }
+
+                const index = productos.findIndex(p => p.id === id);
+                if (index === -1) {
+                    alert('Producto no encontrado.');
+                    return;
+                }
+
+                // Obtener foto (nueva o existente)
+                let fotoNueva = null;
+                if (window.fotoProductos) {
+                    fotoNueva = window.fotoProductos.obtenerFoto();
+                    console.log('Foto nueva obtenida:', fotoNueva ? 'Sí (' + fotoNueva.length + ' caracteres)' : 'No');
+                }
+                const foto = fotoNueva || productos[index].foto;
+
+                // Actualizar producto
+                productos[index] = {
+                    ...productos[index],
+                    nombre: nombre,
+                    precio: precio,
+                    cantidad: cantidad,
+                    descripcion: descripcion,
+                    foto: foto,
+                    fechaModificacion: new Date().toISOString()
+                };
+
+                console.log('Producto actualizado:', productos[index]);
+
+                // Guardar en localStorage
+                localStorage.setItem('productos', JSON.stringify(productos));
+                console.log('Producto guardado en localStorage');
+
+                // Mostrar modal de éxito
+                const modalElement = document.getElementById('modalExito');
+                if (modalElement) {
+                    const modal = new bootstrap.Modal(modalElement);
+                    modal.show();
+
+                    // Redirigir después de cerrar modal
+                    setTimeout(() => {
+                        modal.hide();
+                        setTimeout(() => {
+                            if (typeof cargarPaginasAdmin === 'function') {
+                                cargarPaginasAdmin('gestionProductos');
+                            } else if (typeof window.cargarPaginasAdmin === 'function') {
+                                window.cargarPaginasAdmin('gestionProductos');
+                            } else {
+                                console.log('Función cargarPaginasAdmin no encontrada');
+                            }
+                        }, 300);
+                    }, 1500);
+                } else {
+                    alert('Producto actualizado exitosamente');
+                    
+                    // Redirigir
+                    if (typeof cargarPaginasAdmin === 'function') {
+                        cargarPaginasAdmin('gestionProductos');
+                    } else if (typeof window.cargarPaginasAdmin === 'function') {
+                        window.cargarPaginasAdmin('gestionProductos');
+                    }
+                }
+                
+            } catch (error) {
+                console.error('Error al actualizar producto:', error);
+                alert('Error al actualizar el producto: ' + error.message);
+            }
+        }
+    </script>
+</body>
+</html>

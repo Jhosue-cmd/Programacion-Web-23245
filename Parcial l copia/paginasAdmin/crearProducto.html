@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Producto</title>
+    <link href="../public/bootstrap-5.3.5-dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/styles2.css" rel="stylesheet">
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card shadow-lg border-0 rounded-lg">
+                    <div class="card-header bg-primary text-white">
+                        <h3 class="text-center font-weight-light my-2">
+                            <i class="fas fa-plus-circle me-2"></i>Crear Nuevo Producto
+                        </h3>
+                    </div>
+                    <div class="card-body">
+                        <form id="formCrearProducto" onsubmit="return false;">  
+                            <!-- Nombre del producto -->
+                            <div class="form-floating mb-3">
+                                <input class="form-control" id="nombreProducto" type="text" placeholder="Nombre del producto" required>
+                                <label for="nombreProducto">Nombre del Producto</label>
+                            </div>
+
+                            <!-- Precio -->
+                            <div class="form-floating mb-3">
+                                <input class="form-control" id="precioProducto" type="number" step="0.01" min="0" placeholder="Precio" required>
+                                <label for="precioProducto">Precio ($)</label>
+                            </div>
+
+                            <!-- Cantidad -->
+                            <div class="form-floating mb-3">
+                                <input class="form-control" id="cantidadProducto" type="number" min="1" placeholder="Cantidad" required>
+                                <label for="cantidadProducto">Cantidad en Stock</label>
+                            </div>
+
+                            <!-- Descripción -->
+                            <div class="form-floating mb-3">
+                                <textarea class="form-control" id="descripcionProducto" placeholder="Descripción del producto" style="height: 100px"></textarea>
+                                <label for="descripcionProducto">Descripción (Opcional)</label>
+                            </div>
+
+                            <!-- Sección de Foto -->
+                            <div class="mb-3">
+                                <label class="form-label">Foto del Producto</label>
+                                <div class="d-flex gap-2 mb-3">
+                                    <button type="button" class="btn btn-outline-primary" id="btnActivarCamara">
+                                        <i class="fas fa-camera me-2"></i>Activar Cámara
+                                    </button>
+                                    <button type="button" class="btn btn-outline-success" id="btn_capturar" style="display: none;">
+                                        <i class="fas fa-camera-retro me-2"></i>Capturar Foto
+                                    </button>
+                                    <button type="button" class="btn btn-outline-secondary" id="btnSubirArchivo">
+                                        <i class="fas fa-upload me-2"></i>Subir Archivo
+                                    </button>
+                                </div>
+                                
+                                <!-- Input para archivo (oculto) -->
+                                <input type="file" id="inputArchivoFoto" accept="image/*" style="display: none;">
+                                
+                                <!-- Video para la cámara -->
+                                <video id="my_camara" width="300" height="200" autoplay style="display: none;" class="border rounded mb-3"></video>
+                                
+                                <!-- Canvas para la foto capturada -->
+                                <canvas id="foto" width="300" height="200" style="display: none;" class="border rounded mb-3"></canvas>
+                                
+                                <!-- Previsualización de archivo subido -->
+                                <div id="previsualizacionArchivo" class="text-center" style="display: none;">
+                                    <img id="imagenArchivo" src="" alt="Archivo subido" class="img-fluid border rounded" style="max-width: 300px; max-height: 200px;">
+                                </div>
+                                
+                                <!-- Botones de control de foto -->
+                                <div id="controlesFoto" style="display: none;">
+                                    <button type="button" id="btnEliminarFoto" class="btn btn-outline-danger btn-sm">
+                                        <i class="fas fa-trash me-1"></i>Eliminar Foto
+                                    </button>
+                                    <button type="button" id="btnNuevaFoto" class="btn btn-outline-info btn-sm">
+                                        <i class="fas fa-redo me-1"></i>Tomar Nueva Foto
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Botones de acción -->
+                            <div class="d-flex justify-content-between">
+                                <button type="button" class="btn btn-secondary" onclick="cargarPaginasAdmin('gestionProductos')">
+                                    <i class="fas fa-arrow-left me-2"></i>Cancelar
+                                </button>
+                                <button type="button" class="btn btn-primary" id="btnGuardarProducto" onclick="window.guardarProductoSimple()">
+                                    <i class="fas fa-save me-2"></i>Guardar Producto
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de éxito -->
+    <div class="modal fade" id="modalExito" tabindex="-1" aria-labelledby="modalExitoLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title" id="modalExitoLabel">
+                        <i class="fas fa-check-circle me-2"></i>¡Éxito!
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>El producto ha sido creado exitosamente.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../public/bootstrap-5.3.5-dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Version simplificada para debugging -->
+    <script src="../public/js/productos_simple.js"></script>
+    
+    <!-- Scripts originales comentados para debugging
+    <script src="../public/js/foto.js"></script>
+    <script src="../public/js/fotoProductos.js"></script>
+    <script src="../public/js/gestionProductos.js"></script>
+    -->
+    
+    <!-- Script simplificado para debugging -->
+    <script>
+        console.log('Página crearProducto cargada - versión simplificada');
+        
+        // Función simple de testing
+        window.probarFormulario = function() {
+            document.getElementById('nombreProducto').value = 'Producto Test';
+            document.getElementById('precioProducto').value = '15.99';
+            document.getElementById('cantidadProducto').value = '10';
+            document.getElementById('descripcionProducto').value = 'Producto de prueba';
+            console.log('Formulario llenado para prueba');
+        };
+        
+        // Configurar event listeners inmediatamente al cargar
+        function configurarEventListeners() {
+            console.log('=== CONFIGURANDO EVENT LISTENERS ===');
+            
+            // Botón Activar Cámara
+            const btnCamara = document.getElementById('btnActivarCamara');
+            if (btnCamara) {
+                console.log('Configurando botón cámara...');
+                btnCamara.onclick = function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    console.log('🎬 BOTÓN CÁMARA CLICKEADO');
+                    if (typeof window.activarCamaraSimple === 'function') {
+                        window.activarCamaraSimple();
+                    } else if (typeof activarCamaraSimple === 'function') {
+                        activarCamaraSimple();
+                    } else {
+                        console.error('Función activarCamaraSimple no encontrada');
+                        alert('Error: función de cámara no disponible');
+                    }
+                };
+                console.log('✅ Botón cámara configurado');
+            } else {
+                console.error('❌ Botón cámara no encontrado');
+            }
+            
+            // Botón Capturar Foto
+            const btnCapturar = document.getElementById('btn_capturar');
+            if (btnCapturar) {
+                console.log('Configurando botón capturar...');
+                btnCapturar.onclick = function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    console.log('📸 BOTÓN CAPTURAR CLICKEADO');
+                    if (typeof window.capturarFotoSimple === 'function') {
+                        window.capturarFotoSimple();
+                    } else if (typeof capturarFotoSimple === 'function') {
+                        capturarFotoSimple();
+                    } else {
+                        console.error('Función capturarFotoSimple no encontrada');
+                        alert('Error: función de captura no disponible');
+                    }
+                };
+                console.log('✅ Botón capturar configurado');
+            } else {
+                console.error('❌ Botón capturar no encontrado');
+            }
+            
+            // Botón Subir Archivo
+            const btnArchivo = document.getElementById('btnSubirArchivo');
+            if (btnArchivo) {
+                console.log('Configurando botón archivo...');
+                btnArchivo.onclick = function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    console.log('📁 BOTÓN ARCHIVO CLICKEADO');
+                    const inputArchivo = document.getElementById('inputArchivoFoto');
+                    if (inputArchivo) {
+                        inputArchivo.click();
+                    } else {
+                        console.error('Input archivo no encontrado');
+                    }
+                };
+                console.log('✅ Botón archivo configurado');
+            } else {
+                console.error('❌ Botón archivo no encontrado');
+            }
+            
+            // Input Archivo
+            const inputArchivo = document.getElementById('inputArchivoFoto');
+            if (inputArchivo) {
+                console.log('Configurando input archivo...');
+                inputArchivo.onchange = function(e) {
+                    console.log('📁 ARCHIVO SELECCIONADO');
+                    if (typeof window.manejarArchivoSimple === 'function') {
+                        window.manejarArchivoSimple(e);
+                    } else if (typeof manejarArchivoSimple === 'function') {
+                        manejarArchivoSimple(e);
+                    } else {
+                        console.error('Función manejarArchivoSimple no encontrada');
+                    }
+                };
+                console.log('✅ Input archivo configurado');
+            } else {
+                console.error('❌ Input archivo no encontrado');
+            }
+            
+            console.log('=== EVENT LISTENERS CONFIGURADOS ===');
+        }
+        
+        // Configurar inmediatamente y también después de un delay
+        document.addEventListener('DOMContentLoaded', configurarEventListeners);
+        
+        // Backup: configurar después de que todo esté cargado
+        window.addEventListener('load', function() {
+            setTimeout(configurarEventListeners, 100);
+        });
+        
+        // Función global para reconfigurar event listeners
+        window.reconfigurarEventListeners = configurarEventListeners;
+        
+        // Test para verificar que los botones funcionan
+        window.testBotones = function() {
+            console.log('=== TEST DE BOTONES ===');
+            const btnCamara = document.getElementById('btnActivarCamara');
+            const btnCapturar = document.getElementById('btn_capturar');
+            const btnArchivo = document.getElementById('btnSubirArchivo');
+            
+            console.log('Botón cámara:', btnCamara ? '✅ Encontrado' : '❌ No encontrado');
+            console.log('Botón capturar:', btnCapturar ? '✅ Encontrado' : '❌ No encontrado');
+            console.log('Botón archivo:', btnArchivo ? '✅ Encontrado' : '❌ No encontrado');
+            
+            if (btnCamara && btnCamara.onclick) {
+                console.log('✅ Botón cámara tiene onclick');
+            } else {
+                console.log('❌ Botón cámara NO tiene onclick');
+            }
+            
+            if (btnCapturar && btnCapturar.onclick) {
+                console.log('✅ Botón capturar tiene onclick');
+            } else {
+                console.log('❌ Botón capturar NO tiene onclick');
+            }
+        };
+        
+    </script>
+</body>
+</html>

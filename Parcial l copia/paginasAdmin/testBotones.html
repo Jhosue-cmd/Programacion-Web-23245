@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Botones - Productos</title>
+    <link href="../public/bootstrap-5.3.5-dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .debug-section {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 0.375rem;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        .status-ok { color: #198754; }
+        .status-error { color: #dc3545; }
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+        <h2>🔧 Test de Botones - Sistema de Productos</h2>
+        
+        <div class="debug-section">
+            <h4>Estado del Sistema</h4>
+            <div id="estadoSistema">
+                <p>Verificando funciones...</p>
+            </div>
+        </div>
+        
+        <div class="debug-section">
+            <h4>Controles de Cámara</h4>
+            <div class="d-flex gap-2 mb-3">
+                <button type="button" class="btn btn-primary" id="btnActivarCamara">
+                    🎬 Activar Cámara
+                </button>
+                <button type="button" class="btn btn-success" id="btn_capturar" style="display: none;">
+                    📸 Capturar Foto
+                </button>
+                <button type="button" class="btn btn-info" id="btnSubirArchivo">
+                    📁 Subir Archivo
+                </button>
+            </div>
+            
+            <!-- Input para archivo (oculto) -->
+            <input type="file" id="inputArchivoFoto" accept="image/*" style="display: none;">
+            
+            <!-- Video para la cámara -->
+            <video id="my_camara" width="320" height="240" autoplay style="display: none;" class="border rounded mb-3"></video>
+            
+            <!-- Canvas para la foto capturada -->
+            <canvas id="foto" width="320" height="240" style="display: none;" class="border rounded mb-3"></canvas>
+            
+            <!-- Previsualización de archivo subido -->
+            <div id="previsualizacionArchivo" class="text-center" style="display: none;">
+                <img id="imagenArchivo" src="" alt="Archivo subido" class="img-fluid border rounded" style="max-width: 320px; max-height: 240px;">
+            </div>
+        </div>
+        
+        <div class="debug-section">
+            <h4>Tests Manuales</h4>
+            <div class="d-flex gap-2 flex-wrap">
+                <button type="button" class="btn btn-outline-primary" onclick="testCamara()">
+                    Test Cámara (Consola)
+                </button>
+                <button type="button" class="btn btn-outline-success" onclick="testCaptura()">
+                    Test Captura (Consola)
+                </button>
+                <button type="button" class="btn btn-outline-info" onclick="window.testBotones()">
+                    Verificar Botones
+                </button>
+                <button type="button" class="btn btn-outline-warning" onclick="window.reconfigurarEventListeners()">
+                    Reconfigurar Events
+                </button>
+            </div>
+        </div>
+        
+        <div class="debug-section">
+            <h4>Log de Eventos</h4>
+            <div id="logEventos" style="background: #000; color: #0f0; padding: 10px; border-radius: 5px; font-family: monospace; height: 200px; overflow-y: auto;">
+                Esperando eventos...<br>
+            </div>
+            <button type="button" class="btn btn-secondary btn-sm mt-2" onclick="limpiarLog()">
+                Limpiar Log
+            </button>
+        </div>
+    </div>
+    
+    <script src="../public/bootstrap-5.3.5-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../public/js/productos_simple.js"></script>
+    
+    <script>
+        // Función para verificar estado del sistema
+        function verificarEstado() {
+            const estado = document.getElementById('estadoSistema');
+            let html = '';
+            
+            // Verificar funciones
+            const funciones = [
+                'activarCamaraSimple',
+                'capturarFotoSimple', 
+                'manejarArchivoSimple',
+                'subirArchivoSimple',
+                'guardarProductoSimple'
+            ];
+            
+            funciones.forEach(fn => {
+                const existe = typeof window[fn] === 'function';
+                html += `<p class="${existe ? 'status-ok' : 'status-error'}">
+                    ${existe ? '✅' : '❌'} ${fn}: ${existe ? 'Disponible' : 'No encontrada'}
+                </p>`;
+            });
+            
+            // Verificar elementos
+            const elementos = [
+                'btnActivarCamara',
+                'btn_capturar',
+                'btnSubirArchivo',
+                'my_camara',
+                'foto',
+                'inputArchivoFoto'
+            ];
+            
+            elementos.forEach(elem => {
+                const existe = document.getElementById(elem) !== null;
+                html += `<p class="${existe ? 'status-ok' : 'status-error'}">
+                    ${existe ? '✅' : '❌'} Element ${elem}: ${existe ? 'Encontrado' : 'No encontrado'}
+                </p>`;
+            });
+            
+            estado.innerHTML = html;
+        }
+        
+        // Función para agregar a log
+        function agregarLog(mensaje) {
+            const log = document.getElementById('logEventos');
+            const timestamp = new Date().toLocaleTimeString();
+            log.innerHTML += `[${timestamp}] ${mensaje}<br>`;
+            log.scrollTop = log.scrollHeight;
+        }
+        
+        // Función para limpiar log
+        function limpiarLog() {
+            document.getElementById('logEventos').innerHTML = 'Log limpiado...<br>';
+        }
+        
+        // Configurar event listeners con logging
+        function configurarEventListeners() {
+            agregarLog('🔧 Configurando event listeners...');
+            
+            // Botón Activar Cámara
+            const btnCamara = document.getElementById('btnActivarCamara');
+            if (btnCamara) {
+                btnCamara.onclick = function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    agregarLog('🎬 BOTÓN CÁMARA CLICKEADO');
+                    if (typeof window.activarCamaraSimple === 'function') {
+                        window.activarCamaraSimple();
+                    } else {
+                        agregarLog('❌ Función activarCamaraSimple no encontrada');
+                    }
+                };
+                agregarLog('✅ Botón cámara configurado');
+            } else {
+                agregarLog('❌ Botón cámara no encontrado');
+            }
+            
+            // Botón Capturar Foto
+            const btnCapturar = document.getElementById('btn_capturar');
+            if (btnCapturar) {
+                btnCapturar.onclick = function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    agregarLog('📸 BOTÓN CAPTURAR CLICKEADO');
+                    if (typeof window.capturarFotoSimple === 'function') {
+                        window.capturarFotoSimple();
+                    } else {
+                        agregarLog('❌ Función capturarFotoSimple no encontrada');
+                    }
+                };
+                agregarLog('✅ Botón capturar configurado');
+            } else {
+                agregarLog('❌ Botón capturar no encontrado');
+            }
+            
+            // Botón Subir Archivo
+            const btnArchivo = document.getElementById('btnSubirArchivo');
+            if (btnArchivo) {
+                btnArchivo.onclick = function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    agregarLog('📁 BOTÓN ARCHIVO CLICKEADO');
+                    const inputArchivo = document.getElementById('inputArchivoFoto');
+                    if (inputArchivo) {
+                        inputArchivo.click();
+                    } else {
+                        agregarLog('❌ Input archivo no encontrado');
+                    }
+                };
+                agregarLog('✅ Botón archivo configurado');
+            } else {
+                agregarLog('❌ Botón archivo no encontrado');
+            }
+            
+            // Input Archivo
+            const inputArchivo = document.getElementById('inputArchivoFoto');
+            if (inputArchivo) {
+                inputArchivo.onchange = function(e) {
+                    agregarLog('📁 ARCHIVO SELECCIONADO');
+                    if (typeof window.manejarArchivoSimple === 'function') {
+                        window.manejarArchivoSimple(e);
+                    } else {
+                        agregarLog('❌ Función manejarArchivoSimple no encontrada');
+                    }
+                };
+                agregarLog('✅ Input archivo configurado');
+            } else {
+                agregarLog('❌ Input archivo no encontrado');
+            }
+            
+            agregarLog('✅ Event listeners configurados');
+        }
+        
+        // Función global para verificar botones
+        window.testBotones = function() {
+            agregarLog('=== TEST DE BOTONES ===');
+            const btnCamara = document.getElementById('btnActivarCamara');
+            const btnCapturar = document.getElementById('btn_capturar');
+            const btnArchivo = document.getElementById('btnSubirArchivo');
+            
+            agregarLog(`Botón cámara: ${btnCamara ? '✅ Encontrado' : '❌ No encontrado'}`);
+            agregarLog(`Botón capturar: ${btnCapturar ? '✅ Encontrado' : '❌ No encontrado'}`);
+            agregarLog(`Botón archivo: ${btnArchivo ? '✅ Encontrado' : '❌ No encontrado'}`);
+            
+            if (btnCamara && btnCamara.onclick) {
+                agregarLog('✅ Botón cámara tiene onclick');
+            } else {
+                agregarLog('❌ Botón cámara NO tiene onclick');
+            }
+            
+            if (btnCapturar && btnCapturar.onclick) {
+                agregarLog('✅ Botón capturar tiene onclick');
+            } else {
+                agregarLog('❌ Botón capturar NO tiene onclick');
+            }
+        };
+        
+        // Función global para reconfigurar
+        window.reconfigurarEventListeners = function() {
+            agregarLog('🔄 Reconfigurando event listeners...');
+            configurarEventListeners();
+        };
+        
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', function() {
+            agregarLog('📄 DOM cargado');
+            verificarEstado();
+            configurarEventListeners();
+        });
+        
+        window.addEventListener('load', function() {
+            agregarLog('🌐 Página totalmente cargada');
+            setTimeout(() => {
+                verificarEstado();
+                configurarEventListeners();
+            }, 100);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,289 @@
+<style>
+  :root {
+    --primary-color: #0a0910;
+    --accent-color: #a855f7;
+    --text-color: #2e3a4e;
+    --muted-text: #5a6a85;
+    --bg-light: #f5f7fa;
+  }
+
+  .registration-guide, 
+  .evaluation-process,
+  .program-duration-card {
+    background: linear-gradient(135deg, #cdeaf1 0%, #ffffff 100%);
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+    margin-bottom: 2rem;
+  }
+
+  .guide-header,
+  .process-header,
+  .card-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .header-icon,
+  .card-icon {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+  }
+
+  .guide-title,
+  .process-title,
+  .card-title {
+    color: var(--text-color);
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+
+  .header-divider,
+  .card-divider {
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+    margin: 0 auto 1.5rem;
+    border-radius: 3px;
+  }
+
+  .steps-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .step {
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+  }
+
+  .step-number {
+    background: var(--primary-color);
+    color: white;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    flex-shrink: 0;
+    margin-top: 3px;
+  }
+
+  .step-content {
+    flex: 1;
+  }
+
+  .step-title {
+    color: var(--text-color);
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+  }
+
+  .step-description,
+  .step-details,
+  .card-text {
+    color: var(--muted-text);
+    line-height: 1.6;
+  }
+
+  .step-details {
+    padding-left: 1.5rem;
+    list-style: none;
+  }
+
+  .step-details li {
+    margin-bottom: 0.5rem;
+    position: relative;
+  }
+
+  .step-details li i {
+    color: var(--accent-color);
+    position: absolute;
+    left: -1.5rem;
+    top: 5px;
+  }
+
+  .evaluation-components {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .component {
+    background: #edf1fa;
+    padding: 0.8rem;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-size: 0.9rem;
+  }
+
+  .component i {
+    color: var(--primary-color);
+    font-size: 1.1rem;
+  }
+
+  .guide-footer,
+  .process-footer {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #e9ecef;
+    text-align: center;
+  }
+
+  .assistance-text {
+    color: var(--muted-text);
+    font-size: 0.9rem;
+  }
+
+  .assistance-text i {
+    color: var(--primary-color);
+    margin-right: 0.5rem;
+  }
+
+  .duration-highlight {
+    font-size: 1.2rem;
+    color: var(--primary-color);
+    font-weight: bold;
+    text-align: center;
+    margin: 1rem 0;
+  }
+
+  .duration-features {
+    list-style-type: none;
+    padding-left: 0;
+  }
+
+  .duration-features li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #eee;
+    color: var(--text-color);
+  }
+
+  .duration-features li:last-child {
+    border-bottom: none;
+  }
+
+  .duration-features li i {
+    color: #28a745;
+    margin-right: 0.5rem;
+  }
+</style>
+
+<br><br>
+<br><br>
+
+
+<!-- Masthead-->
+<header class="masthead">
+  <div class="container">
+    <div class="masthead-subheading">Panel de Administración</div>
+    <div class="masthead-heading text-uppercase">Abre las puertas al mundo</div>
+    <a class="btn btn-primary btn-xl text-uppercase" href="#services">Funcionalidades</a>
+  </div>
+</header>
+<!-- Services-->
+<!-- Tarjetas de información -->
+ <br><br><br>
+<div class="row gx-4 gx-lg-5" id="services">
+  <!-- Tarjeta de Registro -->
+  <div class="col-md-4 mb-5">
+    <div class="registration-guide">
+      <div class="guide-header">
+        <i class="fas fa-user-cog header-icon"></i>
+        <h2 class="guide-title">Gestión de Estudiantes</h2>
+        <div class="header-divider"></div>
+      </div>
+      <div class="steps-container">
+        <div class="step">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <h3 class="step-title">Visualización de Matrículas</h3>
+            <p class="step-description">
+            Consulte todas las matrículas registradas, filtre por nivel o estado de pago.            </p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <h3 class="step-title">Administración de Perfiles</h3>
+            <ul class="step-details">
+              <li><i class="fas fa-check-circle"></i> Editar información de estudiantes</li>
+              <li><i class="fas fa-check-circle"></i> Gestionar documentación</li>
+              <li><i class="fas fa-check-circle"></i> Cambiar nivel o grupo</li>
+            </ul>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <!-- Tarjeta de Reportes -->
+  <div class="col-md-4 mb-5">
+    <div class="evaluation-process">
+      <div class="process-header">
+        <i class="fas fa-chart-bar header-icon"></i>
+        <h2 class="process-title">Reportes y Estadísticas</h2>
+        <div class="header-divider"></div>
+      </div>
+      <div class="steps-container">
+        <div class="step">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <h3 class="step-title">Indicadores de Rendimiento</h3>
+            <ul class="step-details">
+              <li><i class="fas fa-check-circle"></i> Matrículas por período</li>
+              <li><i class="fas fa-check-circle"></i> Distribución por niveles</li>
+              <li><i class="fas fa-check-circle"></i> Tasa de finalización</li>
+            </ul>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <h3 class="step-title">Exportación</h3>
+            <p class="step-description">
+              Descargue reportes en formato Excel, PDF o CSV para análisis adicionales.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tarjeta de Configuración -->
+  <div class="col-md-4 mb-5">
+    <div class="program-duration-card">
+      <div class="card-header">
+        <i class="fas fa-cogs card-icon"></i>
+        <h2 class="card-title">Configuración del Sistema</h2>
+        <div class="card-divider"></div>
+      </div>
+      <div class="duration-highlight">
+        Personalice la plataforma
+      </div>
+      <ul class="duration-features">
+        <li><i class="fas fa-check text-success"></i> Gestión de niveles de inglés</li>
+        <li><i class="fas fa-check text-success"></i> Configuración de horarios</li>
+        <li><i class="fas fa-check text-success"></i> Personalización de formularios</li>
+        <li><i class="fas fa-check text-success"></i> Administración de usuarios</li>
+      </ul>
+      <div class="guide-footer">
+        <p class="assistance-text">
+          <i class="fas fa-shield-alt"></i> Acceso exclusivo para administradores
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+

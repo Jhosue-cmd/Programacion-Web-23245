@@ -24,6 +24,40 @@ function validateRegister(event) {
     const password = document.getElementById("contrasena").value;
     const confirmPassword = document.getElementById("inputPasswordConfirm").value;
 
+    const estado= document.getElementById("placeholder-foto");
+    const mapa= document.getElementById("map");
+
+    const bol=estado.getAttribute("data-foto-capturada");
+    const bolMapa=mapa.getAttribute("data-mapa-capturado");
+
+    //validar el ingreso de la foto
+    if(bol === "true") {
+        alert("Foto de perfil gurdado.");
+        return true;
+    }
+    else if (bol == "false") {
+        alert("Debe capturar su foto para capturar.");
+        return false;
+    }
+    else{
+       
+        return false;
+    }
+    
+//validar el ingreso del mapa
+    if(bolMapa === "true") {
+        alert("Ubicación guardada.");
+        return true;
+    }
+    else if (bolMapa == "false") {
+        alert("Debe capturar su ubicación.");
+        return false;
+    }
+    else{
+       
+        return false;
+    }
+
  
 
     if (password.length < 6) {

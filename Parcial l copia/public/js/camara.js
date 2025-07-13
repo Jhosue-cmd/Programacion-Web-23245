@@ -1,4 +1,3 @@
-
 function iniciarCamara() {
     console.log("Iniciando cámara...");
     let stream = null;
@@ -29,6 +28,14 @@ function tomarFoto() {
     // Mostrar el canvas con la foto capturada
     foto_res.style.display = "block";
     placeholder.style.display = "none";
+
+    // Marcar que la foto ha sido capturada usando el atributo data correcto
+    placeholder.setAttribute("data-foto-capturada", "true");
+
+
+    const estado = placeholder.getAttribute("data-foto-capturada");
+  
+    console.log("estado de la foto: " + estado);
 }
 
 function cerrarCamara() {

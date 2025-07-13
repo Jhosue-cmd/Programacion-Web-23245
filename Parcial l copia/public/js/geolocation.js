@@ -11,6 +11,7 @@ function limpiarMapa() {
 }
 
 function getLocation() {
+    
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function (position) {
             let latitud = position.coords.latitude;
@@ -28,9 +29,16 @@ function getLocation() {
                 .bindPopup('Tu ubicación actual.')
                 .openPopup();
         });
+        let mapElement = document.getElementById('map');
+        mapElement.setAttribute("data-mapa-capturado", "true");
+
+        let bol = mapElement.getAttribute("data-mapa-capturado");
+        console.log("Estado del mapa: " + bol);
+        console.log("Esttas en mapa: " );
     } else {
         alert("No soporta la geolocalización");
     }
+
 }
 
 function verUbicacion() {
@@ -64,7 +72,7 @@ function getLocationForModal() {
     if (navigator.geolocation) {
         document.getElementById("loadingLocation").style.display = "block";
         document.getElementById("locationContent").style.display = "none";
-        
+
         limpiarMapa();
 
         navigator.geolocation.getCurrentPosition(
@@ -94,7 +102,7 @@ function getLocationForModal() {
             function (error) {
                 document.getElementById("loadingLocation").style.display = "none";
                 let errorMessage = "";
-                switch(error.code) {
+                switch (error.code) {
                     case error.PERMISSION_DENIED:
                         errorMessage = "Acceso a la ubicación denegado.";
                         break;

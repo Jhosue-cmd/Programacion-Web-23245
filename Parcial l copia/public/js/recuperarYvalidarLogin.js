@@ -2,17 +2,17 @@ function recuperarYvalidar(event) {
     event.preventDefault(); // Primero prevenir el envío del formulario
     
     // Obtener los valores de los campos
-    var correo_recuperado = document.getElementById('inputEmail').value;
-    var contrasena_recuperada = document.getElementById('inputPassword').value; // Corregido "vale" a "value"
+    var nombreUsuario_recuperado = document.getElementById('inputnombreUsuario').value;
+    var contrasena_recuperada = document.getElementById('inputPassword').value; 
     
     // Verificar credenciales de administrador
     const userData = {
-        email: "mateolisintuna@gmail.com",
+        nombreUsuario: "Grupo2",
         password: "admin123"
     };
     
     // Comprobar si es el administrador
-    if (correo_recuperado === userData.email && contrasena_recuperada === userData.password) {
+    if (nombreUsuario_recuperado === userData.nombreUsuario && contrasena_recuperada === userData.password) {
         alert("Bienvenido Administrador");
                window.location.href = 'indexAdmin.html';
 
@@ -36,7 +36,7 @@ function recuperarYvalidar(event) {
         var usuarioActual = null;
         
         for (var i = 0; i < usuarios.length; i++) {
-            if (usuarios[i].correo === correo_recuperado && usuarios[i].contrasena === contrasena_recuperada) {
+            if (usuarios[i].nombreUsuario === nombreUsuario_recuperado && usuarios[i].contrasena === contrasena_recuperada) {
                 usuarioEncontrado = true;
                 usuarioActual = usuarios[i];
                 break;
@@ -53,7 +53,7 @@ function recuperarYvalidar(event) {
             window.location.href = 'bienvenida.html';
             return true;
         } else {
-            alert("Correo o contraseña incorrectos");
+            alert("Nombre de usuario o contraseña incorrectos");
             return false;
         }
     } catch (error) {
@@ -64,8 +64,8 @@ function recuperarYvalidar(event) {
 }
 
 
-// Constante con credenciales de administrador
+/* Constante con credenciales de administrador
 const userData = {
     email: "mateolisintuna@gmail.com",
     password: "admin123"
-};
+};*/

@@ -8,12 +8,29 @@ fetch("footerAdmin.html")
 
 // Función global para cargar páginas de administración
 window.cargarPaginasAdmin = function cargarPaginasAdmin(url_pagina) {
+    console.log(`🔄 Navegando a: ${url_pagina}`);
+    
     fetch(`paginasAdmin/${url_pagina}.html`)
-        .then(res => res.text())
+        .then(res => {
+            if (!res.ok) {
+                throw new Error(`Error HTTP: ${res.status}`);
+            }
+            return res.text();
+        })
         .then(data => {
+            console.log(`✅ Página ${url_pagina} cargada exitosamente`);
+            
             // Reemplazar rutas relativas con rutas absolutas
             const contenidoModificado = data.replace(/src="\.\.\/img\//g, 'src="./img/');
-            document.getElementById('principal').innerHTML = contenidoModificado;
+            
+            const principalElement = document.getElementById('principal');
+            if (!principalElement) {
+                console.error('❌ Elemento principal no encontrado');
+                return;
+            }
+            
+            principalElement.innerHTML = contenidoModificado;
+            console.log(`📄 Contenido insertado en elemento principal`);
             
             // Cargar scripts específicos después de cargar el contenido
             if (url_pagina === "verPerfiles") {
@@ -37,16 +54,53 @@ window.cargarPaginasAdmin = function cargarPaginasAdmin(url_pagina) {
                 }
             } else if (url_pagina === "gestionProductos") {
                 // NO cargar el script problemático, usar solo nuestra función simple
-                console.log('Cargando gestión de productos (modo simple)...');
+                console.log('📦 Cargando gestión de productos (modo simple)...');
                 
-                // Usar solo función simple
-                setTimeout(() => {
-                    if (typeof window.cargarProductosSimple === 'function') {
-                        console.log('🔄 Cargando productos con función simple...');
-                        window.cargarProductosSimple();
+                // Limpiar cualquier timeout anterior
+                if (window.timeoutGestion) {
+                    clearTimeout(window.timeoutGestion);
+                }
+                
+                // Usar solo función simple con mejor manejo de errores
+                window.timeoutGestion = setTimeout(() => {
+                    try {
+                        console.log('🔍 Verificando elementos DOM...');
+                        
+                        // Verificar que los elementos existen
+                        const tbody = document.getElementById('tablaProductos');
+                        const totalElement = document.getElementById('totalProductos');
+                        
+                        console.log('Elementos encontrados:', {
+                            tabla: !!tbody,
+                            total: !!totalElement,
+                            html: document.body.innerHTML.includes('gestionProductos') ? 'Página cargada' : 'Página no cargada'
+                        });
+                        
+                        if (!tbody) {
+                            console.error('❌ Tabla de productos no encontrada, reintentando...');
+                            // Reintentar después de un momento
+                            setTimeout(() => {
+                                if (typeof window.cargarProductosSimple === 'function') {
+                                    window.cargarProductosSimple();
+                                }
+                            }, 500);
+                            return;
+                        }
+                        
+                        if (typeof window.cargarProductosSimple === 'function') {
+                            console.log('🔄 Cargando productos con función simple...');
+                            const resultado = window.cargarProductosSimple();
+                            console.log('Resultado de carga:', resultado);
+                        } else {
+                            console.error('❌ Función cargarProductosSimple no disponible');
+                        }
+                        
+                    } catch (error) {
+                        console.error('❌ Error al cargar productos:', error);
+                        console.error('Stack:', error.stack);
                     }
                     
-                    // Actualizar estadísticas automáticamente
+                    // Actualizar estadísticas automáticamente después de cargar
                     setTimeout(() => {
                         if (typeof window.actualizarEstadisticas === 'function') {
                             console.log('📊 Actualizando estadísticas automáticamente...');
@@ -152,7 +206,24 @@ window.cargarPaginasAdmin = function cargarPaginasAdmin(url_pagina) {
             
         })
         .catch(error => {
-            console.error('Error al cargar la página:', error);
+            console.error('❌ Error al cargar la página:', error);
+            console.error('URL solicitada:', `paginasAdmin/${url_pagina}.html`);
+            console.error('Stack trace:', error.stack);
+            
+            // Mostrar mensaje de error al usuario
+            const principalElement = document.getElementById('principal');
+            if (principalElement) {
+                principalElement.innerHTML = `
+                    <div class="alert alert-danger m-4">
+                        <h4><i class="fas fa-exclamation-triangle"></i> Error al cargar la página</h4>
+                        <p><strong>Página:</strong> ${url_pagina}</p>
+                        <p><strong>Error:</strong> ${error.message}</p>
+                        <button class="btn btn-primary" onclick="window.location.reload()">
+                            <i class="fas fa-refresh"></i> Recargar Página
+                        </button>
+                    </div>
+                `;
+            }
         });
 };
 
@@ -399,19 +470,50 @@ window.guardarProductoSimple = function() {
             console.error('Error al limpiar formulario:', error);
         }
         
-        // Mostrar éxito
-        alert('Producto guardado exitosamente!');
+        // Mostrar modal de éxito
+        const modalExito = document.getElementById('modalExito');
+        const modalMensaje = document.getElementById('modalExitoMensaje');
         
-        // Redirigir
-        setTimeout(() => {
-            if (typeof cargarPaginasAdmin === 'function') {
-                cargarPaginasAdmin('gestionProductos');
-            } else if (typeof window.cargarPaginasAdmin === 'function') {
-                window.cargarPaginasAdmin('gestionProductos');
-            } else {
-                console.log('Función de navegación no encontrada');
-            }
-        }, 1000);
+        if (modalExito && modalMensaje) {
+            modalMensaje.textContent = esEdicion ? 
+                'El producto ha sido actualizado exitosamente.' : 
+                'El producto ha sido creado exitosamente.';
+            const modal = new bootstrap.Modal(modalExito);
+            modal.show();
+            
+            // Navegar cuando se cierre el modal
+            modalExito.addEventListener('hidden.bs.modal', function() {
+                console.log('Modal cerrado, navegando a gestión de productos...');
+                try {
+                    if (typeof cargarPaginasAdmin === 'function') {
+                        cargarPaginasAdmin('gestionProductos');
+                    } else if (typeof window.cargarPaginasAdmin === 'function') {
+                        window.cargarPaginasAdmin('gestionProductos');
+                    } else {
+                        console.error('Función de navegación no encontrada');
+                        // Fallback: recargar página
+                        window.location.reload();
+                    }
+                } catch (navError) {
+                    console.error('Error en navegación:', navError);
+                    window.location.reload();
+                }
+            }, { once: true });
+            
+        } else {
+            // Fallback si no está disponible el modal
+            alert('Producto guardado exitosamente!');
+            // Navegar inmediatamente
+            setTimeout(() => {
+                if (typeof cargarPaginasAdmin === 'function') {
+                    cargarPaginasAdmin('gestionProductos');
+                } else if (typeof window.cargarPaginasAdmin === 'function') {
+                    window.cargarPaginasAdmin('gestionProductos');
+                } else {
+                    console.log('Función de navegación no encontrada');
+                }
+            }, 500);
+        }
         
         return true;
         
@@ -725,7 +827,8 @@ window.reiniciarBotones = function() {
         console.log('✅ Input archivo re-configurado');
     }
     
-    alert('🔄 Botones re-inicializados! Ahora prueba hacer click en ellos.');
+    // Ya no mostrar alert, solo log
+    console.log('🔄 Botones re-inicializados! Ahora prueba hacer click en ellos.');
     return true;
 };
 
@@ -759,16 +862,24 @@ window.verificarSistema = function() {
 // Función simple para cargar productos en gestión (disponible globalmente)
 window.cargarProductosSimple = function() {
     console.log('📦 CARGANDO PRODUCTOS SIMPLE');
+    console.log('Timestamp:', new Date().toISOString());
     
     try {
-        const productos = JSON.parse(localStorage.getItem('productos') || '[]');
-        console.log('Productos encontrados:', productos.length);
-        
+        // Verificar que estamos en la página correcta
         const tbody = document.getElementById('tablaProductos');
         if (!tbody) {
-            console.error('❌ Tabla de productos no encontrada');
+            console.error('❌ Tabla de productos no encontrada - no estamos en la página correcta');
+            console.log('Elementos disponibles con ID:');
+            const elementsWithId = document.querySelectorAll('[id]');
+            elementsWithId.forEach(el => console.log(' -', el.id));
             return false;
         }
+        
+        console.log('✅ Elemento tabla encontrado');
+        
+        const productos = JSON.parse(localStorage.getItem('productos') || '[]');
+        console.log('Productos encontrados:', productos.length);
+        console.log('Datos productos:', productos);
         
         if (productos.length === 0) {
             tbody.innerHTML = '<tr><td colspan="8" class="text-center">No hay productos registrados</td></tr>';
@@ -823,10 +934,24 @@ window.cargarProductosSimple = function() {
         const elementoPocoStock = document.getElementById('pocoStock');
         const elementoSinStock = document.getElementById('sinStock');
         
+        console.log('🔍 Elementos de estadísticas encontrados:', {
+            totalProductos: !!elementoTotal,
+            conStock: !!elementoConStock,
+            pocoStock: !!elementoPocoStock,
+            sinStock: !!elementoSinStock
+        });
+        
         if (elementoTotal) elementoTotal.textContent = totalProductos;
         if (elementoConStock) elementoConStock.textContent = conStock;
-        if (elementoPocoStock) pocoStock;
+        if (elementoPocoStock) elementoPocoStock.textContent = pocoStock;
         if (elementoSinStock) elementoSinStock.textContent = sinStock;
+        
+        console.log('✅ Estadísticas actualizadas:', {
+            totalProductos,
+            conStock,
+            pocoStock,
+            sinStock
+        });
         
         console.log('✅ Productos cargados correctamente');
         console.log('Estadísticas calculadas:', { totalProductos, conStock, pocoStock, sinStock });

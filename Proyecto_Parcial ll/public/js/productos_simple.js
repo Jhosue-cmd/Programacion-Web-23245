@@ -85,7 +85,8 @@ async function activarCamaraSimple() {
         window.streamActual = stream;
         console.log('Stream guardado globalmente');
         
-        alert('🎬 ¡Cámara activada exitosamente! Ahora puedes capturar una foto.');
+        // Ya no mostrar alert, solo log
+        console.log('🎬 ¡Cámara activada exitosamente! Ahora puedes capturar una foto.');
         
     } catch (error) {
         console.error('❌ Error al activar cámara:', error);
@@ -193,7 +194,15 @@ function capturarFotoSimple() {
             console.log('Botón capturar ocultado');
         }
         
-        alert('✅ Foto capturada exitosamente');
+        // Mostrar modal en lugar de alert
+        const modalFotoCapturada = document.getElementById('modalFotoCapturada');
+        if (modalFotoCapturada) {
+            const modal = new bootstrap.Modal(modalFotoCapturada);
+            modal.show();
+        } else {
+            // Fallback si no está disponible el modal
+            console.log('✅ Foto capturada exitosamente');
+        }
         console.log('=== CAPTURA COMPLETADA ===');
         
     } catch (error) {
@@ -294,7 +303,8 @@ function manejarArchivoSimple(event) {
             console.log('contenedor element:', contenedor);
         }
         
-        alert('✅ Archivo cargado exitosamente');
+        // Ya no mostrar alert, solo log
+        console.log('✅ Archivo cargado exitosamente');
         console.log('=== ARCHIVO PROCESADO ===');
     };
     
@@ -510,4 +520,24 @@ window.activarCamaraSimple = activarCamaraSimple;
 window.capturarFotoSimple = capturarFotoSimple;
 window.manejarArchivoSimple = manejarArchivoSimple;
 window.subirArchivoSimple = subirArchivoSimple;
+
+// Función para volver a gestión de productos
+window.volverAGestion = function() {
+    console.log('Navegando de vuelta a gestión de productos...');
+    try {
+        if (typeof cargarPaginasAdmin === 'function') {
+            cargarPaginasAdmin('gestionProductos');
+        } else if (typeof window.cargarPaginasAdmin === 'function') {
+            window.cargarPaginasAdmin('gestionProductos');
+        } else {
+            console.error('Función de navegación no encontrada');
+            // Fallback: recargar página
+            window.location.reload();
+        }
+    } catch (error) {
+        console.error('Error en navegación:', error);
+        window.location.reload();
+    }
+};
+
 console.log('✅ Funciones expuestas globalmente');

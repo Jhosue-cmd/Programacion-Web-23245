@@ -111,7 +111,27 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>El producto ha sido creado exitosamente.</p>
+                    <p id="modalExitoMensaje">El producto ha sido creado exitosamente.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="volverAGestion()">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de foto capturada -->
+    <div class="modal fade" id="modalFotoCapturada" tabindex="-1" aria-labelledby="modalFotoCapturadaLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title" id="modalFotoCapturadaLabel">
+                        <i class="fas fa-camera me-2"></i>¡Foto Capturada!
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>La foto ha sido capturada exitosamente.</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Aceptar</button>
@@ -131,143 +151,9 @@
     -->
     
     <!-- Script simplificado para debugging -->
-    <script>
-        console.log('Página crearProducto cargada - versión simplificada');
-        
-        // Función simple de testing
-        window.probarFormulario = function() {
-            document.getElementById('nombreProducto').value = 'Producto Test';
-            document.getElementById('precioProducto').value = '15.99';
-            document.getElementById('cantidadProducto').value = '10';
-            document.getElementById('descripcionProducto').value = 'Producto de prueba';
-            console.log('Formulario llenado para prueba');
-        };
-        
-        // Configurar event listeners inmediatamente al cargar
-        function configurarEventListeners() {
-            console.log('=== CONFIGURANDO EVENT LISTENERS ===');
-            
-            // Botón Activar Cámara
-            const btnCamara = document.getElementById('btnActivarCamara');
-            if (btnCamara) {
-                console.log('Configurando botón cámara...');
-                btnCamara.onclick = function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    console.log('🎬 BOTÓN CÁMARA CLICKEADO');
-                    if (typeof window.activarCamaraSimple === 'function') {
-                        window.activarCamaraSimple();
-                    } else if (typeof activarCamaraSimple === 'function') {
-                        activarCamaraSimple();
-                    } else {
-                        console.error('Función activarCamaraSimple no encontrada');
-                        alert('Error: función de cámara no disponible');
-                    }
-                };
-                console.log('✅ Botón cámara configurado');
-            } else {
-                console.error('❌ Botón cámara no encontrado');
-            }
-            
-            // Botón Capturar Foto
-            const btnCapturar = document.getElementById('btn_capturar');
-            if (btnCapturar) {
-                console.log('Configurando botón capturar...');
-                btnCapturar.onclick = function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    console.log('📸 BOTÓN CAPTURAR CLICKEADO');
-                    if (typeof window.capturarFotoSimple === 'function') {
-                        window.capturarFotoSimple();
-                    } else if (typeof capturarFotoSimple === 'function') {
-                        capturarFotoSimple();
-                    } else {
-                        console.error('Función capturarFotoSimple no encontrada');
-                        alert('Error: función de captura no disponible');
-                    }
-                };
-                console.log('✅ Botón capturar configurado');
-            } else {
-                console.error('❌ Botón capturar no encontrado');
-            }
-            
-            // Botón Subir Archivo
-            const btnArchivo = document.getElementById('btnSubirArchivo');
-            if (btnArchivo) {
-                console.log('Configurando botón archivo...');
-                btnArchivo.onclick = function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    console.log('📁 BOTÓN ARCHIVO CLICKEADO');
-                    const inputArchivo = document.getElementById('inputArchivoFoto');
-                    if (inputArchivo) {
-                        inputArchivo.click();
-                    } else {
-                        console.error('Input archivo no encontrado');
-                    }
-                };
-                console.log('✅ Botón archivo configurado');
-            } else {
-                console.error('❌ Botón archivo no encontrado');
-            }
-            
-            // Input Archivo
-            const inputArchivo = document.getElementById('inputArchivoFoto');
-            if (inputArchivo) {
-                console.log('Configurando input archivo...');
-                inputArchivo.onchange = function(e) {
-                    console.log('📁 ARCHIVO SELECCIONADO');
-                    if (typeof window.manejarArchivoSimple === 'function') {
-                        window.manejarArchivoSimple(e);
-                    } else if (typeof manejarArchivoSimple === 'function') {
-                        manejarArchivoSimple(e);
-                    } else {
-                        console.error('Función manejarArchivoSimple no encontrada');
-                    }
-                };
-                console.log('✅ Input archivo configurado');
-            } else {
-                console.error('❌ Input archivo no encontrado');
-            }
-            
-            console.log('=== EVENT LISTENERS CONFIGURADOS ===');
-        }
-        
-        // Configurar inmediatamente y también después de un delay
-        document.addEventListener('DOMContentLoaded', configurarEventListeners);
-        
-        // Backup: configurar después de que todo esté cargado
-        window.addEventListener('load', function() {
-            setTimeout(configurarEventListeners, 100);
-        });
-        
-        // Función global para reconfigurar event listeners
-        window.reconfigurarEventListeners = configurarEventListeners;
-        
-        // Test para verificar que los botones funcionan
-        window.testBotones = function() {
-            console.log('=== TEST DE BOTONES ===');
-            const btnCamara = document.getElementById('btnActivarCamara');
-            const btnCapturar = document.getElementById('btn_capturar');
-            const btnArchivo = document.getElementById('btnSubirArchivo');
-            
-            console.log('Botón cámara:', btnCamara ? '✅ Encontrado' : '❌ No encontrado');
-            console.log('Botón capturar:', btnCapturar ? '✅ Encontrado' : '❌ No encontrado');
-            console.log('Botón archivo:', btnArchivo ? '✅ Encontrado' : '❌ No encontrado');
-            
-            if (btnCamara && btnCamara.onclick) {
-                console.log('✅ Botón cámara tiene onclick');
-            } else {
-                console.log('❌ Botón cámara NO tiene onclick');
-            }
-            
-            if (btnCapturar && btnCapturar.onclick) {
-                console.log('✅ Botón capturar tiene onclick');
-            } else {
-                console.log('❌ Botón capturar NO tiene onclick');
-            }
-        };
-        
-    </script>
+    
+    
+    
+     
 </body>
 </html>

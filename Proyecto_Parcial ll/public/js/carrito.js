@@ -83,7 +83,6 @@ function mostrarModal(mensaje) {
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                    <button id="btnGenerarPDF" class="btn btn-primary">Generar PDF</button>
                 </div>
             </div>
         </div>

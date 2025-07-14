@@ -1,15 +1,15 @@
 // Ajustar el tamaño del modal para que ocupe casi toda la pantalla
 const style = document.createElement('style');
 style.innerHTML = `
-    .modal-dialog {
+    #modalFactura{
         max-width: 95vw !important;
         width: 95vw !important;
         margin: 2vh auto !important;
     }
-    .modal-content {
+    #contenidoFactura {
         min-height: 90vh !important;
     }
-    .modal-body {
+    #cuerpoFactura {
         max-height: 70vh;
         overflow-y: auto;
     }
@@ -75,7 +75,7 @@ function generarFactura() {
         </div>
     `;
 
-    mostrarModal(facturaHTML);
+    mostrarModalFactura(facturaHTML);
 
     // Esperar a que el modal esté en el DOM
     setTimeout(() => {
@@ -91,3 +91,31 @@ function generarPDF() {
     window.print();
 }
 
+function mostrarModalFactura(mensaje) {
+    const modal = document.createElement('div');
+    modal.className = 'modal fade';
+    modal.id = 'mensajeModal';
+    modal.tabIndex = '-1';
+    modal.setAttribute('aria-labelledby', 'mensajeModalLabel');
+    modal.setAttribute('aria-hidden', 'true');
+    modal.innerHTML = `
+        <div class="modal-dialog" id="modalFactura">
+            <div class="modal-content" id="contenidoFactura">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="mensajeModalLabel">Información</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="cuerpoFactura">
+                    <p>${mensaje}</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button id="btnGenerarPDF" class="btn btn-primary">Generar PDF</button>
+                </div>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(modal);
+    const modalInstance = new bootstrap.Modal(modal);
+    modalInstance.show();
+}

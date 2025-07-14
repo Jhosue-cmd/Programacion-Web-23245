@@ -25,20 +25,52 @@ function cargarPlatosDisponibles() {
 
         const card = document.createElement('div');
         card.className = 'card h-100';
-        card.innerHTML = `
+        if (plato.cantidad === 0) {
+            card.innerHTML = `
             <img src="${plato.foto}" class="card-img-top" alt="${plato.nombre}" style="height: 200px; object-fit: cover;">
             <div class="card-body">
             <h5 class="card-title">${plato.nombre}</h5>
             <p class="card-text">${plato.descripcion || ''}</p>
             <p class="card-text"><strong>Precio:</strong> $${plato.precio.toFixed(2)}</p>
-            <button class="btn btn-primary agregar-carrito" data-index="${index}" onclick="agregarAlCarrito('${plato.nombre}')">Agregar al carrito</button>
+            <button id="btnAgregarCarrito${plato.nombre}" class="btn btn-primary agregar-carrito disabled" data-index="${index}" onclick="verificarDisponibilidadPlato('${plato.nombre}')">Agotado</button>
             </div>
         `;
+        } else {
+            card.innerHTML = `
+            <img src="${plato.foto}" class="card-img-top" alt="${plato.nombre}" style="height: 200px; object-fit: cover;">
+            <div class="card-body">
+            <h5 class="card-title">${plato.nombre}</h5>
+            <p class="card-text">${plato.descripcion || ''}</p>
+            <p class="card-text"><strong>Precio:</strong> $${plato.precio.toFixed(2)}</p>
+            <button id="btnAgregarCarrito${plato.nombre}" class="btn btn-primary agregar-carrito" data-index="${index}" onclick="verificarDisponibilidadPlato('${plato.nombre}')">Agregar al carrito</button>
+            </div>
+        `;
+        }
         col.appendChild(card);
         row.appendChild(col);
+
     });
 
     contenedorPlatos.appendChild(row);
+}
+function verificarDisponibilidadPlato(nombrePlato) {
+    const index = array.findIndex(p => p.nombre === nombrePlato);
+    if (index !== -1) {
+        // Si la cantidad es mayor a 0, permite agregar al carrito
+        if ((array[index].cantidad || 1) > 0) {
+            agregarAlCarrito(nombrePlato);
+            array[index].cantidad = (array[index].cantidad || 1) - 1;
+            // Si después de restar la cantidad es 0, marcar como agotado y deshabilitar botón
+            if (array[index].cantidad === 0) {
+                const btnAgregarCarrito = document.getElementById(`btnAgregarCarrito${array[index].nombre}`);
+                if (btnAgregarCarrito) {
+                    btnAgregarCarrito.innerText = 'Agotado';
+                    btnAgregarCarrito.disabled = true;
+                }
+            }
+            localStorage.setItem('productos', JSON.stringify(array));
+        }
+    }
 }
 
 function agregarAlCarrito(nombrePlato) {
@@ -59,9 +91,8 @@ function agregarAlCarrito(nombrePlato) {
         localStorage.setItem('carrito', JSON.stringify(carrito));
         mostrarModalPlato(`${plato.nombre} ha sido agregado al carrito.`);
         console.log(carrito);
-    } else {
-        mostrarModalPlato('Plato no encontrado.');
     }
+
 }
 
 function mostrarModalPlato(mensaje) {
@@ -80,13 +111,12 @@ function mostrarModalPlato(mensaje) {
                 </div>
                 <div class="modal-body">
                     <p>${mensaje}</p>
-                    <p><strong>Cantidad en carrito:</strong> ${
-                        (() => {
-                            const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
-                            const plato = carrito.find(p => mensaje.includes(p.nombre));
-                            return plato ? plato.cantidad : 0;
-                        })()
-                    }</p>
+                    <p><strong>Cantidad en carrito:</strong> ${(() => {
+            const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+            const plato = carrito.find(p => mensaje.includes(p.nombre));
+            return plato ? plato.cantidad : 0;
+        })()
+        }</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>

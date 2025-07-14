@@ -89,6 +89,8 @@ function generarFactura() {
 }
 function generarPDF() {
     window.print();
+    // Limpiar el carrito después de generar la factura
+    localStorage.removeItem('carrito');
 }
 
 function mostrarModalFactura(mensaje) {

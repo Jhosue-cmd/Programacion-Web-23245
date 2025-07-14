@@ -31,7 +31,7 @@ function recuperarYvalidar(event) {
             }
         } else {
             // Fallback al alert si no hay modal
-            alert("Bienvenido Administrador");
+            mostrarModal("Bienvenido Administrador");
             window.location.href = 'indexAdmin.html';
         }
         return true;
@@ -55,7 +55,7 @@ function recuperarYvalidar(event) {
                 modal.show();
             } else {
                 // Fallback al alert si no hay modal
-                alert("No hay usuarios registrados. Por favor regístrese primero.");
+                mostrarModal("No hay usuarios registrados. Por favor regístrese primero.");
             }
             return false;
         }
@@ -117,7 +117,7 @@ function recuperarYvalidar(event) {
                 modal.show();
             } else {
                 // Fallback al alert si no hay modal
-                alert("Nombre de usuario o contraseña incorrectos");
+                mostrarModal("Nombre de usuario o contraseña incorrectos");
             }
             return false;
         }
@@ -134,15 +134,8 @@ function recuperarYvalidar(event) {
             modal.show();
         } else {
             // Fallback al alert si no hay modal
-            alert("Ocurrió un error al intentar iniciar sesión");
+            mostrarModal("Ocurrió un error al intentar iniciar sesión");
         }
         return false;
     }
 }
-
-
-/* Constante con credenciales de administrador
-const userData = {
-    email: "mateolisintuna@gmail.com",
-    password: "admin123"
-};*/

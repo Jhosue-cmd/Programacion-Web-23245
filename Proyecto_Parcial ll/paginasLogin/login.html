@@ -1,165 +1,137 @@
-
-    <div class="login-background">
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-lg-5">
-            <!-- Tarjeta de login-->
-            <div class="login-card">
-              <div class="card-header">
-                <h3>Iniciar Sesión</h3>
-                <br />
-                <p class="text-dark">Ingresa tus credenciales para acceder</p>
-              </div>
-              <div class="card-body text-dark">
-                <form id="loginForm" onsubmit="return recuperarYvalidar(event)">
-
-
-                  <div class="mb-4">
-
-                    <div class=" form-floating ">
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="inputnombreUsuario"
-                        placeholder="Nombre de usuario"
-                        required
-                      />
-                                          <label
-                      for="inputnombreUsuario"
-                    >
-                  Nombre de usuario</label>
-                    </div>
-                  </div>
+<div class="login-background">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-5">
+        <!-- Tarjeta de login-->
+        <div class="login-card">
+          <div class="card-header">
+            <h3>Iniciar Sesión</h3>
+            <br />
+            <p class="text-dark">Ingresa tus credenciales para acceder</p>
+          </div>
+          <div class="card-body text-dark">
+            <form id="loginForm" onsubmit="return recuperarYvalidar(event)">
 
 
+              <div class="mb-4">
 
-                  <div class="mb-4">
-
-                    <div class="form-floating">
-                      <input
-                        type="password"
-                        class="form-control form-control-lg"
-                        id="inputPassword"
-                        placeholder="Contraseña"
-                        required
-                      />
-                                          <label
-                      for="inputPassword"
-                    >Contraseña</label>
-                    </div>
-                  </div>
-
-                  <div class="form-check mb-3 d-flex align-items-center">
-                    <input
-                      class="form-check-input me-2 "
-                      id="inputRememberPassword"
-                      type="checkbox"
-                      value=""
-                    />
-                    <label for="inputRememberPassword"
-                      >Mostrar Contraseña</label
-                    >
-                  </div>
-                  <div
-                    class="d-flex align-items-center justify-content-between mt-4 mb-0"
-                  >
-                    <a class="small text-decoration-none link-accent" href="#"
-                      >¿Olvidaste tu contraseña?</a
-                    >
-                    <button type="submit" class="btn btn-dark btn-login">
-                      <i class="fas fa-sign-in-alt me-2"></i>Iniciar Sesión
-                    </button>
-                  </div>
-                </form>
-                <br /><br />
-              </div>
-              <div class="card-footer text-center py-3">
-                <div class="small">
-                  <a
-                    href="#"
-                    class="link-accent"
-                    onclick="cargarPaginas('register')"
-                    >¿Necesitas una cuenta? ¡Regístrate!</a
-                  >
+                <div class=" form-floating ">
+                  <input type="text" class="form-control" id="inputnombreUsuario" placeholder="Nombre de usuario"
+                    required />
+                  <label for="inputnombreUsuario">
+                    Nombre de usuario</label>
                 </div>
               </div>
+
+
+
+              <div class="mb-4">
+
+                <div class="form-floating">
+                  <input type="password" class="form-control form-control-lg" id="inputPassword"
+                    placeholder="Contraseña" required />
+                  <label for="inputPassword">Contraseña</label>
+                </div>
+              </div>
+
+              <div class="form-check mb-3 d-flex align-items-center">
+                <input class="form-check-input me-2 " id="inputRememberPassword" type="checkbox" value="" />
+                <label for="inputRememberPassword">Mostrar Contraseña</label>
+              </div>
+              <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
+                <a class="small text-decoration-none link-accent" href="#">¿Olvidaste tu contraseña?</a>
+                <button type="submit" class="btn btn-dark btn-login">
+                  <i class="fas fa-sign-in-alt me-2"></i>Iniciar Sesión
+                </button>
+              </div>
+            </form>
+            <br /><br />
+          </div>
+          <div class="card-footer text-center py-3">
+            <div class="small">
+              <a href="#" class="link-accent" onclick="cargarPaginas('register')">¿Necesitas una cuenta?
+                ¡Regístrate!</a>
             </div>
           </div>
         </div>
       </div>
-      <div class="login-footer">
-        Derechos de autor &copy; Cristian Lisintuña 2025
-      </div>
     </div>
+  </div>
+  <div class="login-footer">
+    Derechos de autor &copy; Cristian Lisintuña 2025
+  </div>
+</div>
 
-    <!-- Modal de Bienvenida Administrador -->
-    <div class="modal fade" id="modalBienvenidaAdmin" tabindex="-1" aria-labelledby="modalBienvenidaAdminLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header bg-primary text-white">
-            <h5 class="modal-title" id="modalBienvenidaAdminLabel">
-              <i class="fas fa-user-shield me-2"></i>Acceso Administrativo
-            </h5>
-            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body text-center">
-            <i class="fas fa-crown text-warning" style="font-size: 3rem; margin-bottom: 1rem;"></i>
-            <h6>¡Bienvenido Administrador!</h6>
-            <p class="text-muted mb-0">Accediendo al panel de administración del sistema.</p>
-          </div>
-          <div class="modal-footer justify-content-center">
-            <button type="button" class="btn btn-primary" id="btnAccesoAdmin">
-              <i class="fas fa-tachometer-alt me-1"></i>Acceder al Panel
-            </button>
-          </div>
-        </div>
+<!-- Modal de Bienvenida Administrador -->
+<div class="modal fade" id="modalBienvenidaAdmin" tabindex="-1" aria-labelledby="modalBienvenidaAdminLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title" id="modalBienvenidaAdminLabel">
+          <i class="fas fa-user-shield me-2"></i>Acceso Administrativo
+        </h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-center">
+        <i class="fas fa-crown text-warning" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+        <h6>¡Bienvenido Administrador!</h6>
+        <p class="text-muted mb-0">Accediendo al panel de administración del sistema.</p>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-primary" id="btnAccesoAdmin">
+          <i class="fas fa-tachometer-alt me-1"></i>Acceder al Panel
+        </button>
       </div>
     </div>
+  </div>
+</div>
 
-    <!-- Modal de Bienvenida Cliente -->
-    <div class="modal fade" id="modalBienvenidaCliente" tabindex="-1" aria-labelledby="modalBienvenidaClienteLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header bg-success text-white">
-            <h5 class="modal-title" id="modalBienvenidaClienteLabel">
-              <i class="fas fa-user me-2"></i>Acceso Cliente
-            </h5>
-            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body text-center">
-            <i class="fas fa-smile text-success" style="font-size: 3rem; margin-bottom: 1rem;"></i>
-            <h6 id="mensajeBienvenidaCliente">¡Bienvenido!</h6>
-            <p class="text-muted mb-0">Accediendo a la plataforma del cliente.</p>
-          </div>
-          <div class="modal-footer justify-content-center">
-            <button type="button" class="btn btn-success" id="btnAccesoCliente">
-              <i class="fas fa-utensils me-1"></i>Acceder a la Plataforma
-            </button>
-          </div>
-        </div>
+<!-- Modal de Bienvenida Cliente -->
+<div class="modal fade" id="modalBienvenidaCliente" tabindex="-1" aria-labelledby="modalBienvenidaClienteLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-success text-white">
+        <h5 class="modal-title" id="modalBienvenidaClienteLabel">
+          <i class="fas fa-user me-2"></i>Acceso Cliente
+        </h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-center">
+        <i class="fas fa-smile text-success" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+        <h6 id="mensajeBienvenidaCliente">¡Bienvenido!</h6>
+        <p class="text-muted mb-0">Accediendo a la plataforma del cliente.</p>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-success" id="btnAccesoCliente">
+          <i class="fas fa-utensils me-1"></i>Acceder a la Plataforma
+        </button>
       </div>
     </div>
+  </div>
+</div>
 
-    <!-- Modal de Error de Login -->
-    <div class="modal fade" id="modalErrorLogin" tabindex="-1" aria-labelledby="modalErrorLoginLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header bg-danger text-white">
-            <h5 class="modal-title" id="modalErrorLoginLabel">
-              <i class="fas fa-exclamation-triangle me-2"></i>Error de Acceso
-            </h5>
-            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body text-center">
-            <i class="fas fa-times-circle text-danger" style="font-size: 3rem; margin-bottom: 1rem;"></i>
-            <h6 id="mensajeErrorLogin">Credenciales incorrectas</h6>
-            <p class="text-muted mb-0">Por favor, verifica tu usuario y contraseña.</p>
-          </div>
-          <div class="modal-footer justify-content-center">
-            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
-              <i class="fas fa-times me-1"></i>Cerrar
-            </button>
-          </div>
-        </div>
+<!-- Modal de Error de Login -->
+<div class="modal fade" id="modalErrorLogin" tabindex="-1" aria-labelledby="modalErrorLoginLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-danger text-white">
+        <h5 class="modal-title" id="modalErrorLoginLabel">
+          <i class="fas fa-exclamation-triangle me-2"></i>Error de Acceso
+        </h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-center">
+        <i class="fas fa-times-circle text-danger" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+        <h6 id="mensajeErrorLogin">Credenciales incorrectas</h6>
+        <p class="text-muted mb-0">Por favor, verifica tu usuario y contraseña.</p>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+          <i class="fas fa-times me-1"></i>Cerrar
+        </button>
       </div>
     </div>
+  </div>
+</div>

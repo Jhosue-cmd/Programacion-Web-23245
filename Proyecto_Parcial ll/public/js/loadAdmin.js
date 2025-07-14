@@ -60,6 +60,12 @@ window.cargarPaginasAdmin = function cargarPaginasAdmin(url_pagina) {
                 if (window.timeoutGestion) {
                     clearTimeout(window.timeoutGestion);
                 }
+
+                // Forzar actualización de datos antes de cargar la página
+                if (window.gestionProductos) {
+                    console.log('🔄 Forzando actualización de datos...');
+                    window.gestionProductos.productos = window.gestionProductos.cargarProductos();
+                }
                 
                 // Usar solo función simple con mejor manejo de errores
                 window.timeoutGestion = setTimeout(() => {
@@ -85,6 +91,18 @@ window.cargarPaginasAdmin = function cargarPaginasAdmin(url_pagina) {
                                 }
                             }, 500);
                             return;
+                        }
+
+                        // Inicializar gestión de productos si está disponible
+                        if (window.gestionProductos) {
+                            console.log('🔄 Inicializando gestión de productos...');
+                            window.gestionProductos.inicializarGestion();
+                        }
+
+                        // Forzar actualización inmediata
+                        if (typeof window.actualizarGestionProductos === 'function') {
+                            console.log('🔥 Forzando actualización inmediata...');
+                            window.actualizarGestionProductos();
                         }
                         
                         if (typeof window.cargarProductosSimple === 'function') {
@@ -481,36 +499,28 @@ window.guardarProductoSimple = function() {
             const modal = new bootstrap.Modal(modalExito);
             modal.show();
             
-            // Navegar cuando se cierre el modal
-            modalExito.addEventListener('hidden.bs.modal', function() {
-                console.log('Modal cerrado, navegando a gestión de productos...');
+            console.log('✅ Modal de éxito mostrado');
+            
+        } else {
+            // Fallback si no está disponible el modal
+            console.log('⚠️ Modal no disponible, usando alert');
+            alert('Producto guardado exitosamente!');
+            
+            // Navegar inmediatamente si no hay modal
+            setTimeout(() => {
+                console.log('🔄 Navegando después de alert...');
                 try {
                     if (typeof cargarPaginasAdmin === 'function') {
                         cargarPaginasAdmin('gestionProductos');
                     } else if (typeof window.cargarPaginasAdmin === 'function') {
                         window.cargarPaginasAdmin('gestionProductos');
                     } else {
-                        console.error('Función de navegación no encontrada');
-                        // Fallback: recargar página
+                        console.error('❌ Función de navegación no encontrada');
                         window.location.reload();
                     }
                 } catch (navError) {
-                    console.error('Error en navegación:', navError);
+                    console.error('❌ Error en navegación:', navError);
                     window.location.reload();
-                }
-            }, { once: true });
-            
-        } else {
-            // Fallback si no está disponible el modal
-            alert('Producto guardado exitosamente!');
-            // Navegar inmediatamente
-            setTimeout(() => {
-                if (typeof cargarPaginasAdmin === 'function') {
-                    cargarPaginasAdmin('gestionProductos');
-                } else if (typeof window.cargarPaginasAdmin === 'function') {
-                    window.cargarPaginasAdmin('gestionProductos');
-                } else {
-                    console.log('Función de navegación no encontrada');
                 }
             }, 500);
         }

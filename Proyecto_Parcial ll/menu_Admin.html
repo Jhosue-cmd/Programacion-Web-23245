@@ -17,9 +17,14 @@
           <i class="fas fa-bars ms-1"></i>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav text-uppercase  ms-auto py-4 py-lg-0">
-            <li class="nav-item">
-              <a class="nav-link" href="#" onclick="cargarPaginasAdmin('gestionProductos')">PRODUCTOS</a>
+          <ul class="navbar-nav text-uppercase  ms-auto py-4 py-lg-0">                <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="productosDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                PLATOS
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="productosDropdown">
+                <li><a class="dropdown-item" href="#" onclick="cargarPaginasAdmin('gestionProductos')">Ver Platos</a></li>
+                <li><a class="dropdown-item" href="#" onclick="cargarPaginasAdmin('crearProducto')">Crear Plato</a></li>
+              </ul>
             </li>
 
             <li class="nav-item">

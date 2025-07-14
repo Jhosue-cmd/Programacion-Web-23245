@@ -1,28 +1,27 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Producto</title>
-    <link href="../public/bootstrap-5.3.5-dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="../css/styles2.css" rel="stylesheet">
-    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-</head>
-<body>
-    <div class="container mt-5">
+<!-- Estilo para que el contenido aparezca debajo del banner -->
+<style>
+    #principal {
+        padding-top: 80px !important; /* Espacio para el banner fijo */
+    }
+    .container {
+        margin-top: 20px !important;
+    }
+</style>
+
+<div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-8">
                 <div class="card shadow-lg border-0 rounded-lg">
                     <div class="card-header bg-warning text-dark">
                         <h3 class="text-center font-weight-light my-2">
-                            <i class="fas fa-edit me-2"></i>Editar Producto
+                            <i class="fas fa-edit me-2"></i>Editar Plato
                         </h3>
                     </div>
                     <div class="card-body">
                         <!-- Información del producto actual -->
                         <div class="alert alert-info mb-4" id="infoProducto">
                             <i class="fas fa-info-circle me-2"></i>
-                            <strong>Producto seleccionado:</strong> <span id="productoActual">Cargando...</span>
+                            <strong>Plato seleccionado:</strong> <span id="productoActual">Cargando...</span>
                         </div>
 
                         <form id="formEditarProducto" onsubmit="return false;">
@@ -31,8 +30,8 @@
 
                             <!-- Nombre del producto -->
                             <div class="form-floating mb-3">
-                                <input class="form-control" id="nombreProducto" type="text" placeholder="Nombre del producto" required>
-                                <label for="nombreProducto">Nombre del Producto</label>
+                                <input class="form-control" id="nombreProducto" type="text" placeholder="Nombre del plato" required>
+                                <label for="nombreProducto">Nombre del Plato</label>
                             </div>
 
                             <!-- Precio -->
@@ -49,13 +48,13 @@
 
                             <!-- Descripción -->
                             <div class="form-floating mb-3">
-                                <textarea class="form-control" id="descripcionProducto" placeholder="Descripción del producto" style="height: 100px"></textarea>
+                                <textarea class="form-control" id="descripcionProducto" placeholder="Descripción del plato" style="height: 100px"></textarea>
                                 <label for="descripcionProducto">Descripción (Opcional)</label>
                             </div>
 
                             <!-- Sección de Foto -->
                             <div class="mb-3">
-                                <label class="form-label">Foto del Producto</label>
+                                <label class="form-label">Foto del Plato</label>
                                 
                                 <!-- Foto actual -->
                                 <div id="fotoActual" class="mb-3">
@@ -109,7 +108,7 @@
                                     <i class="fas fa-arrow-left me-2"></i>Cancelar
                                 </button>
                                 <button type="button" class="btn btn-warning" id="btnActualizarProducto">
-                                    <i class="fas fa-save me-2"></i>Actualizar Producto
+                                    <i class="fas fa-save me-2"></i>Actualizar Plato
                                 </button>
                             </div>
                         </form>
@@ -130,7 +129,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>El producto ha sido actualizado exitosamente.</p>
+                    <p>El plato ha sido actualizado exitosamente.</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Aceptar</button>
@@ -150,7 +149,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p id="mensajeError">No se pudo cargar el producto.</p>
+                    <p id="mensajeError">No se pudo cargar el plato.</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
@@ -333,5 +332,12 @@
             }
         }
     </script>
-</body>
-</html>
+</div>
+
+<script>
+// Cargar scripts necesarios cuando se carga esta página
+if (!window.editarProductoLoaded) {
+    // Los scripts específicos de editar producto ya están incluidos arriba
+    window.editarProductoLoaded = true;
+}
+</script>

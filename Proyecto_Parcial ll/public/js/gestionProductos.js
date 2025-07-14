@@ -4,6 +4,7 @@ class GestionProductos {
     constructor() {
         console.log('=== INICIALIZANDO GESTIÓN DE PRODUCTOS ===');
         this.productos = this.cargarProductos();
+        this.ultimaVerificacion = null; // Para rastrear cambios en localStorage
         console.log('Constructor: productos cargados:', this.productos.length);
         this.inicializar();
         
@@ -217,6 +218,12 @@ class GestionProductos {
                 setTimeout(() => {
                     modal.hide();
                     setTimeout(() => {
+                        // Notificar actualización antes de navegar
+                        this.notificarActualizacion();
+                        
+                        // Forzar actualización global
+                        window.forzarActualizacionGestion = true;
+                        
                         if (typeof cargarPaginasAdmin === 'function') {
                             cargarPaginasAdmin('gestionProductos');
                         } else if (typeof window.cargarPaginasAdmin === 'function') {
@@ -235,6 +242,12 @@ class GestionProductos {
                     window.fotoProductos.limpiarTodo();
                 }
                 
+                // Notificar actualización antes de navegar
+                this.notificarActualizacion();
+                
+                // Forzar actualización global
+                window.forzarActualizacionGestion = true;
+                
                 // Redirigir
                 if (typeof cargarPaginasAdmin === 'function') {
                     cargarPaginasAdmin('gestionProductos');
@@ -247,6 +260,21 @@ class GestionProductos {
             console.error('Error al crear producto:', error);
             alert('Error al guardar el producto: ' + error.message);
         }
+    }
+
+    // Función para notificar que los datos se han actualizado
+    notificarActualizacion() {
+        console.log('📢 Notificando actualización de datos...');
+        // Marcar que los datos han cambiado
+        localStorage.setItem('productosActualizados', Date.now().toString());
+        
+        // Disparar evento personalizado
+        window.dispatchEvent(new CustomEvent('productosActualizados', {
+            detail: { 
+                productos: this.productos,
+                timestamp: Date.now()
+            }
+        }));
     }
 
     // EDITAR PRODUCTO
@@ -388,6 +416,9 @@ class GestionProductos {
 
             console.log('Producto actualizado exitosamente:', this.productos[index]);
 
+            // Notificar actualización
+            this.notificarActualizacion();
+
             // Mostrar modal de éxito
             const modalElement = document.getElementById('modalExito');
             if (modalElement) {
@@ -427,21 +458,43 @@ class GestionProductos {
     // GESTIÓN DE PRODUCTOS
     inicializarGestion() {
         console.log('=== INICIALIZANDO GESTIÓN DE PRODUCTOS ===');
+        
+        // Verificar si hay una actualización forzada pendiente
+        if (window.forzarActualizacionGestion) {
+            console.log('🔥 Actualización forzada detectada - Recargando datos...');
+            this.productos = this.cargarProductos();
+            window.forzarActualizacionGestion = false;
+        }
+        
         this.verificarLocalStorage();
         this.cargarTablaProductos();
         this.actualizarEstadisticas();
         this.configurarFiltros();
+        this.configurarEscuchadorActualizaciones();
         
         // Event listeners
         const btnActualizar = document.getElementById('btnActualizar');
         if (btnActualizar) {
             btnActualizar.addEventListener('click', () => {
                 console.log('Botón actualizar clickeado');
-                this.verificarLocalStorage();
-                this.cargarTablaProductos();
-                this.actualizarEstadisticas();
+                this.actualizarDatos();
+                // También limpiar filtros al actualizar
+                this.limpiarFiltros();
             });
         }
+        
+        // Configurar verificadores múltiples para asegurar que los eventos estén funcionando
+        setTimeout(() => {
+            this.verificarEventosFiltros();
+        }, 500);
+        
+        setTimeout(() => {
+            this.verificarEventosFiltros();
+        }, 1500);
+        
+        setTimeout(() => {
+            this.verificarEventosFiltros();
+        }, 3000);
     }
 
     cargarTablaProductos() {
@@ -456,7 +509,7 @@ class GestionProductos {
         
         // Actualizar contador de resultados
         if (contadorResultados) {
-            contadorResultados.innerHTML = `<i class="fas fa-list me-1"></i>Mostrando todos los productos (${this.productos.length})`;
+            contadorResultados.innerHTML = `<i class="fas fa-list me-1"></i>Mostrando todos los platos (${this.productos.length})`;
         }
         
         // Actualizar hora de última actualización
@@ -549,52 +602,213 @@ class GestionProductos {
         const buscar = document.getElementById('buscarProducto');
         const filtroStock = document.getElementById('filtroStock');
         const ordenar = document.getElementById('ordenarPor');
+        const btnLimpiarFiltros = document.getElementById('btnLimpiarFiltros');
 
-        // Debounce para la búsqueda (esperar 300ms después de que el usuario deje de escribir)
-        let timeoutBusqueda;
+        console.log('Elementos encontrados:', {
+            buscar: !!buscar,
+            filtroStock: !!filtroStock,
+            ordenar: !!ordenar,
+            btnLimpiarFiltros: !!btnLimpiarFiltros
+        });
+
+        // Configurar cada evento por separado
         if (buscar) {
-            buscar.addEventListener('input', () => {
-                clearTimeout(timeoutBusqueda);
-                timeoutBusqueda = setTimeout(() => {
-                    console.log('🔍 Búsqueda activada:', buscar.value);
-                    this.filtrarProductos();
-                }, 300);
-            });
-            
-            // También filtrar cuando presione Enter
-            buscar.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
-                    clearTimeout(timeoutBusqueda);
-                    console.log('🔍 Búsqueda por Enter:', buscar.value);
-                    this.filtrarProductos();
-                }
-            });
+            console.log('Configurando eventos para buscar input');
+            this.configurarEventoBusqueda(buscar);
+        } else {
+            console.warn('⚠️ No se encontró el elemento buscarProducto');
         }
         
         if (filtroStock) {
-            filtroStock.addEventListener('change', () => {
-                console.log('📊 Filtro de stock cambiado:', filtroStock.value);
-                this.filtrarProductos();
-            });
+            console.log('Configurando eventos para filtro de stock');
+            this.configurarEventoFiltroStock(filtroStock);
+        } else {
+            console.warn('⚠️ No se encontró el elemento filtroStock');
         }
         
         if (ordenar) {
-            ordenar.addEventListener('change', () => {
-                console.log('🔄 Orden cambiado:', ordenar.value);
-                this.filtrarProductos();
-            });
+            console.log('Configurando eventos para orden');
+            this.configurarEventoOrden(ordenar);
+        } else {
+            console.warn('⚠️ No se encontró el elemento ordenarPor');
         }
         
-        // Botón para limpiar filtros
-        const btnLimpiarFiltros = document.getElementById('btnLimpiarFiltros');
         if (btnLimpiarFiltros) {
-            btnLimpiarFiltros.addEventListener('click', () => {
-                console.log('🧹 Limpiando filtros...');
-                this.limpiarFiltros();
-            });
+            console.log('Configurando botón limpiar filtros');
+            this.configurarEventoLimpiar(btnLimpiarFiltros);
+        } else {
+            console.warn('⚠️ No se encontró el botón btnLimpiarFiltros');
         }
         
         console.log('✅ Filtros configurados correctamente');
+    }
+
+    verificarEventosFiltros() {
+        console.log('🔍 Verificando que los eventos de filtros estén funcionando...');
+        
+        const buscar = document.getElementById('buscarProducto');
+        const filtroStock = document.getElementById('filtroStock');
+        const ordenar = document.getElementById('ordenarPor');
+        const btnLimpiar = document.getElementById('btnLimpiarFiltros');
+        
+        console.log('Elementos encontrados:', {
+            buscar: !!buscar,
+            filtroStock: !!filtroStock,
+            ordenar: !!ordenar,
+            btnLimpiar: !!btnLimpiar
+        });
+        
+        // Configurar eventos solo si no están ya configurados
+        if (buscar && !buscar.hasAttribute('data-eventos-configurados')) {
+            console.log('🔧 Configurando eventos de búsqueda...');
+            this.configurarEventoBusqueda(buscar);
+        }
+        
+        if (filtroStock && !filtroStock.hasAttribute('data-eventos-configurados')) {
+            console.log('🔧 Configurando eventos de filtro stock...');
+            this.configurarEventoFiltroStock(filtroStock);
+        }
+        
+        if (ordenar && !ordenar.hasAttribute('data-eventos-configurados')) {
+            console.log('🔧 Configurando eventos de orden...');
+            this.configurarEventoOrden(ordenar);
+        }
+        
+        if (btnLimpiar && !btnLimpiar.hasAttribute('data-eventos-configurados')) {
+            console.log('🔧 Configurando eventos de botón limpiar...');
+            this.configurarEventoLimpiar(btnLimpiar);
+        }
+        
+        console.log('✅ Verificación de eventos completada');
+    }
+
+    // Configurar escuchador para actualizaciones automáticas
+    configurarEscuchadorActualizaciones() {
+        console.log('🔔 Configurando escuchador de actualizaciones...');
+        
+        // Escuchar evento personalizado
+        window.addEventListener('productosActualizados', (event) => {
+            console.log('📢 Recibida notificación de actualización:', event.detail);
+            this.actualizarDatos();
+        });
+        
+        // Verificar cambios en localStorage cada 2 segundos
+        setInterval(() => {
+            this.verificarCambiosEnStorage();
+        }, 2000);
+        
+        console.log('✅ Escuchador de actualizaciones configurado');
+    }
+
+    // Verificar si hubo cambios en localStorage
+    verificarCambiosEnStorage() {
+        const ultimaActualizacion = localStorage.getItem('productosActualizados');
+        
+        if (ultimaActualizacion && ultimaActualizacion !== this.ultimaVerificacion) {
+            console.log('🔄 Detectados cambios en localStorage, actualizando...');
+            this.ultimaVerificacion = ultimaActualizacion;
+            this.actualizarDatos();
+        }
+    }
+
+    // Función unificada para actualizar datos
+    actualizarDatos() {
+        console.log('🔄 Actualizando datos de gestión...');
+        
+        // Recargar productos desde localStorage
+        this.productos = this.cargarProductos();
+        
+        // Actualizar interfaz
+        this.cargarTablaProductos();
+        this.actualizarEstadisticas();
+        
+        // Re-aplicar filtros si hay alguno activo
+        const buscar = document.getElementById('buscarProducto');
+        const filtroStock = document.getElementById('filtroStock');
+        const ordenar = document.getElementById('ordenarPor');
+        
+        if ((buscar && buscar.value) || 
+            (filtroStock && filtroStock.value !== 'todos') || 
+            (ordenar && ordenar.value !== 'nombre')) {
+            console.log('📊 Re-aplicando filtros después de actualización...');
+            this.filtrarProductos();
+        }
+        
+        console.log('✅ Datos actualizados correctamente');
+    }
+
+    configurarEventoBusqueda(buscar) {
+        // Verificar si ya tiene eventos configurados
+        if (buscar.hasAttribute('data-eventos-configurados')) {
+            console.log('⚡ Eventos de búsqueda ya configurados, saltando...');
+            return;
+        }
+        
+        // Configurar nuevo evento
+        let timeoutBusqueda;
+        buscar.addEventListener('input', (e) => {
+            clearTimeout(timeoutBusqueda);
+            timeoutBusqueda = setTimeout(() => {
+                console.log('🔍 Búsqueda activada:', e.target.value);
+                this.filtrarProductos();
+            }, 300);
+        });
+        
+        buscar.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                clearTimeout(timeoutBusqueda);
+                console.log('🔍 Búsqueda por Enter:', buscar.value);
+                this.filtrarProductos();
+            }
+        });
+        
+        buscar.setAttribute('data-eventos-configurados', 'true');
+        console.log('✅ Eventos de búsqueda configurados correctamente');
+    }
+
+    configurarEventoFiltroStock(filtroStock) {
+        // Verificar si ya tiene eventos configurados
+        if (filtroStock.hasAttribute('data-eventos-configurados')) {
+            console.log('⚡ Eventos de filtro stock ya configurados, saltando...');
+            return;
+        }
+        
+        filtroStock.addEventListener('change', (e) => {
+            console.log('📊 Filtro de stock cambiado:', e.target.value);
+            this.filtrarProductos();
+        });
+        filtroStock.setAttribute('data-eventos-configurados', 'true');
+        console.log('✅ Eventos de filtro stock configurados correctamente');
+    }
+
+    configurarEventoOrden(ordenar) {
+        // Verificar si ya tiene eventos configurados
+        if (ordenar.hasAttribute('data-eventos-configurados')) {
+            console.log('⚡ Eventos de orden ya configurados, saltando...');
+            return;
+        }
+        
+        ordenar.addEventListener('change', (e) => {
+            console.log('🔄 Orden cambiado:', e.target.value);
+            this.filtrarProductos();
+        });
+        ordenar.setAttribute('data-eventos-configurados', 'true');
+        console.log('✅ Eventos de orden configurados correctamente');
+    }
+
+    configurarEventoLimpiar(btnLimpiar) {
+        // Verificar si ya tiene eventos configurados
+        if (btnLimpiar.hasAttribute('data-eventos-configurados')) {
+            console.log('⚡ Eventos de limpiar ya configurados, saltando...');
+            return;
+        }
+        
+        btnLimpiar.addEventListener('click', () => {
+            console.log('🧹 Limpiando filtros...');
+            this.limpiarFiltros();
+        });
+        btnLimpiar.setAttribute('data-eventos-configurados', 'true');
+        console.log('✅ Eventos de limpiar configurados correctamente');
     }
 
     limpiarFiltros() {
@@ -631,15 +845,18 @@ class GestionProductos {
         const criterioOrden = ordenar ? ordenar.value : 'nombre';
         
         console.log('Filtros aplicados:', { textoBusqueda, tipoStock, criterioOrden });
+        console.log('Total productos disponibles:', this.productos.length);
         
         // Iniciar con todos los productos
         let productosFiltrados = [...this.productos];
         
-        // Filtrar por texto de búsqueda (buscar en nombre)
+        // Filtrar por texto de búsqueda (buscar en nombre y descripción)
         if (textoBusqueda) {
-            productosFiltrados = productosFiltrados.filter(producto => 
-                producto.nombre.toLowerCase().includes(textoBusqueda)
-            );
+            productosFiltrados = productosFiltrados.filter(producto => {
+                const nombre = producto.nombre.toLowerCase();
+                const descripcion = (producto.descripcion || '').toLowerCase();
+                return nombre.includes(textoBusqueda) || descripcion.includes(textoBusqueda);
+            });
             console.log(`Después de búsqueda por "${textoBusqueda}":`, productosFiltrados.length, 'productos');
         }
         
@@ -696,9 +913,9 @@ class GestionProductos {
         if (contadorResultados) {
             const total = this.productos.length;
             if (productosFiltrados.length === total) {
-                contadorResultados.innerHTML = `<i class="fas fa-list me-1"></i>Mostrando todos los productos (${total})`;
+                contadorResultados.innerHTML = `<i class="fas fa-list me-1"></i>Mostrando todos los platos (${total})`;
             } else {
-                contadorResultados.innerHTML = `<i class="fas fa-filter me-1"></i>Mostrando ${productosFiltrados.length} de ${total} productos`;
+                contadorResultados.innerHTML = `<i class="fas fa-filter me-1"></i>Mostrando ${productosFiltrados.length} de ${total} platos`;
             }
         }
         
@@ -719,7 +936,7 @@ class GestionProductos {
                     <td colspan="8" class="text-center text-muted py-4">
                         <i class="fas fa-search fa-2x mb-2"></i>
                         <br>
-                        No se encontraron productos que coincidan con los filtros aplicados.
+                        No se encontraron platos que coincidan con los filtros aplicados.
                         <br>
                         <small>Intenta cambiar los criterios de búsqueda.</small>
                     </td>
@@ -825,6 +1042,10 @@ class GestionProductos {
     eliminarProducto(id) {
         this.productos = this.productos.filter(p => p.id !== id);
         this.guardarProductos();
+        
+        // Notificar actualización
+        this.notificarActualizacion();
+        
         this.cargarTablaProductos();
         this.actualizarEstadisticas();
     }
@@ -833,6 +1054,77 @@ class GestionProductos {
 
 // Inicializar cuando se carga la página
 const gestionProductos = new GestionProductos();
+
+// Variable para evitar bucles infinitos
+let configurandoEventos = false;
+
+// Observador para detectar cambios en el DOM y reconfigurar filtros
+const observer = new MutationObserver((mutations) => {
+    // Evitar bucles infinitos
+    if (configurandoEventos) return;
+    
+    mutations.forEach((mutation) => {
+        if (mutation.type === 'childList') {
+            // Verificar si se agregó la tabla de productos
+            const tablaProductos = document.getElementById('tablaProductos');
+            const buscarProducto = document.getElementById('buscarProducto');
+            
+            if (tablaProductos && buscarProducto && window.gestionProductos) {
+                console.log('🔄 Detectado cambio en DOM - Reconfigurando filtros...');
+                configurandoEventos = true;
+                setTimeout(() => {
+                    window.gestionProductos.verificarEventosFiltros();
+                    configurandoEventos = false;
+                }, 100);
+            }
+        }
+    });
+});
+
+// Observar cambios en el elemento principal
+const principal = document.getElementById('principal');
+if (principal) {
+    observer.observe(principal, {
+        childList: true,
+        subtree: true
+    });
+}
+
+// Función global para forzar actualización inmediata
+window.actualizarGestionProductos = function() {
+    console.log('🔥 FORZANDO ACTUALIZACIÓN INMEDIATA...');
+    
+    if (window.gestionProductos) {
+        console.log('📊 Actualizando datos de gestión...');
+        window.gestionProductos.productos = window.gestionProductos.cargarProductos();
+        window.gestionProductos.cargarTablaProductos();
+        window.gestionProductos.actualizarEstadisticas();
+        
+        // Reconfigurar filtros después de actualizar
+        setTimeout(() => {
+            console.log('🔧 Reconfigurando filtros después de actualización...');
+            window.gestionProductos.configurarFiltros();
+            window.gestionProductos.verificarEventosFiltros();
+        }, 500);
+        
+        console.log('✅ Gestión actualizada exitosamente');
+    } else {
+        console.error('❌ Instancia de gestión no encontrada');
+    }
+};
+
+// Función global para guardar producto (versión simple)
+window.guardarProductoSimple = function() {
+    console.log('=== GUARDAR PRODUCTO SIMPLE ===');
+    
+    if (window.gestionProductos) {
+        console.log('Usando instancia de gestionProductos...');
+        window.gestionProductos.crearProducto();
+    } else {
+        console.error('❌ Instancia de gestionProductos no encontrada');
+        alert('Error: Sistema de gestión no disponible');
+    }
+};
 
 // Función global para verificar localStorage desde la consola
 window.verificarProductos = function() {
@@ -856,5 +1148,23 @@ window.limpiarProductos = function() {
     if (window.gestionProductos) {
         window.gestionProductos.productos = [];
         console.log('Lista de productos reiniciada');
+    }
+};
+
+// Función global para probar filtros
+window.probarFiltros = function() {
+    console.log('=== PROBANDO FILTROS ===');
+    if (window.gestionProductos) {
+        // Probar búsqueda
+        const buscar = document.getElementById('buscarProducto');
+        if (buscar) {
+            console.log('Elemento buscar encontrado, valor actual:', buscar.value);
+            buscar.value = 'test';
+            buscar.dispatchEvent(new Event('input'));
+            console.log('Evento input disparado manualmente');
+        }
+        
+        // Verificar eventos
+        window.gestionProductos.verificarEventosFiltros();
     }
 };

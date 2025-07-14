@@ -1,3 +1,31 @@
+<style>
+    @media print {
+
+        /* Oculta todo */
+        body * {
+            visibility: hidden;
+        }
+
+        /* Muestra solo el modal */
+        .modal-dialog,
+        .modal-dialog * {
+            visibility: visible;
+        }
+
+        /* Centra el modal en la página impresa */
+        .modal-dialog {
+            position: absolute;
+            top: 0;
+            left: 0;
+            margin: 0;
+        }
+
+        /* Oculta el footer del modal */
+        .modal-footer {
+            display: none !important;
+        }
+    }
+</style>
 <!-- pagina de carrito -->
 <br>
 <br>
@@ -6,6 +34,17 @@
 <br>
 <div class="container text-center">
     <h1 onclick="cargarCarrito()">Carrito</h1>
+    <div class="row">
+        <div class="col-8">
+        </div>
+        <div class="col-2">
+            <button class="btn btn-danger" onclick="vaciarCarrito()">Vaciar Carrito</button>
+        </div>
+        <div class="col-2">
+            <button class="btn btn-success" onclick="generarFactura()">Generar Factura</button>
+        </div>
+    </div>
+
     <p>Revisa los platos que has agregado a tu carrito.</p>
     <div id="carrito-lista" class="card row">
         <!-- Aquí se cargarán los platos del carrito -->

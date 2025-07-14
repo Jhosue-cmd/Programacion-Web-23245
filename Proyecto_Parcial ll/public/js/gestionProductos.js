@@ -200,7 +200,7 @@ class GestionProductos {
             
             this.guardarProductos();
 
-            console.log('Producto creado y guardado exitosamente');
+            console.log('Plato creado y guardado exitosamente');
 
             // Mostrar modal de éxito
             const modalElement = document.getElementById('modalExito');
@@ -234,25 +234,66 @@ class GestionProductos {
                     }, 300);
                 }, 1500);
             } else {
-                alert('Producto guardado exitosamente');
+                // Usar modal de éxito global
+                const modalExito = document.getElementById('modalExito');
+                const modalMensaje = document.getElementById('mensajeExito');
                 
-                // Limpiar formulario
-                document.getElementById('formCrearProducto').reset();
-                if (window.fotoProductos) {
-                    window.fotoProductos.limpiarTodo();
-                }
-                
-                // Notificar actualización antes de navegar
-                this.notificarActualizacion();
-                
-                // Forzar actualización global
-                window.forzarActualizacionGestion = true;
-                
-                // Redirigir
-                if (typeof cargarPaginasAdmin === 'function') {
-                    cargarPaginasAdmin('gestionProductos');
-                } else if (typeof window.cargarPaginasAdmin === 'function') {
-                    window.cargarPaginasAdmin('gestionProductos');
+                if (modalExito && modalMensaje) {
+                    modalMensaje.textContent = '¡Plato guardado exitosamente!';
+                    const modal = new bootstrap.Modal(modalExito);
+                    modal.show();
+                    
+                    // Configurar botón del modal
+                    const btnVolverGestion = document.getElementById('btnVolverGestionExito');
+                    if (btnVolverGestion) {
+                        btnVolverGestion.onclick = function() {
+                            modal.hide();
+                            setTimeout(() => {
+                                // Limpiar formulario
+                                document.getElementById('formCrearProducto').reset();
+                                if (window.fotoProductos) {
+                                    window.fotoProductos.limpiarTodo();
+                                }
+                                
+                                // Notificar actualización antes de navegar
+                                if (typeof this.notificarActualizacion === 'function') {
+                                    this.notificarActualizacion();
+                                }
+                                
+                                // Forzar actualización global
+                                window.forzarActualizacionGestion = true;
+                                
+                                // Navegar
+                                if (typeof cargarPaginasAdmin === 'function') {
+                                    cargarPaginasAdmin('gestionProductos');
+                                } else if (typeof window.cargarPaginasAdmin === 'function') {
+                                    window.cargarPaginasAdmin('gestionProductos');
+                                }
+                            }, 300);
+                        };
+                    }
+                } else {
+                    // Fallback al alert si no hay modal
+                    alert('Plato guardado exitosamente');
+                    
+                    // Limpiar formulario
+                    document.getElementById('formCrearProducto').reset();
+                    if (window.fotoProductos) {
+                        window.fotoProductos.limpiarTodo();
+                    }
+                    
+                    // Notificar actualización antes de navegar
+                    this.notificarActualizacion();
+                    
+                    // Forzar actualización global
+                    window.forzarActualizacionGestion = true;
+                    
+                    // Redirigir
+                    if (typeof cargarPaginasAdmin === 'function') {
+                        cargarPaginasAdmin('gestionProductos');
+                    } else if (typeof window.cargarPaginasAdmin === 'function') {
+                        window.cargarPaginasAdmin('gestionProductos');
+                    }
                 }
             }
             
@@ -414,7 +455,7 @@ class GestionProductos {
 
             this.guardarProductos();
 
-            console.log('Producto actualizado exitosamente:', this.productos[index]);
+            console.log('Plato actualizado exitosamente:', this.productos[index]);
 
             // Notificar actualización
             this.notificarActualizacion();
@@ -439,7 +480,7 @@ class GestionProductos {
                     }, 300);
                 }, 1500);
             } else {
-                alert('Producto actualizado exitosamente');
+                alert('Plato actualizado exitosamente');
                 
                 // Redirigir
                 if (typeof cargarPaginasAdmin === 'function') {

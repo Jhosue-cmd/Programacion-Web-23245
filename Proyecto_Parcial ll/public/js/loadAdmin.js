@@ -423,7 +423,7 @@ window.guardarProductoSimple = function() {
                 fechaModificacion: new Date().toISOString()
             };
             
-            console.log('Producto actualizado:', productos[indiceProducto]);
+            console.log('Plato actualizado:', productos[indiceProducto]);
             
         } else {
             // MODO CREACIÓN
@@ -445,7 +445,7 @@ window.guardarProductoSimple = function() {
                 fechaCreacion: new Date().toISOString()
             };
             
-            console.log('Producto creado:', producto);
+            console.log('Plato creado:', producto);
             productos.push(producto);
         }
         
@@ -490,21 +490,44 @@ window.guardarProductoSimple = function() {
         
         // Mostrar modal de éxito
         const modalExito = document.getElementById('modalExito');
-        const modalMensaje = document.getElementById('modalExitoMensaje');
+        const modalMensaje = document.getElementById('mensajeExito');
         
         if (modalExito && modalMensaje) {
             modalMensaje.textContent = esEdicion ? 
-                'El producto ha sido actualizado exitosamente.' : 
-                'El producto ha sido creado exitosamente.';
+                '¡Plato actualizado exitosamente!' : 
+                '¡Plato guardado exitosamente!';
             const modal = new bootstrap.Modal(modalExito);
             modal.show();
+            
+            // Configurar botón del modal para navegación
+            const btnVolverGestion = document.getElementById('btnVolverGestionExito');
+            if (btnVolverGestion) {
+                btnVolverGestion.onclick = function() {
+                    modal.hide();
+                    setTimeout(() => {
+                        try {
+                            if (typeof cargarPaginasAdmin === 'function') {
+                                cargarPaginasAdmin('gestionProductos');
+                            } else if (typeof window.cargarPaginasAdmin === 'function') {
+                                window.cargarPaginasAdmin('gestionProductos');
+                            } else {
+                                console.error('❌ Función de navegación no encontrada');
+                                window.location.reload();
+                            }
+                        } catch (navError) {
+                            console.error('❌ Error en navegación:', navError);
+                            window.location.reload();
+                        }
+                    }, 300);
+                };
+            }
             
             console.log('✅ Modal de éxito mostrado');
             
         } else {
             // Fallback si no está disponible el modal
             console.log('⚠️ Modal no disponible, usando alert');
-            alert('Producto guardado exitosamente!');
+            alert('Plato guardado exitosamente!');
             
             // Navegar inmediatamente si no hay modal
             setTimeout(() => {
@@ -1372,5 +1395,25 @@ console.log('🎯 Funciones globales configuradas:', {
     verDetallesProducto: typeof window.verDetallesProducto,
     cargarProductosSimple: typeof window.cargarProductosSimple
 });
+
+// Función para cerrar sesión
+window.logout = function() {
+    // Mostrar modal de confirmación
+    const modalLogout = new bootstrap.Modal(document.getElementById('modalLogout'));
+    modalLogout.show();
+    
+    // Configurar evento del botón confirmar
+    const btnConfirmar = document.getElementById('confirmarLogout');
+    btnConfirmar.onclick = function() {
+        // Cerrar modal
+        modalLogout.hide();
+        
+        // Pequeño delay para que se cierre el modal antes de redirigir
+        setTimeout(() => {
+            // Redirigir al index.html principal
+            window.location.href = './index.html';
+        }, 300);
+    };
+};
 
 window.onload = () => window.cargarPaginasAdmin("inicio");

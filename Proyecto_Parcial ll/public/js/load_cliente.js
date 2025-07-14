@@ -21,4 +21,24 @@ function cargarPaginasLogin(url_pagina) {
         });
 }
 
+// Función para cerrar sesión
+window.logout = function() {
+    // Mostrar modal de confirmación
+    const modalLogout = new bootstrap.Modal(document.getElementById('modalLogout'));
+    modalLogout.show();
+    
+    // Configurar evento del botón confirmar
+    const btnConfirmar = document.getElementById('confirmarLogout');
+    btnConfirmar.onclick = function() {
+        // Cerrar modal
+        modalLogout.hide();
+        
+        // Pequeño delay para que se cierre el modal antes de redirigir
+        setTimeout(() => {
+            // Redirigir al index.html principal
+            window.location.href = './index.html';
+        }, 300);
+    };
+};
+
 window.onload = () => cargarPaginasLogin("IndexPrincipal");

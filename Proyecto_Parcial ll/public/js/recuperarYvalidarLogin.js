@@ -13,9 +13,27 @@ function recuperarYvalidar(event) {
     
     // Comprobar si es el administrador
     if (nombreUsuario_recuperado === userData.nombreUsuario && contrasena_recuperada === userData.password) {
-        alert("Bienvenido Administrador");
-               window.location.href = 'indexAdmin.html';
-
+        // Mostrar modal de bienvenida administrador
+        const modalBienvenidaAdmin = document.getElementById('modalBienvenidaAdmin');
+        if (modalBienvenidaAdmin) {
+            const modal = new bootstrap.Modal(modalBienvenidaAdmin);
+            modal.show();
+            
+            // Configurar botón de acceso
+            const btnAccesoAdmin = document.getElementById('btnAccesoAdmin');
+            if (btnAccesoAdmin) {
+                btnAccesoAdmin.onclick = function() {
+                    modal.hide();
+                    setTimeout(() => {
+                        window.location.href = 'indexAdmin.html';
+                    }, 300);
+                };
+            }
+        } else {
+            // Fallback al alert si no hay modal
+            alert("Bienvenido Administrador");
+            window.location.href = 'indexAdmin.html';
+        }
         return true;
     }
     
@@ -27,7 +45,18 @@ function recuperarYvalidar(event) {
         
         // Verificar si hay usuarios
         if (usuarios.length === 0) {
-            alert("No hay usuarios registrados. Por favor regístrese primero.");
+            // Mostrar modal de error - no hay usuarios
+            const modalErrorLogin = document.getElementById('modalErrorLogin');
+            const mensajeErrorLogin = document.getElementById('mensajeErrorLogin');
+            
+            if (modalErrorLogin && mensajeErrorLogin) {
+                mensajeErrorLogin.textContent = 'No hay usuarios registrados. Por favor regístrese primero.';
+                const modal = new bootstrap.Modal(modalErrorLogin);
+                modal.show();
+            } else {
+                // Fallback al alert si no hay modal
+                alert("No hay usuarios registrados. Por favor regístrese primero.");
+            }
             return false;
         }
         
@@ -44,21 +73,69 @@ function recuperarYvalidar(event) {
         }
         
         if (usuarioEncontrado) {
-            alert("Bienvenido " + usuarioActual.nombre + " " + usuarioActual.apellido);
+            // Mostrar modal de bienvenida cliente
+            const modalBienvenidaCliente = document.getElementById('modalBienvenidaCliente');
+            const mensajeBienvenidaCliente = document.getElementById('mensajeBienvenidaCliente');
             
-            // Guardar usuario en sesión (opcional)
-            sessionStorage.setItem('usuarioActual', JSON.stringify(usuarioActual));
+            if (modalBienvenidaCliente && mensajeBienvenidaCliente) {
+                mensajeBienvenidaCliente.textContent = `¡Bienvenido ${usuarioActual.nombre} ${usuarioActual.apellido}!`;
+                const modal = new bootstrap.Modal(modalBienvenidaCliente);
+                modal.show();
+                
+                // Configurar botón de acceso
+                const btnAccesoCliente = document.getElementById('btnAccesoCliente');
+                if (btnAccesoCliente) {
+                    btnAccesoCliente.onclick = function() {
+                        modal.hide();
+                        setTimeout(() => {
+                            // Guardar usuario en sesión
+                            sessionStorage.setItem('usuarioActual', JSON.stringify(usuarioActual));
+                            // Redirigir a la página de cliente
+                            window.location.href = 'indexCliente.html';
+                        }, 300);
+                    };
+                }
+            } else {
+                // Fallback al alert si no hay modal
+                alert("Bienvenido " + usuarioActual.nombre + " " + usuarioActual.apellido);
+                
+                // Guardar usuario en sesión
+                sessionStorage.setItem('usuarioActual', JSON.stringify(usuarioActual));
+                // Redirigir a la página de cliente
+                window.location.href = 'indexCliente.html';
+            }
             
-            // Redirigir a la página de bienvenida
-            window.location.href = 'indexCliente.html';
             return true;
         } else {
-            alert("Nombre de usuario o contraseña incorrectos");
+            // Mostrar modal de error de credenciales
+            const modalErrorLogin = document.getElementById('modalErrorLogin');
+            const mensajeErrorLogin = document.getElementById('mensajeErrorLogin');
+            
+            if (modalErrorLogin && mensajeErrorLogin) {
+                mensajeErrorLogin.textContent = 'Nombre de usuario o contraseña incorrectos';
+                const modal = new bootstrap.Modal(modalErrorLogin);
+                modal.show();
+            } else {
+                // Fallback al alert si no hay modal
+                alert("Nombre de usuario o contraseña incorrectos");
+            }
             return false;
         }
     } catch (error) {
         console.error("Error al recuperar datos:", error);
-        alert("Ocurrió un error al intentar iniciar sesión");
+        
+        // Mostrar modal de error general
+        const modalErrorLogin = document.getElementById('modalErrorLogin');
+        const mensajeErrorLogin = document.getElementById('mensajeErrorLogin');
+        
+        if (modalErrorLogin && mensajeErrorLogin) {
+            mensajeErrorLogin.textContent = 'Ocurrió un error al intentar iniciar sesión';
+            const modal = new bootstrap.Modal(modalErrorLogin);
+            modal.show();
+        } else {
+            // Fallback al alert si no hay modal
+            alert("Ocurrió un error al intentar iniciar sesión");
+        }
         return false;
     }
 }

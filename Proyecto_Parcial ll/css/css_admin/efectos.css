@@ -1,0 +1,12 @@
+.imagenEfecto {
+    border-radius: 1rem; /* Bordes redondeados */
+    width: 150px; /* Ancho fijo */
+    height: auto; /* Mantener proporción */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.06); /* Sombra sutil */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transición para efectos */
+}
+
+.imagenEfecto:hover {
+    transform: translateY(-10px) scale(1.05); /* Efecto de levantamiento */
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2), 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra más intensa */
+}

@@ -99,6 +99,6 @@ function vaciarCarrito() {
 }
 // Cargar los platos disponibles al cargar la página
 window.onload = () => {
-    cargarPaginasLogin('carrito'); // Cargar la página del carrito
+    cargarPaginasLogin('indexPrincipal'); // Cargar la página del carrito
     cargarCarrito(); // Cargar el carrito al inicio
 };

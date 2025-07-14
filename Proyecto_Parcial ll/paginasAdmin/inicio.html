@@ -173,8 +173,21 @@
   }
 
   .duration-features li i {
-    color: #28a745;
+    color: #000000;
     margin-right: 0.5rem;
+  }
+
+  .card {
+    border: 4px solid #007bff; /* Grosor de 4px, color azul primario */
+    border-radius: 12px; /* Bordes redondeados */
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06); /* Sombra */
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  }
+
+  .card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15); /* Sombra más intensa al pasar el mouse */
+    border: 4px solid #080908; /* Cambiar el color del borde a verde al pasar el mouse */
   }
 </style>
 
@@ -184,9 +197,9 @@
 
 <!-- Masthead-->
 <header class="masthead">
+
   <div class="container">
-    <div class="masthead-subheading">Panel de Administración</div>
-    <div class="masthead-heading text-uppercase">Sabores Tradicionales del Ecuador</div>
+    <div class="masthead-heading text-uppercase">Sabores Tradicionales y platos a la carta</div>
     <a class="btn btn-primary btn-xl text-uppercase" href="#services">Funcionalidades</a>
   </div>
 </header>
@@ -196,96 +209,59 @@
 <div class="row gx-4 gx-lg-5" id="services">
   <!-- Tarjeta de Gestión de Platos -->
   <div class="col-md-4 mb-5">
-    <div class="registration-guide">
-      <div class="guide-header">
-        <i class="fas fa-utensils header-icon"></i>
-        <h2 class="guide-title">Gestión de Platos Típicos</h2>
-        <div class="header-divider"></div>
-      </div>
-      <div class="steps-container">
-        <div class="step">
-          <div class="step-number">1</div>
-          <div class="step-content">
-            <h3 class="step-title">Administración del Menú</h3>
-            <p class="step-description">
-              Gestione todos los platos típicos ecuatorianos: crear nuevos platos, editar información y precios, eliminar productos descontinuados.
-            </p>
-          </div>
-        </div>
-        <div class="step">
-          <div class="step-number">2</div>
-          <div class="step-content">
-            <h3 class="step-title">Búsqueda y Filtros Avanzados</h3>
-            <ul class="step-details">
-              <li><i class="fas fa-check-circle"></i> Buscar platos por nombre</li>
-              <li><i class="fas fa-check-circle"></i> Filtrar por disponibilidad</li>
-              <li><i class="fas fa-check-circle"></i> Ordenar por precio y stock</li>
-              <li><i class="fas fa-check-circle"></i> Gestión de inventario</li>
-            </ul>
-          </div>
-        </div>
-        
+    <div class="card shadow-sm border-0 h-100" style="background-color: #23201d; color: #ffffff">
+      <div class="card-body text-center">
+        <i class="fas fa-utensils text-primary mb-3" style="font-size: 2.5rem;"></i>
+        <h5 class="card-title fw-bold" style="color:#d5c5b4">Gestión de Platos Típicos</h5>
+        <p class="card-text text-muted">
+          Administre todos los platos típicos ecuatorianos: cree nuevos platos, edite información y precios, y elimine productos descontinuados.
+        </p>
+        <ul class="list-unstyled text-start">
+          <li><i class="fas fa-check-circle text-success"></i> Buscar platos por nombre</li>
+          <li><i class="fas fa-check-circle text-success"></i> Filtrar por disponibilidad</li>
+          <li><i class="fas fa-check-circle text-success"></i> Ordenar por precio y stock</li>
+          <li><i class="fas fa-check-circle text-success"></i> Gestión de inventario</li>
+        </ul>
       </div>
     </div>
   </div>
 
   <!-- Tarjeta de Gestión de Clientes -->
   <div class="col-md-4 mb-5">
-    <div class="evaluation-process">
-      <div class="process-header">
-        <i class="fas fa-users header-icon"></i>
-        <h2 class="process-title">Gestión de Clientes</h2>
-        <div class="header-divider"></div>
-      </div>
-      <div class="steps-container">
-        <div class="step">
-          <div class="step-number">1</div>
-          <div class="step-content">
-            <h3 class="step-title">Registro de Clientes</h3>
-            <ul class="step-details">
-              <li><i class="fas fa-check-circle"></i> Ver perfiles de clientes</li>
-              <li><i class="fas fa-check-circle"></i> Historial de pedidos</li>
-              <li><i class="fas fa-check-circle"></i> Información de contacto</li>
-            </ul>
-          </div>
-        </div>
-        <div class="step">
-          <div class="step-number">2</div>
-          <div class="step-content">
-            <h3 class="step-title">Análisis de Ventas</h3>
-            <p class="step-description">
-              Revise estadísticas de ventas, platos más populares y patrones de compra de los clientes.
-            </p>
-          </div>
-        </div>
+    <div class="card shadow-sm border-0 h-100 " style="background-color: #23201d; color: #ffffff;" >
+      <div class="card-body text-center">
+        <i class="fas fa-users text-primary mb-3" ></i>
+        <h5 class="card-title fw-bold" style="color:#d5c5b4">Gestión de Clientes</h5>
+        <p class="card-text text-muted">
+          Administre perfiles de clientes, revise historiales de pedidos y analice patrones de compra.
+        </p>
+        <ul class="list-unstyled text-start">
+          <li><i class="fas fa-check-circle text-success"></i> Ver perfiles de clientes</li>
+          <li><i class="fas fa-check-circle text-success"></i> Historial de pedidos</li>
+          <li><i class="fas fa-check-circle text-success"></i> Información de contacto</li>
+        </ul>
       </div>
     </div>
   </div>
 
   <!-- Tarjeta de Gestión de Imágenes -->
   <div class="col-md-4 mb-5">
-    <div class="program-duration-card">
-      <div class="card-header">
-        <i class="fas fa-camera card-icon"></i>
-        <h2 class="card-title">Gestión de Imágenes</h2>
-        <div class="card-divider"></div>
-      </div>
-      <div class="duration-highlight">
-        Galería visual completa
-      </div>
-      <ul class="duration-features">
-        <li><i class="fas fa-check text-success"></i> Tomar fotos con la cámara</li>
-        <li><i class="fas fa-check text-success"></i> Subir archivos de imagen</li>
-        <li><i class="fas fa-check text-success"></i> Visualizar cada plato típico</li>
-        <li><i class="fas fa-check text-success"></i> Gestión completa de galería</li>
-      </ul>
-      <div class="guide-footer">
-        <p class="assistance-text">
-          <i class="fas fa-images"></i> Interfaz visual para cada plato del menú
+    <div class="card shadow-sm border-0 h-100 " style="background-color: #23201d; color: #ffffff;">
+      <div class="card-body text-center">
+        <i class="fas fa-camera text-primary mb-3" style="font-size: 2.5rem;"></i>
+        <h5 class="card-title fw-bold" style="color:#d5c5b4">Gestión de Imágenes</h5>
+        <p class="card-text text-muted">
+          Administre una galería visual completa para cada plato típico.
         </p>
+        <ul class="list-unstyled text-start">
+          <li><i class="fas fa-check-circle text-success"></i> Tomar fotos con la cámara</li>
+          <li><i class="fas fa-check-circle text-success"></i> Subir archivos de imagen</li>
+          <li><i class="fas fa-check-circle text-success"></i> Visualizar cada plato típico</li>
+          <li><i class="fas fa-check-circle text-success"></i> Gestión completa de galería</li>
+        </ul>
       </div>
     </div>
   </div>
 </div>
-</div>
+
 

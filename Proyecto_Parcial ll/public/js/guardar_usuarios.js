@@ -91,7 +91,11 @@ function guardarUsuario(){
     console.log("- Ubicación GPS:", usuario.ubicacion.latitud ? "Sí" : "No");
     console.log("Total de usuarios registrados:", usuarios.length);
     
-
+    if (latitud && longitud) {
+        console.log('Ubicación GPS capturada:', { latitud, longitud, precision });
+    } else {
+        console.warn('No se capturó la ubicación GPS.');
+    }
     
     // Redireccionar al login después de un breve retraso
     setTimeout(function() {

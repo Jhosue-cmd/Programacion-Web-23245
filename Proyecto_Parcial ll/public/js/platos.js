@@ -130,6 +130,6 @@ function mostrarModalPlato(mensaje) {
 }
 // Cargar los platos disponibles al cargar la página
 window.onload = () => {
-    cargarPaginasLogin('platosDisponibles'); // Cargar la página de platos disponibles
+    cargarPaginasLogin('IndexPrincipal'); // Cargar la página de platos disponibles
     cargarPlatosDisponibles();
 };

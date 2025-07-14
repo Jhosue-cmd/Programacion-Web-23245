@@ -58,16 +58,17 @@ function crearFilaUsuario(usuario, index) {
         <td>
             <div class="d-flex px-2 py-1">
                 <div>
-                    <img src="${fotoSrc}" class="avatar avatar-sm me-3" alt="user${index + 1}" 
+                    <img src="${fotoSrc}" class="avatar avatar-sm me-3 imagenEfecto" alt="user${index + 1}" 
                          onerror="this.src='../assets/img/team-2.jpg'">
                 </div>
             </div>
         </td>
-        <td>
-            <h6 class="mb-0 text-sm">${usuario.nombres || 'No especificado'} ${usuario.apellidos || ''}</h6>
+        <td class="align-middle text-center">
+            <h6 class=" text-xs font-weight-bold">${usuario.nombre || 'No especificado'} ${usuario.apellido || ''}</h6>
+            
         </td>
         <td class="align-middle text-sm">
-            <span class="text-secondary text-xs font-weight-bold">${usuario.email || 'No especificado'}</span>
+            <span class="text-secondary text-xs font-weight-bold">${usuario.correo || 'No especificado'}</span>
         </td>
         <td class="align-middle text-center">
             <span class="text-secondary text-xs font-weight-bold">${edad} años</span>
@@ -89,7 +90,7 @@ function crearFilaUsuario(usuario, index) {
         </td>
         <td class="align-middle">
             <a href="javascript:;" class="text-danger font-weight-bold text-xs me-2" 
-               onclick="eliminarUsuario(${index})">
+               onclick="mostrarModalEliminar(${index})">
                 <i class="fas fa-trash"></i> Eliminar
             </a>
         </td>
@@ -115,12 +116,16 @@ function calcularEdad(fechaNacimiento) {
 }
 
 // Función para ver ubicación en el mapa
-window.verUbicacion = function verUbicacion(latitud, longitud, nombre) {
+window.verUbicacion = function verUbicacion(ubicacion, nombre) {
+    console.log('Datos de ubicación recibidos:', ubicacion);
+    const { latitud, longitud } = ubicacion || {};
+
     if (!latitud || !longitud || latitud === 'undefined' || longitud === 'undefined') {
+        console.error('Coordenadas inválidas:', { latitud, longitud });
         alert('No hay coordenadas disponibles para este usuario');
         return;
     }
-    
+
     // Crear un modal o ventana para mostrar el mapa
     const mapModal = document.createElement('div');
     mapModal.className = 'modal fade';
@@ -141,16 +146,15 @@ window.verUbicacion = function verUbicacion(latitud, longitud, nombre) {
             </div>
         </div>
     `;
-    
-    // Agregar modal al DOM
+
     document.body.appendChild(mapModal);
-    
+
     // Mostrar modal
     const modal = new bootstrap.Modal(mapModal);
     modal.show();
-    
+
     // Inicializar mapa cuando se muestre el modal
-    mapModal.addEventListener('shown.bs.modal', function() {
+    mapModal.addEventListener('shown.bs.modal', function () {
         if (typeof L !== 'undefined') {
             const map = L.map('userMap').setView([latitud, longitud], 15);
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
@@ -168,32 +172,70 @@ window.verUbicacion = function verUbicacion(latitud, longitud, nombre) {
             `;
         }
     });
-    
+
     // Limpiar modal cuando se cierre
-    mapModal.addEventListener('hidden.bs.modal', function() {
+    mapModal.addEventListener('hidden.bs.modal', function () {
         document.body.removeChild(mapModal);
     });
 }
 
+// Función para mostrar un modal de confirmación antes de eliminar un usuario
+window.mostrarModalEliminar = function mostrarModalEliminar(index) {
+    // Crear el modal si no existe
+    let modal = document.getElementById('modalEliminarUsuario');
+    if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'modalEliminarUsuario';
+        modal.className = 'modal fade';
+        modal.innerHTML = `
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Confirmar eliminación</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>¿Estás seguro de que deseas eliminar este usuario?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-danger" id="btnConfirmarEliminar">Eliminar</button>
+                    </div>
+                </div>
+            </div>
+        `;
+        document.body.appendChild(modal);
+    }
+
+    // Mostrar el modal
+    const bootstrapModal = new bootstrap.Modal(modal);
+    bootstrapModal.show();
+
+    // Configurar el botón de confirmación
+    const btnConfirmarEliminar = document.getElementById('btnConfirmarEliminar');
+    btnConfirmarEliminar.onclick = function () {
+        eliminarUsuario(index);
+        bootstrapModal.hide();
+    };
+};
+
 // Función para eliminar usuario
 window.eliminarUsuario = function eliminarUsuario(index) {
-    if (confirm('¿Estás seguro de que deseas eliminar este usuario?')) {
-        // Obtener usuarios actuales
-        let usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
-        
-        // Eliminar usuario por índice
-        usuarios.splice(index, 1);
-        
-        // Guardar usuarios actualizados
-        localStorage.setItem('usuarios', JSON.stringify(usuarios));
-        
-        // Recargar tabla
-        window.cargarUsuariosEnTabla();
-        
-        // Mostrar mensaje de éxito
-        mostrarMensaje('Usuario eliminado correctamente', 'success');
-    }
-}
+    // Obtener usuarios actuales
+    let usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+
+    // Eliminar usuario por índice
+    usuarios.splice(index, 1);
+
+    // Guardar usuarios actualizados
+    localStorage.setItem('usuarios', JSON.stringify(usuarios));
+
+    // Recargar tabla
+    window.cargarUsuariosEnTabla();
+
+    // Mostrar mensaje de éxito
+    mostrarMensaje('Usuario eliminado correctamente', 'success');
+};
 
 // Función para mostrar mensajes
 function mostrarMensaje(mensaje, tipo = 'info') {
@@ -326,4 +368,4 @@ window.exportarUsuarios = function exportarUsuarios() {
     linkElement.setAttribute('download', exportFileDefaultName);
     linkElement.click();
 }
-cargarUsuariosEnTabla() 
+cargarUsuariosEnTabla()

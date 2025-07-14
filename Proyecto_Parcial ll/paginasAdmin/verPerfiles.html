@@ -13,7 +13,6 @@
           </div>
           <ul class="navbar-nav  justify-content-end">
             <li class="nav-item d-flex align-items-center">
-              <a class="btn btn-outline-primary btn-sm mb-0 me-3" target="_blank" href="https://www.creative-tim.com/builder?ref=navbar-soft-ui-dashboard">Online Builder</a>
             </li>
             <li class="nav-item d-flex align-items-center">
               <a href="javascript:;" class="nav-link text-body font-weight-bold px-0">
@@ -36,77 +35,12 @@
               </a>
             </li>
             <li class="nav-item dropdown pe-2 d-flex align-items-center">
-              <a href="javascript:;" class="nav-link text-body p-0" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="fa fa-bell cursor-pointer"></i>
-              </a>
-              <ul class="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4" aria-labelledby="dropdownMenuButton">
-                <li class="mb-2">
-                  <a class="dropdown-item border-radius-md" href="javascript:;">
-                    <div class="d-flex py-1">
-                      <div class="my-auto">
-                        <img src="../assets/img/team-2.jpg" class="avatar avatar-sm  me-3 ">
-                      </div>
-                      <div class="d-flex flex-column justify-content-center">
-                        <h6 class="text-sm font-weight-normal mb-1">
-                          <span class="font-weight-bold">New message</span> from Laur
-                        </h6>
-                        <p class="text-xs text-secondary mb-0 ">
-                          <i class="fa fa-clock me-1"></i>
-                          13 minutes ago
-                        </p>
-                      </div>
-                    </div>
-                  </a>
-                </li>
-                <li class="mb-2">
-                  <a class="dropdown-item border-radius-md" href="javascript:;">
-                    <div class="d-flex py-1">
-                      <div class="my-auto">
-                        <img src="../assets/img/small-logos/logo-spotify.svg" class="avatar avatar-sm bg-gradient-dark  me-3 ">
-                      </div>
-                      <div class="d-flex flex-column justify-content-center">
-                        <h6 class="text-sm font-weight-normal mb-1">
-                          <span class="font-weight-bold">New album</span> by Travis Scott
-                        </h6>
-                        <p class="text-xs text-secondary mb-0 ">
-                          <i class="fa fa-clock me-1"></i>
-                          1 day
-                        </p>
-                      </div>
-                    </div>
-                  </a>
-                </li>
-                <li>
-                  <a class="dropdown-item border-radius-md" href="javascript:;">
-                    <div class="d-flex py-1">
-                      <div class="avatar avatar-sm bg-gradient-secondary  me-3  my-auto">
-                        <svg width="12px" height="12px" viewBox="0 0 43 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                          <title>credit-card</title>
-                          <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                            <g transform="translate(-2169.000000, -745.000000)" fill="#FFFFFF" fill-rule="nonzero">
-                              <g transform="translate(1716.000000, 291.000000)">
-                                <g transform="translate(453.000000, 454.000000)">
-                                  <path class="color-background" d="M43,10.7482083 L43,3.58333333 C43,1.60354167 41.3964583,0 39.4166667,0 L3.58333333,0 C1.60354167,0 0,1.60354167 0,3.58333333 L0,10.7482083 L43,10.7482083 Z" opacity="0.593633743"></path>
-                                  <path class="color-background" d="M0,16.125 L0,32.25 C0,34.2297917 1.60354167,35.8333333 3.58333333,35.8333333 L39.4166667,35.8333333 C41.3964583,35.8333333 43,34.2297917 43,32.25 L43,16.125 L0,16.125 Z M19.7083333,26.875 L7.16666667,26.875 L7.16666667,23.2916667 L19.7083333,23.2916667 L19.7083333,26.875 Z M35.8333333,26.875 L28.6666667,26.875 L28.6666667,23.2916667 L35.8333333,23.2916667 L35.8333333,26.875 Z"></path>
-                                </g>
-                              </g>
-                            </g>
-                          </g>
-                        </svg>
-                      </div>
-                      <div class="d-flex flex-column justify-content-center">
-                        <h6 class="text-sm font-weight-normal mb-1">
-                          Payment successfully completed
-                        </h6>
-                        <p class="text-xs text-secondary mb-0 ">
-                          <i class="fa fa-clock me-1"></i>
-                          2 days
-                        </p>
-                      </div>
-                    </div>
-                  </a>
-                </li>
-              </ul>
+                <a href="javascript:;" class="nav-link text-body p-0" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fa fa-bell cursor-pointer"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end px-2 py-3 me-sm-n4" aria-labelledby="dropdownMenuButton">
+                    <!-- Aquí se agregarán las notificaciones dinámicamente -->
+                </ul>
             </li>
           </ul>
         </div>
@@ -169,5 +103,457 @@
   <!-- Leaflet CSS y JS para mapas (opcional) -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
+  <style>
+    #modalUsuario .modal-content {
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+}
+
+#modalUsuario .modal-header {
+    background: linear-gradient(135deg, #7e3d0f, #f6b01a);
+    color: white;
+    border-bottom: none;
+}
+
+#modalUsuario .modal-footer {
+    border-top: none;
+}
+
+#modalUsuario img {
+    border-radius: 0 !important; 
+    max-width: 100%; /* Asegura que la imagen no exceda el contenedor */
+    height: auto; /* Mantiene la proporción de la imagen */
+}
+
+#map {
+    height: 300px;
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+  </style>
+
+  <!-- Scripts personalizados -->
+  <script>
+// Función para recuperar usuarios del localStorage y cargar en la tabla
+window.cargarUsuariosEnTabla = function cargarUsuariosEnTabla() {
+    // Obtener usuarios del localStorage
+    const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+    
+    // Obtener el tbody de la tabla
+    const tbody = document.querySelector('table tbody');
+    
+    // Actualizar contador
+    const totalUsuarios = document.getElementById('totalUsuarios');
+    if (totalUsuarios) {
+        totalUsuarios.textContent = usuarios.length;
+    }
+    
+    if (!tbody) {
+        return;
+    }
+    
+    // Limpiar contenido actual
+    tbody.innerHTML = '';
+    
+    // Si no hay usuarios, mostrar mensaje
+    if (usuarios.length === 0) {
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="9" class="text-center py-4">
+                    <div class="text-center">
+                        <i class="fas fa-users fa-3x text-muted mb-3"></i>
+                        <p class="text-secondary">No hay usuarios registrados</p>
+                        <small class="text-muted">Los usuarios registrados aparecerán aquí automáticamente</small>
+                    </div>
+                </td>
+            </tr>
+        `;
+        return;
+    }
+    
+    // Generar filas para cada usuario
+    usuarios.forEach((usuario, index) => {
+        const fila = crearFilaUsuario(usuario, index);
+        tbody.appendChild(fila);
+    });
+}
+
+// Función para crear una fila de usuario
+function crearFilaUsuario(usuario, index) {
+    const tr = document.createElement('tr');
+    
+    // Calcular edad desde la fecha de nacimiento
+    const edad = calcularEdad(usuario.fechaNacimiento || '2000-01-01');
+    
+    // Obtener foto (usar foto capturada o imagen por defecto)
+    const fotoSrc = usuario.foto || '../assets/img/team-2.jpg';
+    
+    tr.innerHTML = `
+        <td>
+            <div class="d-flex px-2 py-1">
+                <div>
+                    <img src="${fotoSrc}" class="avatar avatar-sm me-3 imagenEfecto" alt="user${index + 1}" 
+                         onclick="mostrarModalUsuario(${index})" 
+                         onerror="this.src='../assets/img/team-2.jpg'">
+                </div>
+            </div>
+        </td>
+        <td class="align-middle text-center">
+            <h6 class=" text-xs font-weight-bold">${usuario.nombre || 'No especificado'} ${usuario.apellido || ''}</h6>
+        </td>
+        <td class="align-middle text-sm">
+            <span class="text-secondary text-xs font-weight-bold">${usuario.correo || 'No especificado'}</span>
+        </td>
+        <td class="align-middle text-center">
+            <span class="text-secondary text-xs font-weight-bold">${edad} años</span>
+        </td>
+        <td class="align-middle">
+            <span class="text-secondary text-xs font-weight-bold">${usuario.telefono || 'No especificado'}</span>
+        </td>
+        <td class="align-middle text-center">
+            <span class="text-secondary text-xs font-weight-bold">${usuario.provincia || 'No especificado'}</span>
+        </td>
+        <td class="align-middle text-center">
+            <span class="text-secondary text-xs font-weight-bold">${usuario.ciudad || 'No especificado'}</span>
+        </td>
+        <td class="align-middle text-center">
+            <a href="javascript:;" class="text-primary font-weight-bold text-xs" 
+               onclick="verUbicacion('${usuario.ubicacion.latitud}', '${usuario.ubicacion.longitud}', '${usuario.nombre}')">
+                <i class="fas fa-map-marker-alt"></i> Ver
+            </a>
+        </td>
+        <td class="align-middle">
+            <a href="javascript:;" class="text-danger font-weight-bold text-xs me-2" 
+               onclick="mostrarModalEliminar(${index})">
+                <i class="fas fa-trash"></i> Eliminar
+            </a>
+        </td>
+    `;
+    
+    return tr;
+}
+
+// Función para calcular la edad
+function calcularEdad(fechaNacimiento) {
+    if (!fechaNacimiento) return 'N/A';
+    
+    const hoy = new Date();
+    const nacimiento = new Date(fechaNacimiento);
+    let edad = hoy.getFullYear() - nacimiento.getFullYear();
+    const mes = hoy.getMonth() - nacimiento.getMonth();
+    
+    if (mes < 0 || (mes === 0 && hoy.getDate() < nacimiento.getDate())) {
+        edad--;
+    }
+    
+    return edad;
+}
+
+// Función para ver ubicación en el mapa
+window.verUbicacion = function verUbicacion(latitud, longitud, nombre) {
+    // Validar que las coordenadas no sean undefined o null
+    if (!latitud || !longitud || latitud === 'undefined' || longitud === 'undefined') {
+        alert('No hay coordenadas disponibles para este usuario');
+        return;
+    }
+
+    // Crear un modal o ventana para mostrar el mapa
+    const mapModal = document.createElement('div');
+    mapModal.className = 'modal fade';
+    mapModal.id = 'mapModal';
+    mapModal.innerHTML = `
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Ubicación de ${nombre}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="userMap" style="height: 400px; width: 100%;"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    `;
+
+    document.body.appendChild(mapModal);
+
+    // Mostrar modal
+    const modal = new bootstrap.Modal(mapModal);
+    modal.show();
+
+    // Inicializar mapa cuando se muestre el modal
+    mapModal.addEventListener('shown.bs.modal', function () {
+        if (typeof L !== 'undefined') {
+            const map = L.map('userMap').setView([parseFloat(latitud), parseFloat(longitud)], 15);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+            L.marker([parseFloat(latitud), parseFloat(longitud)]).addTo(map)
+                .bindPopup(`Ubicación de ${nombre}`)
+                .openPopup();
+        } else {
+            document.getElementById('userMap').innerHTML = `
+                <div class="text-center py-5">
+                    <p>Coordenadas: ${latitud}, ${longitud}</p>
+                    <a href="https://www.google.com/maps?q=${latitud},${longitud}" target="_blank" class="btn btn-primary">
+                        Ver en Google Maps
+                    </a>
+                </div>
+            `;
+        }
+    });
+
+    // Limpiar modal cuando se cierre
+    mapModal.addEventListener('hidden.bs.modal', function () {
+        document.body.removeChild(mapModal);
+    });
+}
+
+// Función para mostrar un modal de confirmación antes de eliminar un usuario
+window.mostrarModalEliminar = function mostrarModalEliminar(index) {
+    // Crear el modal si no existe
+    let modal = document.getElementById('modalEliminarUsuario');
+    if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'modalEliminarUsuario';
+        modal.className = 'modal fade';
+        modal.innerHTML = `
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Confirmar eliminación</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>¿Estás seguro de que deseas eliminar este usuario?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-danger" id="btnConfirmarEliminar">Eliminar</button>
+                    </div>
+                </div>
+            </div>
+        `;
+        document.body.appendChild(modal);
+    }
+
+    // Mostrar el modal
+    const bootstrapModal = new bootstrap.Modal(modal);
+    bootstrapModal.show();
+
+    // Configurar el botón de confirmación
+    const btnConfirmarEliminar = document.getElementById('btnConfirmarEliminar');
+    btnConfirmarEliminar.onclick = function () {
+        eliminarUsuario(index);
+        bootstrapModal.hide();
+    };
+};
+
+// Función para eliminar usuario
+window.eliminarUsuario = function eliminarUsuario(index) {
+    // Obtener usuarios actuales
+    let usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+
+    // Eliminar usuario por índice
+    usuarios.splice(index, 1);
+
+    // Guardar usuarios actualizados
+    localStorage.setItem('usuarios', JSON.stringify(usuarios));
+
+    // Recargar tabla
+    window.cargarUsuariosEnTabla();
+
+    // Mostrar mensaje de éxito
+    mostrarMensaje('Usuario eliminado correctamente', 'success');
+};
+
+// Función para mostrar mensajes
+function mostrarMensaje(mensaje, tipo = 'info') {
+    const alert = document.createElement('div');
+    alert.className = `alert alert-${tipo} alert-dismissible fade show position-fixed`;
+    alert.style.top = '20px';
+    alert.style.right = '20px';
+    alert.style.zIndex = '9999';
+    alert.innerHTML = `
+        ${mensaje}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    `;
+    
+    document.body.appendChild(alert);
+    
+    // Auto eliminar después de 3 segundos
+    setTimeout(() => {
+        if (alert.parentNode) {
+            alert.parentNode.removeChild(alert);
+        }
+    }, 3000);
+}
+
+// Función para buscar usuarios
+function buscarUsuarios(termino) {
+    const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+    const tbody = document.querySelector('table tbody');
+    
+    if (!termino.trim()) {
+        window.cargarUsuariosEnTabla();
+        return;
+    }
+    
+    const usuariosFiltrados = usuarios.filter(usuario => {
+        const nombre = `${usuario.nombres || ''} ${usuario.apellidos || ''}`.toLowerCase();
+        const email = (usuario.email || '').toLowerCase();
+        const telefono = (usuario.telefono || '').toLowerCase();
+        const provincia = (usuario.provincia || '').toLowerCase();
+        const ciudad = (usuario.ciudad || '').toLowerCase();
+        
+        return nombre.includes(termino.toLowerCase()) ||
+               email.includes(termino.toLowerCase()) ||
+               telefono.includes(termino.toLowerCase()) ||
+               provincia.includes(termino.toLowerCase()) ||
+               ciudad.includes(termino.toLowerCase());
+    });
+    
+    // Actualizar contador con resultados filtrados
+    const totalUsuarios = document.getElementById('totalUsuarios');
+    if (totalUsuarios) {
+        totalUsuarios.textContent = `${usuariosFiltrados.length} de ${usuarios.length}`;
+    }
+    
+    // Limpiar tabla
+    tbody.innerHTML = '';
+    
+    if (usuariosFiltrados.length === 0) {
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="9" class="text-center py-4">
+                    <div class="text-center">
+                        <i class="fas fa-search fa-3x text-muted mb-3"></i>
+                        <p class="text-secondary">No se encontraron usuarios que coincidan con "${termino}"</p>
+                        <small class="text-muted">Intenta con otros términos de búsqueda</small>
+                    </div>
+                </td>
+            </tr>
+        `;
+        return;
+    }
+    
+    // Mostrar usuarios filtrados
+    usuariosFiltrados.forEach((usuario, index) => {
+        const fila = crearFilaUsuario(usuario, usuarios.indexOf(usuario));
+        tbody.appendChild(fila);
+    });
+}
+
+// Inicializar cuando se carga la página
+document.addEventListener('DOMContentLoaded', function() {
+    inicializarTablaUsuarios();
+});
+
+// Función para inicializar la tabla (para uso con navegación dinámica)
+window.inicializarTablaUsuarios = function inicializarTablaUsuarios() {
+    // Cargar usuarios en la tabla
+    window.cargarUsuariosEnTabla();
+    
+    // Configurar búsqueda si existe el campo
+    const searchInput = document.querySelector('input[placeholder*="Buscar usuarios"]');
+    if (searchInput) {
+        // Remover listeners anteriores
+        searchInput.removeEventListener('input', buscarUsuarios);
+        
+        // Agregar nuevo listener
+        searchInput.addEventListener('input', function() {
+            buscarUsuarios(this.value);
+        });
+    }
+}
+
+// Función que se ejecuta cuando se navega a verPerfiles
+function inicializarVerPerfiles() {
+    // Esperar un poco para que el DOM se actualice
+    setTimeout(() => {
+        inicializarTablaUsuarios();
+    }, 100);
+}
+
+// Función para exportar datos (opcional)
+window.exportarUsuarios = function exportarUsuarios() {
+    const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+    
+    if (usuarios.length === 0) {
+        alert('No hay usuarios para exportar');
+        return;
+    }
+    
+    const dataStr = JSON.stringify(usuarios, null, 2);
+    const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+    
+    const exportFileDefaultName = `usuarios_${new Date().toISOString().split('T')[0]}.json`;
+    
+    const linkElement = document.createElement('a');
+    linkElement.setAttribute('href', dataUri);
+    linkElement.setAttribute('download', exportFileDefaultName);
+    linkElement.click();
+}
+
+// Función para mostrar un modal con los detalles del usuario
+window.mostrarModalUsuario = function mostrarModalUsuario(index) {
+    // Obtener usuarios del localStorage
+    const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+    const usuario = usuarios[index];
+
+    if (!usuario) {
+        return;
+    }
+
+    // Crear el modal si no existe
+    let modal = document.getElementById('modalUsuario');
+    if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'modalUsuario';
+        modal.className = 'modal fade';
+        document.body.appendChild(modal);
+    }
+
+    // Generar contenido del modal
+    modal.innerHTML = `
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Detalles del Usuario</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-4 text-center">
+                            <img src="${usuario.foto || '../assets/img/team-2.jpg'}" class="img-fluid mb-3" alt="Foto del usuario">
+                            <h6>${usuario.nombre || 'No especificado'} ${usuario.apellido || ''}</h6>
+                        </div>
+                        <div class="col-md-8">
+                            <ul class="list-group">
+                                <li class="list-group-item"><strong>Correo:</strong> ${usuario.correo || 'No especificado'}</li>
+                                <li class="list-group-item"><strong>Edad:</strong> ${calcularEdad(usuario.fechaNacimiento || '2000-01-01')} años</li>
+                                <li class="list-group-item"><strong>Teléfono:</strong> ${usuario.telefono || 'No especificado'}</li>
+                                <li class="list-group-item"><strong>Provincia:</strong> ${usuario.provincia || 'No especificado'}</li>
+                                <li class="list-group-item"><strong>Ciudad:</strong> ${usuario.ciudad || 'No especificado'}</li>
+                                <li class="list-group-item"><strong>Dirección:</strong> ${usuario.direccion || 'No especificado'}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    `;
+
+    // Mostrar el modal
+    const bootstrapModal = new bootstrap.Modal(modal);
+    bootstrapModal.show();
+};
+  </script>
 
 

@@ -1,6 +1,5 @@
 // Función para recuperar usuarios del localStorage y cargar en la tabla
 window.cargarUsuariosEnTabla = function cargarUsuariosEnTabla() {
-    console.log("Cargando usuarios desde localStorage...");
     // Obtener usuarios del localStorage
     const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
     
@@ -14,7 +13,6 @@ window.cargarUsuariosEnTabla = function cargarUsuariosEnTabla() {
     }
     
     if (!tbody) {
-        console.error('No se encontró el tbody de la tabla');
         return;
     }
     
@@ -59,13 +57,13 @@ function crearFilaUsuario(usuario, index) {
             <div class="d-flex px-2 py-1">
                 <div>
                     <img src="${fotoSrc}" class="avatar avatar-sm me-3 imagenEfecto" alt="user${index + 1}" 
+                         onclick="mostrarModalUsuario(${index})" 
                          onerror="this.src='../assets/img/team-2.jpg'">
                 </div>
             </div>
         </td>
         <td class="align-middle text-center">
             <h6 class=" text-xs font-weight-bold">${usuario.nombre || 'No especificado'} ${usuario.apellido || ''}</h6>
-            
         </td>
         <td class="align-middle text-sm">
             <span class="text-secondary text-xs font-weight-bold">${usuario.correo || 'No especificado'}</span>
@@ -84,7 +82,7 @@ function crearFilaUsuario(usuario, index) {
         </td>
         <td class="align-middle text-center">
             <a href="javascript:;" class="text-primary font-weight-bold text-xs" 
-               onclick="verUbicacion('${usuario.latitud}', '${usuario.longitud}', '${usuario.nombres}')">
+               onclick="verUbicacion('${usuario.ubicacion.latitud}', '${usuario.ubicacion.longitud}', '${usuario.nombre}')">
                 <i class="fas fa-map-marker-alt"></i> Ver
             </a>
         </td>
@@ -116,12 +114,9 @@ function calcularEdad(fechaNacimiento) {
 }
 
 // Función para ver ubicación en el mapa
-window.verUbicacion = function verUbicacion(ubicacion, nombre) {
-    console.log('Datos de ubicación recibidos:', ubicacion);
-    const { latitud, longitud } = ubicacion || {};
-
+window.verUbicacion = function verUbicacion(latitud, longitud, nombre) {
+    // Validar que las coordenadas no sean undefined o null
     if (!latitud || !longitud || latitud === 'undefined' || longitud === 'undefined') {
-        console.error('Coordenadas inválidas:', { latitud, longitud });
         alert('No hay coordenadas disponibles para este usuario');
         return;
     }
@@ -156,9 +151,9 @@ window.verUbicacion = function verUbicacion(ubicacion, nombre) {
     // Inicializar mapa cuando se muestre el modal
     mapModal.addEventListener('shown.bs.modal', function () {
         if (typeof L !== 'undefined') {
-            const map = L.map('userMap').setView([latitud, longitud], 15);
+            const map = L.map('userMap').setView([parseFloat(latitud), parseFloat(longitud)], 15);
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
-            L.marker([latitud, longitud]).addTo(map)
+            L.marker([parseFloat(latitud), parseFloat(longitud)]).addTo(map)
                 .bindPopup(`Ubicación de ${nombre}`)
                 .openPopup();
         } else {
@@ -321,16 +316,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Función para inicializar la tabla (para uso con navegación dinámica)
 window.inicializarTablaUsuarios = function inicializarTablaUsuarios() {
-    console.log('🔄 Inicializando tabla de usuarios...');
-    
     // Cargar usuarios en la tabla
     window.cargarUsuariosEnTabla();
     
     // Configurar búsqueda si existe el campo
     const searchInput = document.querySelector('input[placeholder*="Buscar usuarios"]');
     if (searchInput) {
-        console.log('🔍 Configurando búsqueda de usuarios...');
-        
         // Remover listeners anteriores
         searchInput.removeEventListener('input', buscarUsuarios);
         
@@ -368,4 +359,60 @@ window.exportarUsuarios = function exportarUsuarios() {
     linkElement.setAttribute('download', exportFileDefaultName);
     linkElement.click();
 }
-cargarUsuariosEnTabla()
+
+// Función para mostrar un modal con los detalles del usuario
+window.mostrarModalUsuario = function mostrarModalUsuario(index) {
+    // Obtener usuarios del localStorage
+    const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+    const usuario = usuarios[index];
+
+    if (!usuario) {
+        return;
+    }
+
+    // Crear el modal si no existe
+    let modal = document.getElementById('modalUsuario');
+    if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'modalUsuario';
+        modal.className = 'modal fade';
+        document.body.appendChild(modal);
+    }
+
+    // Generar contenido del modal
+    modal.innerHTML = `
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Detalles del Usuario</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-4 text-center">
+                            <img src="${usuario.foto || '../assets/img/team-2.jpg'}" class="img-fluid mb-3" alt="Foto del usuario">
+                            <h6>${usuario.nombre || 'No especificado'} ${usuario.apellido || ''}</h6>
+                        </div>
+                        <div class="col-md-8">
+                            <ul class="list-group">
+                                <li class="list-group-item"><strong>Correo:</strong> ${usuario.correo || 'No especificado'}</li>
+                                <li class="list-group-item"><strong>Edad:</strong> ${calcularEdad(usuario.fechaNacimiento || '2000-01-01')} años</li>
+                                <li class="list-group-item"><strong>Teléfono:</strong> ${usuario.telefono || 'No especificado'}</li>
+                                <li class="list-group-item"><strong>Provincia:</strong> ${usuario.provincia || 'No especificado'}</li>
+                                <li class="list-group-item"><strong>Ciudad:</strong> ${usuario.ciudad || 'No especificado'}</li>
+                                <li class="list-group-item"><strong>Dirección:</strong> ${usuario.direccion || 'No especificado'}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    `;
+
+    // Mostrar el modal
+    const bootstrapModal = new bootstrap.Modal(modal);
+    bootstrapModal.show();
+};
